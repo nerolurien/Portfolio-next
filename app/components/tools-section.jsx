@@ -31,54 +31,67 @@ export default function ToolsSection() {
   return (
     <div className="w-full flex flex-col items-center justify-center p-6 min-h-[300px] bg-white dark:bg-darkTheme dark:text-white">
       <h1 className="text-2xl font-semibold mb-6 text-center font-ovo">Tools That I Have Used</h1>
-      <div className="overflow-hidden w-full space-y-4">
-        {[0, 1].map((row) => (
-          <div
-            key={row}
-            className={`scrolling-content flex gap-3 ${row % 2 === 0 ? "animate-scroll-left" : "animate-scroll-right"}`}
-          >
-            {[...tools, ...tools].map((tool, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 px-4  rounded-full border border-gray-400 cursor-pointer dark:border-white dark:bg-darkhover/50"
-              >
-                <span className="flex items-center justify-center">{tool.icon}</span>
-                <span className="font-semibold text-gray-700 dark:text-white text-sm">{tool.name}</span>
-              </div>
-            ))}
-          </div>
-        ))}
+      <div className="w-full overflow-hidden relative space-y-4">
+        <div className="marquee marquee-left flex space-x-6 w-max">
+          {[...tools, ...tools].map((tool, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-400 cursor-pointer dark:border-white dark:bg-darkhover/50"
+            >
+              <span className="flex items-center justify-center">{tool.icon}</span>
+              <span className="font-semibold text-gray-700 dark:text-white text-sm">{tool.name}</span>
+            </div>
+          ))}
+        </div>
+        <div className="marquee marquee-right flex space-x-6 w-max">
+          {[...tools, ...tools].map((tool, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-400 cursor-pointer dark:border-white dark:bg-darkhover/50"
+            >
+              <span className="flex items-center justify-center">{tool.icon}</span>
+              <span className="font-semibold text-gray-700 dark:text-white text-sm">{tool.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
       <style jsx>{`
-        @keyframes scroll-left {
+        @keyframes marquee-left {
           from {
             transform: translateX(0);
           }
           to {
-            transform: translateX(-100%);
+            transform: translateX(-50%);
           }
         }
 
-        @keyframes scroll-right {
+        @keyframes marquee-right {
           from {
-            transform: translateX(-100%);
+            transform: translateX(-50%);
           }
           to {
             transform: translateX(0);
           }
         }
 
-        .animate-scroll-left {
-          animation: scroll-left 25s linear infinite;
+        .marquee {
+          display: flex;
+          white-space: nowrap;
+          overflow: hidden;
         }
 
-        .animate-scroll-right {
-          animation: scroll-right 25s linear infinite;
+        .marquee-left {
+          animation: marquee-left 40s linear infinite;
+        }
+
+        .marquee-right {
+          animation: marquee-right 40s linear infinite;
         }
       `}</style>
     </div>
   );
 }
+
 
 function LaragonIcon() {
   return (
