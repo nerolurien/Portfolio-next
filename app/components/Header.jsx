@@ -41,7 +41,7 @@ const Header = () => {
         transition={{ duration: 0.8, delay: 0.5 }}
         className="text-sm md:text-base lg:text-lg font-ovo leading-tight"
       >
-        Rafid | Web & Game Developer 🚀
+        Rafid Dwi Prakoso | Web & Game Developer 🚀
       </motion.p>
       <motion.p
         initial={{ y: -30, opacity: 0 }}
