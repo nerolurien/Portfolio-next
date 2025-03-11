@@ -1,7 +1,7 @@
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Contact = () => {
     const [result, setResult] = useState({ message: "", status: "" });
@@ -124,14 +124,14 @@ const Contact = () => {
                             transition={{ type: "spring", stiffness: 500, damping: 30 }}
                             className="fixed bottom-6 right-6 max-w-md z-50"
                         >
-                            <motion.div
+                            <motion.div 
                                 className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-lg 
-                                    ${result.status === "success" ? "bg-gradient-to-r from-green-500 to-green-600" :
-                                        result.status === "error" ? "bg-gradient-to-r from-red-500 to-red-600" :
-                                            "bg-gradient-to-r from-blue-500 to-blue-600"}`}
-                                animate={{
+                                    ${result.status === "success" ? "bg-gradient-to-r from-green-500 to-green-600" : 
+                                      result.status === "error" ? "bg-gradient-to-r from-red-500 to-red-600" : 
+                                      "bg-gradient-to-r from-blue-500 to-blue-600"}`}
+                                animate={{ 
                                     x: [0, 5, -5, 5, 0],
-                                    transition: {
+                                    transition: { 
                                         x: { duration: 0.5, repeat: result.status === "error" ? 3 : 0 }
                                     }
                                 }}
@@ -141,13 +141,13 @@ const Contact = () => {
                                 </div>
                                 <div className="text-white">
                                     <p className="font-semibold">
-                                        {result.status === "success" ? "Success!" :
-                                            result.status === "error" ? "Error" : "Sending..."}
+                                        {result.status === "success" ? "Success!" : 
+                                         result.status === "error" ? "Error" : "Sending..."}
                                     </p>
                                     <p className="text-sm opacity-90">{result.message}</p>
                                 </div>
                                 {(result.status === "success" || result.status === "error") && (
-                                    <button
+                                    <button 
                                         onClick={() => setShowResult(false)}
                                         className="ml-auto text-white/80 hover:text-white"
                                         aria-label="Dismiss"
