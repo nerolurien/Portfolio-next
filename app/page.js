@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Work from "./components/Work";
+import ToolsSection from "./components/tools-section";
 
 export default function Home() {
 
@@ -34,6 +35,7 @@ export default function Home() {
     <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
     <Header isDarkMode={isDarkMode} />
     <About  isDarkMode={isDarkMode} />
+    <ToolsSection isDarkMode={isDarkMode} />
     <Work  isDarkMode={isDarkMode} />
     <Contact  isDarkMode={isDarkMode} />
     <Footer isDarkMode={isDarkMode} />

@@ -35,8 +35,12 @@ import right_arrow from './right-arrow.png';
 import send_icon from './send-icon.png';
 import right_arrow_bold from './right-arrow-bold.png';
 import right_arrow_bold_dark from './right-arrow-bold-dark.png';
+import unity from './unity.png';
+import mysql from './mysql.png';
 
 export const assets = {
+    unity,
+    mysql,
     user_image,
     code_icon,
     code_icon_dark,
@@ -78,24 +82,33 @@ export const assets = {
 
 export const workData = [
     {
-        title: 'Frontend project',
-        description: 'Web Design',
-        bgImage: '/work-1.png',
+        title: 'Pengaduan Masyarakat',
+        description: 'Web',
+        bgImage: '/pengaduan.png',
+        link: "#",    },
+    {
+        title: 'Unfulfilled Promises',
+        description: 'Game',
+        bgImage: '/game.png',
+        link: "#",
     },
     {
-        title: 'Geo based app',
-        description: 'Mobile App',
-        bgImage: '/work-2.png',
+        title: 'Rekap-Terlambat',
+        description: 'Web',
+        bgImage: '/rekap-terlambat.png',
+        link: "#",
     },
     {
-        title: 'Photography site',
-        description: 'Web Design',
-        bgImage: '/work-3.png',
+        title: 'Apotek-app',
+        description: 'Web',
+        link: "#",
+        bgImage: '/apotek.png',
     },
     {
-        title: 'UI/UX designing',
-        description: 'UI/UX Design',
-        bgImage: '/work-4.png',
+        title: 'Portfolio 1',
+        description: 'Web',
+        link: "https://nerolurien.github.io/portofolio-rafid/",
+        bgImage: '/porto.png',
     },
 ]
 
@@ -108,10 +121,10 @@ export const serviceData = [
 
 export const infoList = [
     { icon: assets.code_icon, iconDark: assets.code_icon_dark, title: 'Languages', description: 'HTML, CSS, JavaScript React Js, Next Js, PHP Laravel, C#' },
-    { icon: assets.edu_icon, iconDark: assets.edu_icon_dark, title: 'Education', description: 'SMK Wikrama Bogor 2023-Now' },
+    { icon: assets.edu_icon, iconDark: assets.edu_icon_dark, title: 'Education', description: 'SMK Wikrama Bogor 2023-Now', },
     { icon: assets.project_icon, iconDark: assets.project_icon_dark, title: 'Projects', description: 'Built more than 5 projects' }
 ];
 
 export const toolsData = [
-    assets.vscode, assets.firebase, assets.mongodb, assets.figma, assets.git
+    assets.vscode, assets.firebase, assets.mongodb, assets.git, assets.unity, assets.mysql
 ];

@@ -11,7 +11,7 @@ const Header = () => {
         whileInView={{ scale: 1 }}
         transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
       >
-        <Image src={assets.profile_img} alt="" className="rounded-full w-32 " />
+        <Image src={assets.profile_img} alt="" className="rounded-full w-32 bg-white" />
       </motion.div>
       <motion.h3
         initial={{ y: -20, opacity: 0 }}
@@ -22,23 +22,31 @@ const Header = () => {
         Hi!, I'm Rafid
         <Image src={assets.hand_icon} alt="" className="w-6" />
       </motion.h3>
-      <motion.h1
+      <motion.p
         initial={{ y: -30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="text-3xl sm:text-6xl lg:text-[66px] font-ovo"
+        className="text-sm md:text-base lg:text-lg font-ovo leading-tight"
       >
-        game developer based in Bogor.
-      </motion.h1>
-
+        Rafid | Web & Game Developer 🚀
+      </motion.p>
       <motion.p
+        initial={{ y: -30, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="text-sm md:text-base lg:text-lg font-ovo -mt-5"
+      >
+        Based in Bogor 🏡 | Crafting Digital Experiences 🌐🎮
+      </motion.p>
+
+      {/* <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.7 }}
       >
         I'm a Game and Web Developer from Indonesia, passionate about creating
         visually appealing and user-friendly applications.
-      </motion.p>
+      </motion.p> */}
 
       <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
         <motion.a
