@@ -83,41 +83,53 @@ export const assets = {
 export const workData = [
     {
         title: 'Pengaduan Masyarakat',
-        description: 'Web',
+        description: 'Laravel & Bootstrap',
         bgImage: '/pengaduan.png',
         link: "#",    },
     {
         title: 'Unfulfilled Promises',
-        description: 'Game',
+        description: 'Unity, C#',
         bgImage: '/game.png',
         link: "#",
     },
     {
         title: 'Rekap-Terlambat',
-        description: 'Web',
+        description: 'Laravel, Mysql & Bootstrap',
         bgImage: '/rekap-terlambat.png',
         link: "#",
     },
     {
         title: 'Apotek-app',
-        description: 'Web',
+        description: 'Laravel, Mysql & TailwindCSS',
         link: "#",
         bgImage: '/apotek.png',
     },
     {
         title: 'Portfolio 1',
-        description: 'Web',
+        description: 'HTML & CSS',
         link: "https://nerolurien.github.io/portofolio-rafid/",
         bgImage: '/porto.png',
     },
+    {
+        title: 'Presensi',
+        description: 'CodeIgniter & Bootstrap',
+        link: "#",
+        bgImage: '/presensi.png',
+    },
+    {
+        title: 'Website Course',
+        description: 'React.Js & Vite',
+        link: "https://website-course-nine.vercel.app/",
+        bgImage: '/course.png',
+    },
 ]
 
-export const serviceData = [
-    { icon: assets.web_icon, title: 'Web design', description: 'Web development is the process of building, programming...', link: '' },
-    { icon: assets.mobile_icon, title: 'Mobile app', description: 'Mobile app development involves creating software for mobile devices...', link: '' },
-    { icon: assets.ui_icon, title: 'UI/UX design', description: 'UI/UX design focuses on creating a seamless user experience...', link: '' },
-    { icon: assets.graphics_icon, title: 'Graphics design', description: 'Creative design solutions to enhance visual communication...', link: '' },
-]
+// export const serviceData = [
+//     { icon: assets.web_icon, title: 'Web design', description: 'Web development is the process of building, programming...', link: '' },
+//     { icon: assets.mobile_icon, title: 'Mobile app', description: 'Mobile app development involves creating software for mobile devices...', link: '' },
+//     { icon: assets.ui_icon, title: 'UI/UX design', description: 'UI/UX design focuses on creating a seamless user experience...', link: '' },
+//     { icon: assets.graphics_icon, title: 'Graphics design', description: 'Creative design solutions to enhance visual communication...', link: '' },
+// ]
 
 export const infoList = [
     { icon: assets.code_icon, iconDark: assets.code_icon_dark, title: 'Languages', description: 'HTML, CSS, JavaScript React Js, Next Js, PHP Laravel, C#' },
