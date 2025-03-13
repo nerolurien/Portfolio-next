@@ -111,10 +111,10 @@ export default function WakaTimeStats() {
         <div className="dark:bg-darkTheme dark:text-white bg-white">
             <div className="relative overflow-hidden">
                 <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-2xl font-bold flex items-center gap-2">
+                    <div className="lg:flex items-center justify-between mb-4 sm:grid grid-cols-2 text-center">
+                        <h2 className="text-2xl font-bold flex items-center gap-2 pb-3">
                             <span className="text-blue-400">⏱️</span>
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                            <span className="bg-clip-text text-transparent flex whitespace-nowrap bg-gradient-to-r from-blue-400 to-purple-400">
                                 Coding Stats
                             </span>
                         </h2>
