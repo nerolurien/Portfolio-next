@@ -61,7 +61,6 @@ const Work = ({ isDarkMode }) => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-lime-300/10 rounded-full blur-3xl -z-10"></div>
             <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-300/10 rounded-full blur-3xl -z-10"></div>
             
-            {/* Heading Section with Advanced Animation */}
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -148,7 +147,6 @@ const Work = ({ isDarkMode }) => {
                                     </Link>
                                 </div>
                                 
-                                {/* Animated Category Badge */}
                                 {project.category && (
                                     <div className="absolute top-4 left-4 transform transition-all duration-300 group-hover:scale-110 group-hover:translate-y-1">
                                         <span className="px-3 py-1 bg-lime-300/80 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-800 shadow-lg">
@@ -156,8 +154,7 @@ const Work = ({ isDarkMode }) => {
                                         </span>
                                     </div>
                                 )}
-                                
-                                {/* Subtle Corner Decoration */}
+
                                 <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden group-hover:opacity-100 opacity-0 transition-opacity duration-300">
                                     <div className="bg-lime-400/80 rotate-45 transform origin-bottom-left w-24 h-24 -translate-y-12 translate-x-6"></div>
                                 </div>
@@ -175,7 +172,6 @@ const Work = ({ isDarkMode }) => {
                 >
                     <div className="mb-4">😕</div>
                     <h3 className="text-xl font-semibold mb-2">No projects found</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Try selecting a different category</p>
                 </motion.div>
             )}
 

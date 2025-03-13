@@ -122,6 +122,12 @@ export const workData = [
         link: "https://website-course-nine.vercel.app/",
         bgImage: '/course.png',
     },
+    {
+        title: 'Youtube-Clone',
+        description: 'React.Js & Vite',
+        link: "https://youtube-clone-pi-gray.vercel.app/",
+        bgImage: '/youtube.png',
+    },
 ]
 
 // export const serviceData = [

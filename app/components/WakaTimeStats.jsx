@@ -75,7 +75,6 @@ export default function WakaTimeStats() {
 
     if (!stats) return null;
 
-    // Calculate gradient colors for language bars based on percentage
     const getGradientColor = (percent) => {
         if (percent > 50) return "from-indigo-600 to-purple-600";
         if (percent > 25) return "from-blue-600 to-indigo-600";
@@ -83,7 +82,6 @@ export default function WakaTimeStats() {
         return "from-green-600 to-cyan-600";
     };
 
-    // Get custom icon based on language name
     const getLanguageIcon = (langName) => {
         const lowerName = langName.toLowerCase();
         if (lowerName.includes("javascript")) return "🟨";
@@ -123,7 +121,6 @@ export default function WakaTimeStats() {
                         </div>
                     </div>
 
-                    {/* Tabs */}
                     <div className="flex space-x-1 dark:bg-darkTheme/10 p-1 rounded-lg mb-6">
                         <button
                             onClick={() => setActiveTab("overview")}
