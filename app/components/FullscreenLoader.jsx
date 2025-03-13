@@ -58,7 +58,7 @@ export default function FullscreenLoader() {
                         <motion.div
                             animate={{ scale: [1, 1.5, 1], opacity: [0.6, 0, 0.6] }}
                             transition={bounceTransition(i * 0.1)}
-                            className="absolute top-0 left-0 w-4 h-4 bg-blue-400 rounded-full blur-sm"
+                            className="absolute top-0 left-0 w-4 h-4 dark:bg-blue-400 bg-yellow-400 rounded-full blur-sm"
                         />
                     </motion.div>
                 ))}
