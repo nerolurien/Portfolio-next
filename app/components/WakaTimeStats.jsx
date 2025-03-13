@@ -186,7 +186,7 @@ export default function WakaTimeStats() {
                                                         <span className="font-medium flex items-center gap-1">
                                                             {getLanguageIcon(lang.name)} {lang.name}
                                                         </span>
-                                                        <span className="text-blue-300">{lang.percent.toFixed(1)}%</span>
+                                                        <span className="dark:text-blue-300 font-bold text-blue-600">{lang.percent.toFixed(1)}%</span>
                                                     </div>
                                                     <div className="h-2 w-full dark:bg-gray-700 bg-gray-200 rounded-full overflow-hidden">
                                                         <div
@@ -226,7 +226,7 @@ export default function WakaTimeStats() {
                                                     <span className="text-sm dark:text-gray-400 font-semibold text-black">
                                                         {formatDailyAvg(lang.total_seconds)}
                                                     </span>
-                                                    <span className="text-sm font-semibold dark:text-blue-300 text-blue-600 w-14 text-right">
+                                                    <span className="text-sm font-semibold dark:text-blue-500 text-blue-600 w-14 text-right">
                                                         {lang.percent.toFixed(1)}%
                                                     </span>
                                                 </div>
