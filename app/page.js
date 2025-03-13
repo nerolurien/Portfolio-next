@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Work from "./components/Work";
 import ToolsSection from "./components/tools-section";
+import WakaTimeStats from "./components/WakaTimeStats";
 
 export default function Home() {
 
@@ -37,6 +38,7 @@ export default function Home() {
     <About  isDarkMode={isDarkMode} />
     <ToolsSection isDarkMode={isDarkMode} />
     <Work  isDarkMode={isDarkMode} />
+    <WakaTimeStats isDarkMode={isDarkMode} />
     <Contact  isDarkMode={isDarkMode} />
     <Footer isDarkMode={isDarkMode} />
     </>
