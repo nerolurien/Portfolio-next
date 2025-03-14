@@ -117,7 +117,7 @@ export default function WakaTimeStats() {
                             </span>
                         </h2>
                         <div className="dark:bg-darkTheme dark:border-white/80 dark:hover:bg-darkhover hover:bg-lightHover cursor-default px-4 py-1.5 rounded-full text-sm font-medium dark:text-blue-300 text-blue-800 border border-gray-700 shadow-inner">
-                            {formatDate(stats.start)} - {formatDate(stats.end)}
+                            {new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(stats.start))} - {new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(stats.end))}
                         </div>
                     </div>
 
