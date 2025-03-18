@@ -6,7 +6,7 @@ export default function FullscreenLoader() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 2000); // Loading selama 2 detik
+        // Loading state should be controlled by the parent component
     }, []);
 
     // Animation variants for the container
@@ -31,7 +31,7 @@ export default function FullscreenLoader() {
         delay: delay
     });
 
-    return isLoading ? (
+    return (
         <motion.div
             variants={containerVariants}
             initial="initial"
@@ -70,10 +70,14 @@ export default function FullscreenLoader() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="text-white text-xl font-medium tracking-wider"
             >
-                <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent dark:bg-gradient-to-r dark:from-blue-500 dark:to-purple-600">
+                <span
+                    role="status"
+                    aria-live="polite"
+                    className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent dark:bg-gradient-to-r dark:from-blue-500 dark:to-purple-600"
+                >
                     Loading...
                 </span>
             </motion.div>
         </motion.div>
-    ) : null;
+    );
 }
