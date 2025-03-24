@@ -1,5 +1,6 @@
 import { Outfit, Ovo } from "next/font/google";
 import "./globals.css";
+import ScrollToTop from "./components/ScrollToTop";
 // import FullscreenLoader from "./components/FullscreenLoader";
 
 const outfit = Outfit({
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
       >
         {/* <FullscreenLoader /> */}
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );
