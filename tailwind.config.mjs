@@ -19,9 +19,21 @@ export default {
       boxShadow: {
         'black': '4px 4px 0 #000',
         'white': '4px 4px 0 #fff',
-      }
+      },
+      keyframes: {
+        gradient: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
+      },
+      animation: {
+        gradient: 'gradient 8s linear infinite',
+      },
     },
   },
   darkMode: "selector",
   plugins: [],
 };
+
+

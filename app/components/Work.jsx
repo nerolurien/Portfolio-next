@@ -136,6 +136,7 @@ const Work = ({ isDarkMode }) => {
                                         href={project.link || '/'} 
                                         target='_blank' 
                                         onClick={(e) => e.stopPropagation()}
+                                        alt='Visit Icon'
                                     >
                                         <motion.div 
                                             whileHover={{ scale: 1.1, backgroundColor: '#bef264' }}
@@ -217,6 +218,7 @@ const Work = ({ isDarkMode }) => {
                                     href={selectedProject.link || '/'} 
                                     target="_blank"
                                     className="px-6 py-2 bg-lime-500 text-white rounded-full inline-flex items-center gap-2 hover:bg-lime-600 transition-colors"
+                                    alt="Visit"
                                 >
                                     Visit Project
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -55,10 +55,10 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                     : ""
                     }`}
             >
-                <a href="#top">
+                <a href="#top" aria-label="Back to top">
                     <Image
                         src={isDarkMode ? assets.logo_dark : assets.logo}
-                        alt=""
+                        alt="Website Logo"
                         className="w-28 cursor-pointer mr-14"
                     />
                 </a>
@@ -179,8 +179,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                             className="w-3 cursor-pointer"
                         />
                     </a>
-
-                    <button className="block md:hidden ml-3" onClick={openMenu}>
+                    <button className="block md:hidden ml-3" onClick={openMenu} aria-label="open menu">
                         <Image
                             src={isDarkMode ? assets.menu_white : assets.menu_black}
                             alt=""

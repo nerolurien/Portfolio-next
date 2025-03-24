@@ -1,14 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import About from "./components/About";
-import FullscreenLoader from "./components/FullscreenLoader"; // Import the loader
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Navbar from "./components/Navbar";
-import Work from "./components/Work";
-import ToolsSection from "./components/tools-section";
-import WakaTimeStats from "./components/WakaTimeStats";
+import About from "./Components/About";
+import FullscreenLoader from "./Components/FullscreenLoader"; // Import the loader
+import Contact from "./Components/Contact";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
+import Navbar from "./Components/Navbar";
+import Work from "./Components/Work";
+import ToolsSection from "./Components/tools-section";
+import WakaTimeStats from "./Components/WakaTimeStats";
+import ClickSpark from "./Components/ClickSpark";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true); // Initialize loading state
@@ -52,6 +53,14 @@ export default function Home() {
     <FullscreenLoader />
   ) : (
     <>
+      <ClickSpark
+        isDarkMode={isDarkMode}
+        sparkColor='#fff'
+        sparkSize={10}
+        sparkRadius={15}
+        sparkCount={8}
+        duration={400}
+      >
       <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <Header isDarkMode={isDarkMode} />
       <About isDarkMode={isDarkMode} />
@@ -60,6 +69,7 @@ export default function Home() {
       <WakaTimeStats isDarkMode={isDarkMode} />
       <Contact isDarkMode={isDarkMode} />
       <Footer isDarkMode={isDarkMode} />
+      </ClickSpark>
     </>
   );
 }
