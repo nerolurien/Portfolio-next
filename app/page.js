@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import About from "./components/About";
-import FullscreenLoader from "./components/FullscreenLoader"; // Import the loader
+import FullscreenLoader from "./components/FullscreenLoader";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -12,9 +12,10 @@ import WakaTimeStats from "./components/WakaTimeStats";
 import ClickSpark from "./components/ClickSpark";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true); // Initialize loading state
+  const [isLoading, setIsLoading] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Logic Dark Mode (Tetap sama)
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       setIsDarkMode(true);
@@ -33,23 +34,25 @@ export default function Home() {
     }
   }, [isDarkMode]);
 
+  // PERBAIKAN DI SINI:
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true); // Set loading to true before fetching
-        // Fetch your data here
-        // Example: await fetch('/api/data');
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false); // Set loading to false after fetching
-      }
+    const fakeLoading = async () => {
+      // Kita set loading true di awal (meskipun default state sudah true)
+      setIsLoading(true);
+
+      // Gunakan setTimeout untuk menahan layar loading selama 2 detik (2000ms)
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 2000); 
+
+      // Bersihkan timer jika komponen di-unmount agar tidak memory leak
+      return () => clearTimeout(timer);
     };
 
-    fetchData();
+    fakeLoading();
   }, []);
 
-  return isLoading ? ( // Show loader while loading
+  return isLoading ? ( 
     <FullscreenLoader />
   ) : (
     <>
@@ -61,14 +64,14 @@ export default function Home() {
         sparkCount={8}
         duration={400}
       >
-      <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-      <Header isDarkMode={isDarkMode} />
-      <About isDarkMode={isDarkMode} />
-      <ToolsSection isDarkMode={isDarkMode} />
-      <Work isDarkMode={isDarkMode} />
-      <WakaTimeStats isDarkMode={isDarkMode} />
-      <Contact isDarkMode={isDarkMode} />
-      <Footer isDarkMode={isDarkMode} />
+        <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+        <Header isDarkMode={isDarkMode} />
+        <About isDarkMode={isDarkMode} />
+        <ToolsSection isDarkMode={isDarkMode} />
+        <Work isDarkMode={isDarkMode} />
+        <WakaTimeStats isDarkMode={isDarkMode} />
+        <Contact isDarkMode={isDarkMode} />
+        <Footer isDarkMode={isDarkMode} />
       </ClickSpark>
     </>
   );
