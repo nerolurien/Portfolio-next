@@ -1,5 +1,7 @@
 import { assets } from "@/assets/assets";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
@@ -8,6 +10,13 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
     const sideMenuRef = useRef();
     const [stars, setStars] = useState([]);
     const [clouds, setClouds] = useState([]);
+    const pathname = usePathname();
+    const navItems = [
+        { label: "Home", href: "/" },
+        { label: "Projects", href: "/projects" },
+        { label: "About", href: "/about" },
+        { label: "Contact", href: "/contact" },
+    ];
 
     useEffect(() => {
         setStars(
@@ -30,13 +39,17 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
     };
 
     useEffect(() => {
-        window.addEventListener("scroll", () => {
+        const handleScroll = () => {
             if (scrollY > 50) {
                 setIsScroll(true);
             } else {
                 setIsScroll(false);
             }
-        });
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     const closeMenu = () => {
@@ -55,13 +68,13 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                     : ""
                     }`}
             >
-                <a href="#top" aria-label="Back to top">
+                <Link href="/" aria-label="Back to top">
                     <Image
                         src={isDarkMode ? assets.logo_dark : assets.logo}
                         alt="Website Logo"
                         className="w-28 cursor-pointer mr-14"
                     />
-                </a>
+                </Link>
 
                 <ul
                     className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ${isScroll
@@ -69,26 +82,20 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                         : "bg-white shadow-sm bg-opacity-50 dark border dark:border-white/50 dark:bg-transparent"
                         }`}
                 >
-                    <li>
-                        <a className="font-ovo" href="#top">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a className="font-ovo" href="#about">
-                            About
-                        </a>
-                    </li>
-                    <li>
-                        <a className="font-ovo" href="#work">
-                            My Work
-                        </a>
-                    </li>
-                    <li>
-                        <a className="font-ovo" href="#contact">
-                            Contact Me
-                        </a>
-                    </li>
+                    {navItems.map((item) => {
+                        const active = pathname === item.href;
+
+                        return (
+                            <li key={item.href}>
+                                <Link
+                                    className={`font-ovo transition ${active ? "text-lime-600 dark:text-lime-300" : ""}`}
+                                    href={item.href}
+                                >
+                                    {item.label}
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </ul>
 
                 <div className="flex items-center gap-4">
@@ -168,8 +175,8 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                         </motion.div>
                     </motion.button>
 
-                    <a
-                        href="#contact"
+                    <Link
+                        href="/contact"
                         className="hidden lg:flex items-center gap-3 px-10 py-2.5 border border-gray-500 rounded-full ml-4 font-ovo dark:border-white/50"
                     >
                         Contact
@@ -178,7 +185,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                             alt=""
                             className="w-3 cursor-pointer"
                         />
-                    </a>
+                    </Link>
                     <button className="block md:hidden ml-3" onClick={openMenu} aria-label="open menu">
                         <Image
                             src={isDarkMode ? assets.menu_white : assets.menu_black}
@@ -202,26 +209,13 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                         />
                     </div>
 
-                    <li>
-                        <a className="font-ovo" onClick={closeMenu} href="#top">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a className="font-ovo" onClick={closeMenu} href="#about">
-                            About
-                        </a>
-                    </li>
-                    <li>
-                        <a className="font-ovo" onClick={closeMenu} href="#work">
-                            My Work
-                        </a>
-                    </li>
-                    <li>
-                        <a className="font-ovo" onClick={closeMenu} href="#contact">
-                            Contact Me
-                        </a>
-                    </li>
+                    {navItems.map((item) => (
+                        <li key={item.href}>
+                            <Link className="font-ovo" onClick={closeMenu} href={item.href}>
+                                {item.label}
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </>
