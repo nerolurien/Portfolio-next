@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
+import dynamic from "next/dynamic";
+
+const Footer = dynamic(() => import("./Footer"));
 
 export default function SiteShell({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(false);

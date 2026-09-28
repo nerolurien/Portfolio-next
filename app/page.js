@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import Header from "./components/Header";
 import About from "./components/About";
 import FullscreenLoader from "./components/FullscreenLoader";
-import Contact from "./components/Contact";
-import Header from "./components/Header";
-import Work from "./components/Work";
-import ToolsSection from "./components/tools-section";
-import WakaTimeStats from "./components/WakaTimeStats";
 import ClickSpark from "./components/ClickSpark";
 import SiteShell from "./components/SiteShell";
+
+const ToolsSection = dynamic(() => import("./components/tools-section"));
+const Work = dynamic(() => import("./components/Work"));
+const WakaTimeStats = dynamic(() => import("./components/WakaTimeStats"));
+const Contact = dynamic(() => import("./components/Contact"));
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);

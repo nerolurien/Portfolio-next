@@ -1,4 +1,4 @@
-import user_image from './user-image.png';
+import user_image from './user-image.jpg';
 import code_icon from './code-icon.png';
 import code_icon_dark from './code-icon-dark.png';
 import edu_icon from './edu-icon.png';
@@ -15,7 +15,7 @@ import logo from './logo.png';
 import logo_dark from './logo_dark.png';
 import mail_icon from './mail_icon.png';
 import mail_icon_dark from './mail_icon_dark.png';
-import profile_img from './profile-img.png';
+import profile_img from './profile-img.jpg';
 import download_icon from './download-icon.png';
 import hand_icon from './hand-icon.png';
 import header_bg_color from './header-bg-color.png';
@@ -37,8 +37,14 @@ import right_arrow_bold from './right-arrow-bold.png';
 import right_arrow_bold_dark from './right-arrow-bold-dark.png';
 import unity from './unity.png';
 import mysql from './mysql.png';
+import next_js from './next_js.png';
+import go from './go.png';
+import spring from './spring.png';
 
 export const assets = {
+    spring,
+    go,
+    next_js,
     unity,
     mysql,
     user_image,
@@ -414,5 +420,28 @@ export const serviceHighlights = [
     {
         title: 'Interactive builds',
         description: 'Game and motion-driven experiments that make interfaces feel alive.',
+    },
+];
+
+export const experienceList = [
+    {
+        company: 'PT Daun Biru Engineering',
+        role: 'IT Department',
+        period: 'Jan 2025 - Jun 2025',
+        description: 'Completed a 6-month internship and gained hands-on experience working in a professional engineering environment.',
+    },
+    {
+        company: 'CV Teman Express',
+        role: 'Backend Developer Intern',
+        period: 'Feb 2026 - Present',
+        description: 'Working on backend development tasks and supporting application logic, data flow, and system functionality.',
+    },
+];
+
+export const educationList = [
+    {
+        school: 'SMK Wikrama Bogor',
+        major: 'PPLG',
+        description: 'Studying software and game development fundamentals while building real projects and strengthening engineering skills.',
     },
 ];

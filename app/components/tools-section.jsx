@@ -11,8 +11,10 @@ const toolGroups = [
   { name: "Git", image: assets.git },
   { name: "Unity", image: assets.unity },
   { name: "MySQL", image: assets.mysql },
-  { name: "Next.js", image: assets.logo_dark },
+  { name: "Next.js", image: assets.next_js },
   { name: "Figma", image: assets.figma },
+  { name: "GO", image: assets.go },
+  { name: "Spring boot", image: assets.spring}
 ];
 
 export default function ToolsSection() {

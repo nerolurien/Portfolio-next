@@ -99,7 +99,7 @@ const Header = () => {
               className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white/80 px-7 py-3 text-sm font-medium shadow-sm backdrop-blur transition hover:-translate-y-0.5 dark:border-white/20 dark:bg-white/5"
             >
               Download Resume
-              <Image src={assets.download_icon} alt="" className="w-4" />
+              <Image src={assets.download_icon} alt="" className="w-4 dark:invert" />
             </a>
           </motion.div>
 

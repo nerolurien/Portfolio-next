@@ -1,6 +1,6 @@
 "use client";
 
-import { assets, infoList, serviceHighlights } from "@/assets/assets";
+import { assets, educationList, experienceList, infoList, serviceHighlights } from "@/assets/assets";
 import Image from "next/image";
 import React from "react";
 import { motion } from "motion/react";
@@ -85,6 +85,55 @@ const About = () => {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
+            <div className="rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+              <p className="text-sm font-medium uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
+                Experience
+              </p>
+              <div className="mt-5 space-y-4">
+                {experienceList.map((item) => (
+                  <div
+                    key={`${item.company}-${item.period}`}
+                    className="rounded-2xl bg-black/[0.03] p-4 dark:bg-white/[0.04]"
+                  >
+                    <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <h4 className="font-semibold">{item.company}</h4>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{item.role}</p>
+                      </div>
+                      <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        {item.period}
+                      </p>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+              <p className="text-sm font-medium uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
+                Education
+              </p>
+              <div className="mt-5 space-y-4">
+                {educationList.map((item) => (
+                  <div
+                    key={`${item.school}-${item.major}`}
+                    className="rounded-2xl bg-black/[0.03] p-4 dark:bg-white/[0.04]"
+                  >
+                    <h4 className="font-semibold">{item.school}</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{item.major}</p>
+                    <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>

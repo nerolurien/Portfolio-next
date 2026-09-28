@@ -90,6 +90,7 @@ const Work = ({
                       src={project.bgImage}
                       alt={project.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transition duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
@@ -134,7 +135,7 @@ const Work = ({
                       className="inline-flex items-center gap-2 rounded-full border border-black/10 px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5 dark:border-white/10"
                     >
                       Visit
-                      <Image src={assets.send_icon} alt="" className="w-4" />
+                      <Image src={assets.send_icon} alt="" className="w-4 dark:invert" />
                     </Link>
                   </div>
                 </div>
