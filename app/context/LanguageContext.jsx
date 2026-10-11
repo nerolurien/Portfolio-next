@@ -62,15 +62,6 @@ const translations = {
       visit: "Visit",
       viewAll: "View all projects",
     },
-    wakatime: {
-      title: "Coding Stats",
-      overview: "Overview",
-      languages: "Languages",
-      totalTime: "Total Coding Time",
-      dailyAverage: "Daily Average",
-      thisWeek: "This week",
-      perDay: "Per day",
-    },
     contact: {
       eyebrow: "Contact me",
       title: "Get In Touch",
@@ -169,15 +160,6 @@ const translations = {
       readCase: "Baca studi kasus",
       visit: "Kunjungi",
       viewAll: "Lihat semua proyek",
-    },
-    wakatime: {
-      title: "Statistik Coding",
-      overview: "Ringkasan",
-      languages: "Bahasa",
-      totalTime: "Total Waktu Coding",
-      dailyAverage: "Rata-rata Harian",
-      thisWeek: "Minggu ini",
-      perDay: "Per hari",
     },
     contact: {
       eyebrow: "Hubungi saya",

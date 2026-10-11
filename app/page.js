@@ -11,7 +11,6 @@ import SiteShell from "./components/SiteShell";
 
 const ToolsSection = dynamic(() => import("./components/tools-section"));
 const Work = dynamic(() => import("./components/Work"));
-const WakaTimeStats = dynamic(() => import("./components/WakaTimeStats"));
 const Contact = dynamic(() => import("./components/Contact"));
 
 export default function Home() {
@@ -43,11 +42,6 @@ export default function Home() {
           maxItems={6}
           showViewAll
         />
-        <section className="mx-auto w-full max-w-7xl px-6 py-4 sm:px-10 lg:px-16">
-          <div className="rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <WakaTimeStats />
-          </div>
-        </section>
         <Contact />
       </SiteShell>
       </ClickSpark>
