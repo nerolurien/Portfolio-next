@@ -1,6 +1,6 @@
 "use client";
 
-import { assets, workData } from "@/assets/assets";
+import { assets, getLocalizedProject, workData } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
@@ -16,7 +16,7 @@ const Work = ({
   maxItems,
   showViewAll = false,
 }) => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const displayTitle = title || (showViewAll ? t("work.title") : t("work.titleAll"));
   const displayDescription = description || (showViewAll ? t("work.desc") : t("work.descAll"));
   const displayEyebrow = eyebrow || t("work.eyebrow");
@@ -57,6 +57,7 @@ const Work = ({
           <div className="relative mt-8 flex flex-wrap justify-center gap-3">
             {categories.map((category) => {
               const isActive = activeFilter === category;
+              const categoryLabel = category === "all" ? t("work.filterAll") : (t(`categories.${category}`) || category);
               return (
                 <button
                   key={category}
@@ -68,7 +69,7 @@ const Work = ({
                       : "border border-black/10 bg-white/80 text-gray-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-200"
                   }`}
                 >
-                  {category === "all" ? t("work.filterAll") : category}
+                  {categoryLabel}
                 </button>
               );
             })}
@@ -84,36 +85,38 @@ const Work = ({
             transition={{ duration: 0.3 }}
             className="relative mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3"
           >
-            {filteredProjects.map((project) => (
-              <motion.article
-                key={project.id}
-                whileHover={{ y: -8 }}
-                className="group overflow-hidden rounded-[1.75rem] border border-black/10 bg-white shadow-sm transition dark:border-white/10 dark:bg-slate-900/80"
-              >
-                <Link href={`/projects/${project.id}`} className="block">
-                  <div className="relative aspect-[16/11] overflow-hidden">
-                    <Image
-                      src={project.bgImage}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                    <div className="absolute left-4 top-4 flex gap-2">
-                      <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold capitalize text-gray-800">
-                        {project.category}
-                      </span>
-                      <span className="rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white">
-                        {project.year}
-                      </span>
+            {filteredProjects.map((rawProject) => {
+              const project = getLocalizedProject(rawProject, language);
+              return (
+                <motion.article
+                  key={project.id}
+                  whileHover={{ y: -8 }}
+                  className="group overflow-hidden rounded-[1.75rem] border border-black/10 bg-white shadow-sm transition dark:border-white/10 dark:bg-slate-900/80"
+                >
+                  <Link href={`/projects/${project.id}`} className="block">
+                    <div className="relative aspect-[16/11] overflow-hidden">
+                      <Image
+                        src={project.bgImage}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover transition duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                      <div className="absolute left-4 top-4 flex gap-2">
+                        <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold capitalize text-gray-800">
+                          {t(`categories.${project.category}`) || project.category}
+                        </span>
+                        <span className="rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white">
+                          {project.year}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                        <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/80">{project.description}</p>
+                      </div>
                     </div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/80">{project.description}</p>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
 
                 <div className="p-5">
                   <div className="flex flex-wrap gap-2">
@@ -146,7 +149,8 @@ const Work = ({
                   </div>
                 </div>
               </motion.article>
-            ))}
+            );
+          })}
           </motion.div>
         </AnimatePresence>
 

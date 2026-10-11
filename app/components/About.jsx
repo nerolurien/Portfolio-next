@@ -7,7 +7,8 @@ import { motion } from "motion/react";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 const About = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const isId = language === "id";
 
   const localizedInfo = [
     { ...infoList[0], title: t("about.stackTitle"), description: t("about.stackDesc") },
@@ -16,13 +17,23 @@ const About = () => {
   ];
 
   const localizedExperience = [
-    { ...experienceList[0], description: t("about.internship1Desc") },
-    { ...experienceList[1], description: t("about.internship2Desc") },
+    {
+      ...experienceList[0],
+      role: isId ? "Departemen IT" : experienceList[0].role,
+      description: t("about.internship1Desc"),
+    },
+    {
+      ...experienceList[1],
+      role: isId ? "Intern Backend Developer" : experienceList[1].role,
+      description: t("about.internship2Desc"),
+    },
   ];
 
   const localizedEducation = [
     { ...educationList[0], description: t("about.educationDesc") },
   ];
+
+  const currentServiceHighlights = t("about.serviceHighlights") || serviceHighlights;
 
   return (
     <motion.section
@@ -89,10 +100,10 @@ const About = () => {
 
           <div className="mt-8 rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
-              What I like building
+              {t("about.whatILikeBuilding")}
             </p>
             <div className="mt-5 grid gap-4 md:grid-cols-3">
-              {serviceHighlights.map((item) => (
+              {currentServiceHighlights.map((item) => (
                 <div
                   key={item.title}
                   className="rounded-2xl bg-black/[0.03] p-4 dark:bg-white/[0.04]"

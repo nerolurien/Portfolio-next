@@ -3,10 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/app/context/LanguageContext";
+import { getLocalizedProject } from "@/assets/assets";
 
-export default function ProjectDetailView({ project, relatedProjects }) {
+export default function ProjectDetailView({ project, relatedProjects = [] }) {
   const { language, t } = useLanguage();
-  const isId = language === "id";
+  const localizedProject = getLocalizedProject(project, language);
+  const localizedRelated = relatedProjects.map((p) => getLocalizedProject(p, language));
 
   return (
     <section className="mx-auto w-full max-w-7xl px-6 pb-12 pt-28 sm:px-10 lg:px-16">
@@ -21,27 +23,27 @@ export default function ProjectDetailView({ project, relatedProjects }) {
 
           <div className="mt-6 flex flex-wrap gap-2">
             <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold capitalize text-sky-700 border border-sky-200/50 dark:bg-sky-400/10 dark:text-sky-300 dark:border-sky-400/20">
-              {project.category}
+              {t(`categories.${localizedProject.category}`) || localizedProject.category}
             </span>
             <span className="rounded-full border border-black/10 px-3 py-1 text-xs font-medium dark:border-white/10">
-              {project.year}
+              {localizedProject.year}
             </span>
             <span className="rounded-full border border-black/10 px-3 py-1 text-xs font-medium dark:border-white/10">
-              {project.role}
+              {localizedProject.role}
             </span>
           </div>
 
           <h1 className="mt-6 text-balance text-4xl font-semibold leading-tight sm:text-5xl">
-            {project.title}
+            {localizedProject.title}
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-300">
-            {project.intro || project.description}
+            {localizedProject.intro || localizedProject.description}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href={project.link || "#"}
-              target={project.link && project.link !== "#" ? "_blank" : undefined}
+              href={localizedProject.link || "#"}
+              target={localizedProject.link && localizedProject.link !== "#" ? "_blank" : undefined}
               className="inline-flex items-center rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:hover:text-black"
             >
               {t("pages.projectDetail.visit")}
@@ -57,8 +59,8 @@ export default function ProjectDetailView({ project, relatedProjects }) {
 
         <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] border border-black/10 shadow-sm dark:border-white/10">
           <Image
-            src={project.bgImage}
-            alt={project.title}
+            src={localizedProject.bgImage}
+            alt={localizedProject.title}
             fill
             sizes="(max-width: 1200px) 100vw, 50vw"
             className="object-cover"
@@ -67,7 +69,7 @@ export default function ProjectDetailView({ project, relatedProjects }) {
       </div>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
-        {project.summaryStats?.map((item) => (
+        {localizedProject.summaryStats?.map((item) => (
           <div
             key={item.label}
             className="rounded-[1.5rem] border border-black/10 bg-white/75 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5"
@@ -84,10 +86,10 @@ export default function ProjectDetailView({ project, relatedProjects }) {
         <div className="space-y-6">
           <div className="rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
-              {isId ? "Teknologi" : "Stack"}
+              {t("pages.projectDetail.stack")}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              {project.tech?.map((item) => (
+              {localizedProject.tech?.map((item) => (
                 <span
                   key={item}
                   className="rounded-full bg-black/[0.04] px-3 py-1 text-sm dark:bg-white/[0.06]"
@@ -100,10 +102,10 @@ export default function ProjectDetailView({ project, relatedProjects }) {
 
           <div className="rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
-              {isId ? "Sorotan Utama" : "Key highlights"}
+              {t("pages.projectDetail.highlights")}
             </p>
             <ul className="mt-4 space-y-3 text-sm leading-7 text-gray-600 dark:text-gray-300">
-              {project.caseStudy?.highlights?.map((item) => (
+              {localizedProject.caseStudy?.highlights?.map((item) => (
                 <li key={item} className="flex gap-3">
                   <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]" />
                   <span>{item}</span>
@@ -117,26 +119,26 @@ export default function ProjectDetailView({ project, relatedProjects }) {
           <div className="rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
             <div className="grid gap-6 md:grid-cols-3">
               <CaseBlock
-                title={isId ? "Tantangan" : "Problem"}
-                text={project.caseStudy?.problem || project.description}
+                title={t("pages.projectDetail.problem")}
+                text={localizedProject.caseStudy?.problem || localizedProject.description}
               />
               <CaseBlock
-                title={isId ? "Pendekatan" : "Approach"}
-                text={project.caseStudy?.approach || project.challenge}
+                title={t("pages.projectDetail.approach")}
+                text={localizedProject.caseStudy?.approach || localizedProject.challenge}
               />
               <CaseBlock
-                title={isId ? "Hasil Akhir" : "Outcome"}
-                text={project.outcome}
+                title={t("pages.projectDetail.outcome")}
+                text={localizedProject.outcome}
               />
             </div>
           </div>
 
           <div className="rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
-              {isId ? "Alur Proses" : "Process"}
+              {t("pages.projectDetail.process")}
             </p>
             <div className="mt-5 space-y-4">
-              {project.caseStudy?.process?.map((step, index) => (
+              {localizedProject.caseStudy?.process?.map((step, index) => (
                 <div
                   key={step}
                   className="flex gap-4 rounded-2xl bg-black/[0.03] p-4 dark:bg-white/[0.04]"
@@ -152,10 +154,10 @@ export default function ProjectDetailView({ project, relatedProjects }) {
 
           <div className="rounded-[2rem] border border-black/10 bg-white/75 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
-              {isId ? "Pelajaran yang Diperoleh" : "What I learned"}
+              {t("pages.projectDetail.learnings")}
             </p>
             <div className="mt-5 grid gap-4 md:grid-cols-2">
-              {project.caseStudy?.learnings?.map((item) => (
+              {localizedProject.caseStudy?.learnings?.map((item) => (
                 <div
                   key={item}
                   className="rounded-2xl border border-black/10 p-4 text-sm leading-7 text-gray-600 dark:border-white/10 dark:text-gray-300"
@@ -168,7 +170,7 @@ export default function ProjectDetailView({ project, relatedProjects }) {
         </div>
       </div>
 
-      {relatedProjects.length > 0 ? (
+      {localizedRelated.length > 0 ? (
         <div className="mt-14">
           <div className="mb-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
@@ -180,7 +182,7 @@ export default function ProjectDetailView({ project, relatedProjects }) {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {relatedProjects.map((item) => (
+            {localizedRelated.map((item) => (
               <Link
                 key={item.id}
                 href={`/projects/${item.id}`}
