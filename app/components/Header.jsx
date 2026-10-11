@@ -6,15 +6,23 @@ import Link from "next/link";
 import React from "react";
 import { motion } from "motion/react";
 import RotatingText from "./RotatingText";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const Header = () => {
+  const { t } = useLanguage();
+  const statLabels = [
+    t("header.stats.projects"),
+    t("header.stats.specialties"),
+    t("header.stats.energy"),
+  ];
+
   return (
     <header
       id="top"
       className="relative mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 pb-14 pt-28 sm:px-10 lg:px-16"
     >
-      <div className="absolute left-8 top-28 h-24 w-24 rounded-full bg-lime-300/30 blur-3xl dark:bg-lime-300/10" />
-      <div className="absolute right-8 top-24 h-32 w-32 rounded-full bg-sky-300/30 blur-3xl dark:bg-sky-300/15" />
+      <div className="absolute left-8 top-28 h-24 w-24 rounded-full bg-sky-400/20 blur-3xl dark:bg-sky-500/10 pointer-events-none" />
+      <div className="absolute right-8 top-24 h-32 w-32 rounded-full bg-sky-300/30 blur-3xl dark:bg-sky-300/15 pointer-events-none" />
 
       <div className="grid w-full items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="text-center lg:text-left">
@@ -25,8 +33,8 @@ const Header = () => {
             transition={{ duration: 0.6 }}
             className="mb-6 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/80 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5"
           >
-            <span className="h-2.5 w-2.5 rounded-full bg-lime-400" />
-            Available for freelance and collaborative builds
+            <span className="h-2.5 w-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]" />
+            {t("header.badge")}
           </motion.div>
 
           <motion.h1
@@ -36,7 +44,7 @@ const Header = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-balance text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl"
           >
-            Building web products and interactive experiences with a clean, modern feel.
+            {t("header.headline")}
           </motion.h1>
 
           <motion.div
@@ -46,9 +54,9 @@ const Header = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="mt-6 flex flex-wrap items-center justify-center gap-2 text-lg font-ovo lg:justify-start lg:text-2xl"
           >
-            <span>Hi, I&apos;m Rafid.</span>
+            <span>{t("header.greeting")}</span>
             <RotatingText
-              texts={["Web Developer", "Game Developer", "Creative Coder"]}
+              texts={t("header.roles")}
               mainClassName="rounded-xl bg-cyan-300 px-3 py-1.5 text-base text-black sm:px-4 lg:text-xl"
               staggerFrom="first"
               initial={{ y: "100%" }}
@@ -73,9 +81,9 @@ const Header = () => {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-6 max-w-2xl text-balance text-base leading-7 text-gray-600 dark:text-gray-300 lg:text-lg"
+            className="mt-6 max-w-2xl text-balance text-base leading-7 text-gray-600 dark:text-gray-300 lg:text-lg mx-auto lg:mx-0"
           >
-            Based in Bogor, I craft thoughtful digital products with Next.js, Laravel, and Unity. I care about interfaces that look sharp, feel smooth, and solve real problems.
+            {t("header.bio")}
           </motion.p>
 
           <motion.div
@@ -83,13 +91,13 @@ const Header = () => {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:items-start"
+            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:items-start lg:justify-start"
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 rounded-full bg-black px-7 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-gray-900 dark:bg-white dark:text-black"
+              className="inline-flex items-center gap-2 rounded-full bg-black px-7 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:hover:text-black"
             >
-              Explore Projects
+              {t("header.exploreProjects")}
               <Image src={assets.right_arrow_white} alt="" className="w-4 dark:invert" />
             </Link>
 
@@ -98,7 +106,7 @@ const Header = () => {
               download
               className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white/80 px-7 py-3 text-sm font-medium shadow-sm backdrop-blur transition hover:-translate-y-0.5 dark:border-white/20 dark:bg-white/5"
             >
-              Download Resume
+              {t("header.downloadResume")}
               <Image src={assets.download_icon} alt="" className="w-4 dark:invert" />
             </a>
           </motion.div>
@@ -110,13 +118,13 @@ const Header = () => {
             transition={{ duration: 0.7, delay: 0.5 }}
             className="mt-10 grid gap-4 sm:grid-cols-3"
           >
-            {highlightStats.map((item) => (
+            {highlightStats.map((item, idx) => (
               <div
                 key={item.label}
                 className="rounded-2xl border border-black/10 bg-white/75 p-4 text-left shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5"
               >
                 <p className="text-2xl font-semibold">{item.value}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{item.label}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{statLabels[idx] || item.label}</p>
               </div>
             ))}
           </motion.div>
@@ -129,21 +137,21 @@ const Header = () => {
           transition={{ duration: 0.8, type: "spring", stiffness: 90 }}
           className="relative mx-auto w-full max-w-md"
         >
-          <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-lime-300/30 via-sky-300/20 to-transparent blur-2xl" />
+          <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-sky-400/20 via-blue-500/15 to-transparent blur-2xl pointer-events-none" />
           <div className="relative overflow-hidden rounded-[2rem] border border-black/10 bg-white/80 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur dark:border-white/10 dark:bg-white/5">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Now building</p>
-                <p className="font-medium">Portfolio experiences that feel alive</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{t("header.nowBuilding")}</p>
+                <p className="font-medium">{t("header.nowBuildingText")}</p>
               </div>
-              <div className="rounded-full bg-lime-100 px-3 py-1 text-xs font-medium text-lime-700 dark:bg-lime-400/10 dark:text-lime-300">
-                Open to work
+              <div className="rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700 border border-sky-200/50 dark:bg-sky-400/10 dark:text-sky-300 dark:border-sky-400/20">
+                {t("header.openToWork")}
               </div>
             </div>
 
             <div className="relative rounded-[1.5rem] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6 text-white">
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-lime-300/20 blur-3xl" />
-              <div className="absolute -left-10 bottom-0 h-28 w-28 rounded-full bg-sky-300/20 blur-3xl" />
+              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-sky-400/20 blur-3xl pointer-events-none" />
+              <div className="absolute -left-10 bottom-0 h-28 w-28 rounded-full bg-sky-300/20 blur-3xl pointer-events-none" />
               <Image
                 src={assets.profile_img}
                 alt="Portrait of Rafid"
@@ -151,8 +159,8 @@ const Header = () => {
                 priority
               />
               <div className="relative mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="text-sm text-white/70">Core focus</p>
-                <p className="mt-2 text-lg font-medium">Readable UI, solid frontend architecture, and motion with purpose.</p>
+                <p className="text-sm text-white/70">{t("header.coreFocus")}</p>
+                <p className="mt-2 text-lg font-medium">{t("header.coreFocusText")}</p>
               </div>
             </div>
           </div>
@@ -165,7 +173,7 @@ const Header = () => {
         transition={{ delay: 1.1 }}
         className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-2 text-sm text-gray-500 md:inline-flex dark:text-gray-400"
       >
-        Explore pages below
+        {t("header.exploreBelow")}
         <span className="flex h-8 w-5 justify-center rounded-full border border-current">
           <motion.span
             animate={{ y: [4, 12, 4] }}

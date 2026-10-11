@@ -5,16 +5,22 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const Work = ({
   projects = workData,
-  title = "Projects with a bit more personality",
-  description = "A mix of frontend builds, dashboards, and game experiments that show how I approach structure, visuals, and interaction.",
-  eyebrow = "Selected Work",
+  title,
+  description,
+  eyebrow,
   showFilters = true,
   maxItems,
   showViewAll = false,
 }) => {
+  const { t } = useLanguage();
+  const displayTitle = title || (showViewAll ? t("work.title") : t("work.titleAll"));
+  const displayDescription = description || (showViewAll ? t("work.desc") : t("work.descAll"));
+  const displayEyebrow = eyebrow || t("work.eyebrow");
+
   const [activeFilter, setActiveFilter] = useState("all");
 
   const categories = useMemo(
@@ -34,16 +40,16 @@ const Work = ({
   return (
     <section id="work" className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-10 lg:px-16">
       <div className="relative overflow-hidden rounded-[2rem] border border-black/10 bg-white/75 px-6 py-8 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5 md:px-8 md:py-10">
-        <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-lime-300/20 blur-3xl dark:bg-lime-300/10" />
-        <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-sky-300/20 blur-3xl dark:bg-sky-300/10" />
+        <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-sky-400/15 blur-3xl dark:bg-sky-500/10 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-sky-300/20 blur-3xl dark:bg-sky-300/10 pointer-events-none" />
 
         <div className="relative mx-auto max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-lime-600 dark:text-lime-300">
-            {eyebrow}
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-sky-600 dark:text-sky-400">
+            {displayEyebrow}
           </p>
-          <h2 className="mt-3 text-4xl font-semibold sm:text-5xl">{title}</h2>
+          <h2 className="mt-3 text-4xl font-semibold sm:text-5xl">{displayTitle}</h2>
           <p className="mt-5 text-balance text-base leading-7 text-gray-600 dark:text-gray-300">
-            {description}
+            {displayDescription}
           </p>
         </div>
 
@@ -62,7 +68,7 @@ const Work = ({
                       : "border border-black/10 bg-white/80 text-gray-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-200"
                   }`}
                 >
-                  {category}
+                  {category === "all" ? t("work.filterAll") : category}
                 </button>
               );
             })}
@@ -126,7 +132,7 @@ const Work = ({
                       href={`/projects/${project.id}`}
                       className="text-sm font-medium text-gray-700 hover:text-black dark:text-gray-200 dark:hover:text-white"
                     >
-                      Read case study
+                      {t("work.readCase")}
                     </Link>
 
                     <Link
@@ -134,7 +140,7 @@ const Work = ({
                       target={project.link && project.link !== "#" ? "_blank" : undefined}
                       className="inline-flex items-center gap-2 rounded-full border border-black/10 px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5 dark:border-white/10"
                     >
-                      Visit
+                      {t("work.visit")}
                       <Image src={assets.send_icon} alt="" className="w-4 dark:invert" />
                     </Link>
                   </div>
@@ -148,9 +154,9 @@ const Work = ({
           <div className="mt-10 text-center">
             <Link
               href="/projects"
-              className="inline-flex items-center rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-gray-900 dark:bg-white dark:text-black"
+              className="inline-flex items-center rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:hover:text-black"
             >
-              View all projects
+              {t("work.viewAll")}
             </Link>
           </div>
         ) : null}

@@ -4,12 +4,13 @@ import { assets } from "@/assets/assets";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const Contact = () => {
+    const { t } = useLanguage();
     const [result, setResult] = useState({ message: "", status: "" });
     const [showResult, setShowResult] = useState(false);
 
-    // Auto-hide success and error messages after 5 seconds
     useEffect(() => {
         if (result.status === "success" || result.status === "error") {
             const timer = setTimeout(() => {
@@ -20,7 +21,6 @@ const Contact = () => {
         }
     }, [result]);
 
-    // Show the result message whenever it changes
     useEffect(() => {
         if (result.message) {
             setShowResult(true);
@@ -29,7 +29,7 @@ const Contact = () => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        setResult({ message: "Sending...", status: "loading" });
+        setResult({ message: t("contact.sending"), status: "loading" });
         setShowResult(true);
 
         const formData = new FormData(event.target);
@@ -44,17 +44,16 @@ const Contact = () => {
             const data = await response.json();
 
             if (data.success) {
-                setResult({ message: "Message sent successfully!", status: "success" });
+                setResult({ message: t("contact.success"), status: "success" });
                 event.target.reset();
             } else {
-                setResult({ message: data.message, status: "error" });
+                setResult({ message: data.message || t("contact.error"), status: "error" });
             }
-        } catch (error) {
-            setResult({ message: "Something went wrong. Please try again.", status: "error" });
+        } catch {
+            setResult({ message: t("contact.error"), status: "error" });
         }
     };
 
-    // Icons for different states
     const resultIcons = {
         loading: (
             <svg className="animate-spin w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -79,24 +78,24 @@ const Contact = () => {
             id="contact"
             className='w-full px-[12%] py-10 scroll-mt-20 bg-[url("/footer-bg-color.png")] bg-no-repeat bg-center bg-[length:90%_auto] dark:bg-none'
         >
-            <h4 className="text-center mb-2 text-lg font-ovo">Contact me</h4>
-            <h2 className="text-center text-5xl font-ovo">Get In Touch</h2>
+            <h4 className="text-center mb-2 text-lg font-ovo">{t("contact.eyebrow")}</h4>
+            <h2 className="text-center text-5xl font-ovo">{t("contact.title")}</h2>
             <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-ovo">
-                If you have any questions, comments, or feedback, use the form below.
+                {t("contact.desc")}
             </p>
 
             <form onSubmit={onSubmit} className="max-w-2xl mx-auto relative">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 mb-8">
                     <input
                         type="text"
-                        placeholder="Enter Your Name"
+                        placeholder={t("contact.namePlaceholder")}
                         required
                         className="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkhover/30 dark:border-white/90"
                         name="name"
                     />
                     <input
                         type="email"
-                        placeholder="Enter Your Email"
+                        placeholder={t("contact.emailPlaceholder")}
                         required
                         className="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkhover/30 dark:border-white/90"
                         name="email"
@@ -104,7 +103,7 @@ const Contact = () => {
                 </div>
                 <textarea
                     rows="6"
-                    placeholder="Enter Your Message"
+                    placeholder={t("contact.messagePlaceholder")}
                     required
                     className="w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-6 dark:bg-darkhover/30 dark:border-white/90"
                     name="message"
@@ -113,10 +112,9 @@ const Contact = () => {
                 <button
                     type="submit"
                     className="py-3 px-8 w-max flex items-center justify-between gap-2 bg-black/80 text-white rounded-full mx-auto hover:bg-black duration-500 dark:bg-transparent dark:border-[0.5px] dark:hover:bg-darkhover">
-                    Submit <Image src={assets.right_arrow_white} alt="" className="w-4" />
+                    {t("contact.submit")} <Image src={assets.right_arrow_white} alt="" className="w-4" />
                 </button>
 
-                {/* Enhanced Result Message with Animation */}
                 <AnimatePresence>
                     {showResult && (
                         <motion.div

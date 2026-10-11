@@ -1,7 +1,6 @@
 import { Outfit, Ovo } from "next/font/google";
 import "./globals.css";
 import ScrollToTop from "./components/ScrollToTop";
-// import FullscreenLoader from "./components/FullscreenLoader";
 
 const outfit = Outfit({
   variable: "--font-geist-sans",
@@ -18,6 +17,9 @@ export const metadata = {
   description: "New Portfolio use next.js",
 };
 
+import { LanguageProvider } from "./context/LanguageContext";
+import TopProgressBar from "./components/TopProgressBar";
+
 export default function RootLayout({ children }) {
   
   return (
@@ -25,9 +27,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${outfit.className} ${ovo.className} antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
       >
-        {/* <FullscreenLoader /> */}
-        {children}
-        <ScrollToTop />
+        <LanguageProvider>
+          <TopProgressBar />
+          {children}
+          <ScrollToTop />
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -17,7 +17,10 @@ const toolGroups = [
   { name: "Spring boot", image: assets.spring}
 ];
 
+import { useLanguage } from "@/app/context/LanguageContext";
+
 export default function ToolsSection() {
+  const { t } = useLanguage();
   const rowA = [...toolGroups, ...toolGroups];
   const rowB = [...toolGroups.slice().reverse(), ...toolGroups.slice().reverse()];
 
@@ -27,12 +30,12 @@ export default function ToolsSection() {
         <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-sky-600 dark:text-sky-300">
-              Toolbox
+              {t("tools.eyebrow")}
             </p>
-            <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">Tools I work with</h2>
+            <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">{t("tools.title")}</h2>
           </div>
           <p className="max-w-xl text-sm leading-6 text-gray-600 dark:text-gray-300">
-            From frontend shipping to backend workflows and game experiments, these are the tools I keep reaching for.
+            {t("tools.desc")}
           </p>
         </div>
 
@@ -81,27 +84,29 @@ function MarqueeRow({ items, direction }) {
       <style jsx>{`
         .marquee-left {
           animation: marquee-left 26s linear infinite;
+          will-change: transform;
         }
 
         .marquee-right {
           animation: marquee-right 26s linear infinite;
+          will-change: transform;
         }
 
         @keyframes marquee-left {
           from {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
           }
           to {
-            transform: translateX(-50%);
+            transform: translate3d(-50%, 0, 0);
           }
         }
 
         @keyframes marquee-right {
           from {
-            transform: translateX(-50%);
+            transform: translate3d(-50%, 0, 0);
           }
           to {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
           }
         }
       `}</style>

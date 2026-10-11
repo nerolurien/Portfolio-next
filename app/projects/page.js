@@ -11,16 +11,14 @@ export default function ProjectsPage() {
   return (
     <SiteShell>
       <PageHero
+        translationKey="pages.projects"
         eyebrow="Project Archive"
         title="A closer look at the things I have been building."
         description="This page collects my featured work in one place so each project has a little more room to breathe, explain itself, and show the decisions behind it."
         ctaLabel="Say hello"
         ctaHref="/contact"
       />
-      <Work
-        title="All projects"
-        description="Filter by type, scan the stack, and open each case study for a more focused view."
-      />
+      <Work />
     </SiteShell>
   );
 }

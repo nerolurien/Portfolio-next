@@ -13,6 +13,7 @@ export default function AboutPage() {
   return (
     <SiteShell>
       <PageHero
+        translationKey="pages.about"
         eyebrow="About"
         title="A builder who likes clean interfaces and lively interactions."
         description="I am currently learning, shipping, and refining my taste through real projects. This page gives more context about how I work, what I focus on, and the tools I keep growing with."

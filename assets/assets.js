@@ -88,6 +88,43 @@ export const assets = {
 
 export const workData = [
     {
+        id: 'taskly',
+        title: 'Taskly',
+        description: 'Platform manajemen tim dan proyek cerdas bertenaga AI dengan Kanban board terintegrasi.',
+        tech: ['Next.js', 'React', 'Tailwind CSS', 'AI Integration'],
+        category: 'web app',
+        year: '2026',
+        role: 'Full-stack developer',
+        intro: 'An AI-powered task management platform designed to streamline team collaboration, Kanban workflows, and smart task delegation via natural language prompts.',
+        challenge: 'Mengintegrasikan kemampuan AI untuk delegasi dan otomatisasi tugas sambil menjaga alur kerja Kanban tetap cepat, intuitif, dan responsif.',
+        outcome: 'Menghadirkan pengalaman manajemen proyek modern di mana tim dapat mengorganisir tugas, memantau sprint, dan berkolaborasi lebih cepat dengan bantuan asisten AI cerdas.',
+        summaryStats: [
+            { label: 'Focus', value: 'AI Task Management' },
+            { label: 'Surface', value: 'Team workspace' },
+            { label: 'Role', value: 'Full-stack build' },
+        ],
+        caseStudy: {
+            problem: 'Manajemen tugas tradisional sering kali memakan waktu dalam pengorganisasian manual, pembuatan tiket berulang, dan delegasi pekerjaan antar anggota tim.',
+            approach: 'Merancang Taskly dengan antarmuka modern yang menggabungkan kemudahan drag-and-drop Kanban dengan kemampuan asisten AI untuk memproses perintah teks menjadi aksi tugas otomatis.',
+            highlights: [
+                'AI-powered task management & prompt-based task delegation',
+                'Papan Kanban interaktif dengan pembaruan status yang fleksibel',
+                'Antarmuka modern bertema gelap yang dioptimalkan untuk produktivitas tim',
+            ],
+            process: [
+                'Merancang arsitektur alur kerja antara prompt teks AI dan aksi papan Kanban',
+                'Membangun komponen modular dengan Next.js dan Tailwind CSS untuk performa optimal',
+                'Menguji dan menyempurnakan interaksi antarmuka agar cepat dan responsif',
+            ],
+            learnings: [
+                'Menggabungkan fitur AI dengan pola UI Kanban yang sudah familiar memberikan efisiensi kerja yang signifikan',
+                'Feedback visual dan kecepatan respon antarmuka adalah faktor kunci pada aplikasi produktivitas',
+            ],
+        },
+        bgImage: '/taskly.png',
+        link: "#",
+    },
+    {
         id: 'pengaduan-masyarakat',
         title: 'Pengaduan Masyarakat',
         description: 'Portal layanan warga dengan alur pelaporan dan tindak lanjut yang rapi.',
@@ -383,14 +420,7 @@ export const workData = [
         link: "https://youtube-clone-taupe-six.vercel.app/",
         bgImage: '/youtube.png',
     },
-]
-
-// export const serviceData = [
-//     { icon: assets.web_icon, title: 'Web design', description: 'Web development is the process of building, programming...', link: '' },
-//     { icon: assets.mobile_icon, title: 'Mobile app', description: 'Mobile app development involves creating software for mobile devices...', link: '' },
-//     { icon: assets.ui_icon, title: 'UI/UX design', description: 'UI/UX design focuses on creating a seamless user experience...', link: '' },
-//     { icon: assets.graphics_icon, title: 'Graphics design', description: 'Creative design solutions to enhance visual communication...', link: '' },
-// ]
+];
 
 export const infoList = [
     { icon: assets.code_icon, iconDark: assets.code_icon_dark, title: 'Stack', description: 'Next.js, React, Laravel, PHP, Tailwind CSS, Unity, and C# for interactive products.' },
@@ -433,7 +463,7 @@ export const experienceList = [
     {
         company: 'CV Teman Express',
         role: 'Backend Developer Intern',
-        period: 'Feb 2026 - Present',
+        period: 'Feb 2026 - July 2026',
         description: 'Working on backend development tasks and supporting application logic, data flow, and system functionality.',
     },
 ];

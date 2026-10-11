@@ -11,6 +11,7 @@ export default function ContactPage() {
   return (
     <SiteShell>
       <PageHero
+        translationKey="pages.contact"
         eyebrow="Contact"
         title="Let’s talk about what you want to build."
         description="Whether it is a portfolio refresh, a dashboard idea, or an interactive concept, I’m open to collaborative conversations and new opportunities."

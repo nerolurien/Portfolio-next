@@ -4,67 +4,70 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const Navbar = ({ isDarkMode, setIsDarkMode }) => {
+    const { language, toggleLanguage, t } = useLanguage();
     const [isScroll, setIsScroll] = useState(false);
-    const sideMenuRef = useRef();
-    const [stars, setStars] = useState([]);
-    const [clouds, setClouds] = useState([]);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
+
     const navItems = [
-        { label: "Home", href: "/" },
-        { label: "Projects", href: "/projects" },
-        { label: "About", href: "/about" },
-        { label: "Contact", href: "/contact" },
+        { label: t("nav.home"), href: "/" },
+        { label: t("nav.projects"), href: "/projects" },
+        { label: t("nav.about"), href: "/about" },
+        { label: t("nav.contact"), href: "/contact" },
     ];
 
     useEffect(() => {
-        setStars(
-            [...Array(6)].map(() => ({
-                top: Math.random() * 100,
-                left: Math.random() * 100,
-            }))
-        );
-        setClouds(
-            [...Array(3)].map((_, i) => ({
-                width: 10 + Math.random() * 20,
-                top: 2 + Math.random() * 6,
-                left: 10 + i * 20 + Math.random() * 10,
-            }))
-        );
-    }, []);
+        setIsMobileMenuOpen(false);
+    }, [pathname]);
 
-    const openMenu = () => {
-        sideMenuRef.current.style.transform = "translateX(-16rem)";
-    };
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [isMobileMenuOpen]);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (scrollY > 50) {
-                setIsScroll(true);
-            } else {
-                setIsScroll(false);
-            }
+            const shouldScroll = window.scrollY > 50;
+            setIsScroll((prev) => (prev !== shouldScroll ? shouldScroll : prev));
         };
 
-        window.addEventListener("scroll", handleScroll);
-
+        window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const closeMenu = () => {
-        sideMenuRef.current.style.transform = "translateX(16rem)";
-    };
+    const stars = [
+        { top: 20, left: 18, delay: 0, duration: 2.5 },
+        { top: 70, left: 24, delay: 0.8, duration: 3.2 },
+        { top: 35, left: 45, delay: 1.4, duration: 2.8 },
+        { top: 80, left: 60, delay: 0.4, duration: 3.0 },
+        { top: 25, left: 82, delay: 1.9, duration: 2.6 },
+        { top: 65, left: 88, delay: 1.1, duration: 3.4 },
+    ];
+
+    const clouds = [
+        { width: 22, top: 4, left: 14 },
+        { width: 28, top: 6, left: 44 },
+        { width: 20, top: 3, left: 76 },
+    ];
 
     return (
         <>
-            <div className="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden">
-                <Image src={assets.header_bg_color} alt="" className="w-full" />
+            <div className="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden pointer-events-none">
+                <Image src={assets.header_bg_color} alt="" className="w-full" priority />
             </div>
 
             <nav
-                className={`w-full fixed px-5 lg:px-0 xl:px-[8%] py-4 flex items-center justify-between z-50 ${isScroll
-                    ? "bg-white bg-opacity-50 backdrop-blur-lg shadow-sm dark:bg-darkTheme dark:shadow-white/20"
+                className={`w-full fixed px-5 lg:px-0 xl:px-[8%] py-4 flex items-center justify-between z-50 transition-all duration-300 ${isScroll
+                    ? "bg-white/80 backdrop-blur-xl shadow-sm dark:bg-[#09090b]/85 dark:border-b dark:border-white/10"
                     : ""
                     }`}
             >
@@ -73,13 +76,14 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                         src={isDarkMode ? assets.logo_dark : assets.logo}
                         alt="Website Logo"
                         className="w-28 cursor-pointer mr-14"
+                        priority
                     />
                 </Link>
 
                 <ul
                     className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ${isScroll
                         ? ""
-                        : "bg-white shadow-sm bg-opacity-50 dark border dark:border-white/50 dark:bg-transparent"
+                        : "bg-white/80 shadow-sm backdrop-blur-md border border-black/5 dark:border-white/10 dark:bg-white/5"
                         }`}
                 >
                     {navItems.map((item) => {
@@ -88,7 +92,11 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                         return (
                             <li key={item.href}>
                                 <Link
-                                    className={`font-ovo transition ${active ? "text-lime-600 dark:text-lime-300" : ""}`}
+                                    className={`font-ovo transition-colors duration-200 ${
+                                        active
+                                            ? "text-sky-600 dark:text-sky-400 font-semibold"
+                                            : "text-gray-700 dark:text-gray-300 hover:text-sky-600 dark:hover:text-sky-400"
+                                    }`}
                                     href={item.href}
                                 >
                                     {item.label}
@@ -98,18 +106,17 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                     })}
                 </ul>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                     <motion.button
                         onClick={() => setIsDarkMode((prev) => !prev)}
-                        className={`relative flex items-center justify-start w-20 h-10 rounded-full p-1 transition-all duration-500 shadow-lg ${isDarkMode
-                                ? "bg-gradient-to-r from-indigo-900 to-purple-900 border border-indigo-700"
+                        className={`relative flex items-center justify-start w-20 h-10 rounded-full p-1 transition-all duration-500 shadow-md ${isDarkMode
+                                ? "bg-gradient-to-r from-zinc-800 to-zinc-900 border border-zinc-700"
                                 : "bg-gradient-to-r from-amber-300 to-yellow-400 border border-amber-400"
                             }`}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.98 }}
                         aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
                     >
-
                         <div className="absolute inset-0 rounded-full overflow-hidden">
                             {isDarkMode && (
                                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0">
@@ -119,7 +126,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                                             className="absolute w-1 h-1 bg-white rounded-full"
                                             style={{ top: `${star.top}%`, left: `${star.left}%` }}
                                             animate={{ opacity: [0, 1, 0.5, 1, 0], scale: [0, 1, 0.8, 1, 0] }}
-                                            transition={{ duration: 2 + Math.random() * 3, repeat: Infinity, delay: Math.random() * 5 }}
+                                            transition={{ duration: star.duration, repeat: Infinity, delay: star.delay }}
                                         />
                                     ))}
                                 </motion.div>
@@ -131,9 +138,9 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                                         <motion.div
                                             key={`cloud-${i}`}
                                             className="absolute h-3 rounded-full bg-white/40"
-                                            style={{ width: cloud.width, top: cloud.top, left: cloud.left }}
+                                            style={{ width: `${cloud.width}px`, top: `${cloud.top}px`, left: `${cloud.left}%` }}
                                             animate={{ x: [0, 5, 0], opacity: [0.4, 0.6, 0.4] }}
-                                            transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, repeatType: "reverse" }}
+                                            transition={{ duration: 3.5 + i * 0.5, repeat: Infinity, repeatType: "reverse" }}
                                         />
                                     ))}
                                 </motion.div>
@@ -141,11 +148,12 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                         </div>
 
                         <motion.div
-                            className={`absolute z-10 w-8 h-8 rounded-full flex items-center justify-center ${isDarkMode ? "bg-gradient-to-br from-indigo-500 to-purple-600" : "bg-gradient-to-br from-yellow-300 to-amber-500"
-                                }`}
+                            className={`absolute z-10 w-8 h-8 rounded-full flex items-center justify-center ${
+                                isDarkMode ? "bg-gradient-to-br from-sky-400 to-blue-600" : "bg-gradient-to-br from-yellow-300 to-amber-500"
+                            }`}
                             animate={{
                                 x: isDarkMode ? 40 : 0,
-                                boxShadow: isDarkMode ? "0 0 15px 2px rgba(139, 92, 246, 0.7)" : "0 0 15px 2px rgba(251, 191, 36, 0.7)",
+                                boxShadow: isDarkMode ? "0 0 15px 2px rgba(56, 189, 248, 0.6)" : "0 0 15px 2px rgba(251, 191, 36, 0.7)",
                             }}
                             transition={{ type: "spring", stiffness: 400, damping: 25 }}
                         >
@@ -175,48 +183,174 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                         </motion.div>
                     </motion.button>
 
+                    <button
+                        onClick={toggleLanguage}
+                        type="button"
+                        aria-label={`Switch to ${language === "en" ? "Indonesian" : "English"}`}
+                        title="Toggle language"
+                        className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full border border-black/15 dark:border-white/20 bg-white/70 dark:bg-white/10 shadow-sm backdrop-blur transition hover:scale-105 active:scale-95"
+                    >
+                        <span className={language === "id" ? "font-bold text-sky-600 dark:text-sky-400" : "text-gray-400 dark:text-gray-400"}>
+                            ID
+                        </span>
+                        <span className="text-gray-300 dark:text-gray-600">/</span>
+                        <span className={language === "en" ? "font-bold text-sky-600 dark:text-sky-400" : "text-gray-400 dark:text-gray-400"}>
+                            EN
+                        </span>
+                    </button>
+
                     <Link
                         href="/contact"
-                        className="hidden lg:flex items-center gap-3 px-10 py-2.5 border border-gray-500 rounded-full ml-4 font-ovo dark:border-white/50"
+                        className="hidden lg:flex items-center gap-3 px-8 py-2.5 border border-gray-500 rounded-full font-ovo dark:border-white/50 transition hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:border-transparent duration-300"
                     >
-                        Contact
+                        {t("nav.contact")}
                         <Image
                             src={isDarkMode ? assets.arrow_icon_dark : assets.arrow_icon}
                             alt=""
                             className="w-3 cursor-pointer"
                         />
                     </Link>
-                    <button className="block md:hidden ml-3" onClick={openMenu} aria-label="open menu">
-                        <Image
-                            src={isDarkMode ? assets.menu_white : assets.menu_black}
-                            alt=""
-                            className="w-6"
+
+                    <button
+                        type="button"
+                        onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+                        className="relative md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 backdrop-blur-md shadow-sm transition hover:scale-105 active:scale-95 focus:outline-none"
+                        aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                        aria-expanded={isMobileMenuOpen}
+                    >
+                        <span
+                            className={`block h-0.5 w-4 rounded-full bg-gray-900 dark:bg-white transition-all duration-300 ease-out ${
+                                isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
+                            }`}
+                        />
+                        <span
+                            className={`block h-0.5 w-4 rounded-full bg-gray-900 dark:bg-white transition-all duration-300 ease-out my-1 ${
+                                isMobileMenuOpen ? "opacity-0 scale-0" : ""
+                            }`}
+                        />
+                        <span
+                            className={`block h-0.5 w-4 rounded-full bg-gray-900 dark:bg-white transition-all duration-300 ease-out ${
+                                isMobileMenuOpen ? "-rotate-45 -translate-y-1" : ""
+                            }`}
                         />
                     </button>
                 </div>
 
-                {/* MOBILE MENU */}
-                <ul
-                    ref={sideMenuRef}
-                    className="flex md:hidden flex-col gap-4 px-10 py-20 fixed
-            -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 dark:bg-darkhover transition duration-500 dark:text-white"
-                >
-                    <div className="absolute right-6 top-6" onClick={closeMenu}>
-                        <Image
-                            src={isDarkMode ? assets.close_white : assets.close_black}
-                            alt=""
-                            className="w-5 cursor-pointer"
-                        />
-                    </div>
+                <AnimatePresence>
+                    {isMobileMenuOpen && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.25 }}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+                                aria-hidden="true"
+                            />
 
-                    {navItems.map((item) => (
-                        <li key={item.href}>
-                            <Link className="font-ovo" onClick={closeMenu} href={item.href}>
-                                {item.label}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                            <motion.div
+                                initial={{ x: "100%" }}
+                                animate={{ x: 0 }}
+                                exit={{ x: "100%" }}
+                                transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                                className="fixed top-0 right-0 bottom-0 w-72 max-w-[85vw] h-screen z-50 bg-white/95 dark:bg-[#09090b]/95 backdrop-blur-2xl border-l border-black/10 dark:border-white/10 shadow-2xl flex flex-col justify-between p-6 md:hidden text-gray-900 dark:text-white"
+                            >
+                                <div>
+                                    <div className="flex items-center justify-between pb-6 border-b border-black/10 dark:border-white/10">
+                                        <Image
+                                            src={isDarkMode ? assets.logo_dark : assets.logo}
+                                            alt="Logo"
+                                            className="w-24"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                            aria-label="Close menu"
+                                            className="p-2 rounded-full border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition"
+                                        >
+                                            <Image
+                                                src={isDarkMode ? assets.close_white : assets.close_black}
+                                                alt=""
+                                                className="w-4 h-4"
+                                            />
+                                        </button>
+                                    </div>
+
+                                    <ul className="flex flex-col gap-2 mt-6">
+                                        {navItems.map((item) => {
+                                            const active = pathname === item.href;
+
+                                            return (
+                                                <li key={item.href}>
+                                                    <Link
+                                                        href={item.href}
+                                                        onClick={() => setIsMobileMenuOpen(false)}
+                                                        className={`flex items-center justify-between px-4 py-3 rounded-2xl text-base font-medium transition ${
+                                                            active
+                                                                ? "bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold"
+                                                                : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
+                                                        }`}
+                                                    >
+                                                        <span>{item.label}</span>
+                                                        {active && (
+                                                            <span className="w-2 h-2 rounded-full bg-sky-500 shadow-[0_0_8px_#38bdf8]" />
+                                                        )}
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </div>
+
+                                <div className="pt-6 border-t border-black/10 dark:border-white/10 space-y-4">
+                                    <div className="flex items-center justify-between px-2">
+                                        <span className="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold">
+                                            Bahasa / Language
+                                        </span>
+                                        <div className="inline-flex rounded-full p-1 border border-black/10 dark:border-white/15 bg-black/[0.03] dark:bg-white/5">
+                                            <button
+                                                type="button"
+                                                onClick={toggleLanguage}
+                                                className={`px-3 py-1 rounded-full text-xs font-semibold transition ${
+                                                    language === "id"
+                                                        ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
+                                                        : "text-gray-500 dark:text-gray-400"
+                                                }`}
+                                            >
+                                                ID
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={toggleLanguage}
+                                                className={`px-3 py-1 rounded-full text-xs font-semibold transition ${
+                                                    language === "en"
+                                                        ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
+                                                        : "text-gray-500 dark:text-gray-400"
+                                                }`}
+                                            >
+                                                EN
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <Link
+                                        href="/contact"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-black text-white dark:bg-white dark:text-black font-medium text-sm transition hover:opacity-90 shadow-sm"
+                                    >
+                                        <span>{t("nav.contact")}</span>
+                                        <Image
+                                            src={isDarkMode ? assets.arrow_icon : assets.arrow_icon_dark}
+                                            alt=""
+                                            className="w-3 invert dark:invert-0"
+                                        />
+                                    </Link>
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
             </nav>
         </>
     );

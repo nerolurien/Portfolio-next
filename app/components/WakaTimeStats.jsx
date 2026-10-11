@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const formatDate = (utcString) => {
     return new Date(utcString).toLocaleDateString("id-ID", {
@@ -23,6 +24,7 @@ const formatDailyAvg = (totalSeconds) => {
 };
 
 export default function WakaTimeStats() {
+    const { t } = useLanguage();
     const [stats, setStats] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -40,15 +42,14 @@ export default function WakaTimeStats() {
                 setIsLoading(false);
             })
             .catch((err) => {
-                console.error("Error fetching WakaTime data:", err);
-                setError(err.message);
+                setError(err.message || "Failed to load statistics");
                 setIsLoading(false);
             });
     }, []);
 
     if (isLoading) {
         return (
-            <div className="p-6 dark:bg-darkTheme text-white rounded-xl shadow-xlflex items-center justify-center min-h-56">
+            <div className="p-6 dark:bg-darkTheme text-white rounded-xl shadow-xl flex items-center justify-center min-h-56">
                 <div className="flex flex-col items-center gap-3">
                     <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-gray-300 font-medium">Loading coding stats...</p>
@@ -115,7 +116,7 @@ export default function WakaTimeStats() {
                         <h2 className="text-2xl font-bold flex items-center gap-2 pb-3">
                             <span className="text-blue-400">⏱️</span>
                             <span className="bg-clip-text text-transparent flex whitespace-nowrap bg-gradient-to-r from-blue-400 to-purple-400">
-                                Coding Stats
+                                {t("wakatime.title")}
                             </span>
                         </h2>
                         <div className="dark:bg-darkTheme dark:border-white/80 dark:hover:bg-darkhover hover:bg-lightHover cursor-default px-4 py-1.5 rounded-full text-sm font-medium dark:text-blue-300 text-blue-800 border border-gray-700 shadow-inner">
@@ -131,7 +132,7 @@ export default function WakaTimeStats() {
                                     : "dark:text-gray-400 dark:hover:text-gray-200 "
                                 }`}
                         >
-                            Overview
+                            {t("wakatime.overview")}
                         </button>
                         <button
                             onClick={() => setActiveTab("languages")}
@@ -140,7 +141,7 @@ export default function WakaTimeStats() {
                                     : "dark:text-gray-400 dark:hover:text-gray-200"
                                 }`}
                         >
-                            Languages
+                            {t("wakatime.languages")}
                         </button>
                     </div>
 
@@ -153,10 +154,10 @@ export default function WakaTimeStats() {
                                             <circle cx="12" cy="12" r="10" />
                                             <polyline points="12 6 12 12 16 14" />
                                         </svg>
-                                        Total Coding Time
+                                        {t("wakatime.totalTime")}
                                     </span>
                                     <span className="text-3xl font-bold dark:text-white text-black">{formatTime(stats.total_seconds)}</span>
-                                    <span className="text-xs dark:text-gray-500 dark:font-semibold text-black font-semibold mt-1">This week</span>
+                                    <span className="text-xs dark:text-gray-500 dark:font-semibold text-black font-semibold mt-1">{t("wakatime.thisWeek")}</span>
                                 </div>
 
                                 <div className="dark:bg-darkTheme dark:border-white/80 p-5 rounded-lg border border-gray-700 shadow-sm flex flex-col">
@@ -164,10 +165,10 @@ export default function WakaTimeStats() {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M12 20v-6M6 20V10M18 20V4" />
                                         </svg>
-                                        Daily Average
+                                        {t("wakatime.dailyAverage")}
                                     </span>
                                     <span className="text-3xl font-bold dark:text-white text-black">{formatDailyAvg(stats.daily_average)}</span>
-                                    <span className="text-xs dark:text-gray-500 dark:font-semibold mt-1">Per day</span>
+                                    <span className="text-xs dark:text-gray-500 dark:font-semibold mt-1">{t("wakatime.perDay")}</span>
                                 </div>
                             </div>
 
