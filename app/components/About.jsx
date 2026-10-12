@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "motion/react";
 import { useLanguage } from "@/app/context/LanguageContext";
+import GithubActivityGraph from "./GithubActivityGraph";
 
 const About = () => {
   const { language, t } = useLanguage();
@@ -167,6 +168,15 @@ const About = () => {
           </div>
         </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
+        <GithubActivityGraph />
+      </motion.div>
     </motion.section>
   );
 };

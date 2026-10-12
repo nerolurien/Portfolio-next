@@ -11,6 +11,7 @@ import SiteShell from "./components/SiteShell";
 
 const ToolsSection = dynamic(() => import("./components/tools-section"));
 const Work = dynamic(() => import("./components/Work"));
+const CreativeLab = dynamic(() => import("./components/CreativeLab"));
 const Contact = dynamic(() => import("./components/Contact"));
 
 export default function Home() {
@@ -42,6 +43,7 @@ export default function Home() {
           maxItems={6}
           showViewAll
         />
+        <CreativeLab />
         <Contact />
       </SiteShell>
       </ClickSpark>

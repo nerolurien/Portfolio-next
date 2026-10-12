@@ -12,9 +12,59 @@ const ovo = Ovo({
   subsets: ["latin"], weight: ["400"]
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafiddwiprakoso.vercel.app";
+
 export const metadata = {
-  title: "My Portfolio",
-  description: "New Portfolio use next.js",
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: "Rafid Dwi Prakoso — Web Developer & Creative Coder",
+    template: "%s | Rafid Dwi Prakoso",
+  },
+  description:
+    "Personal portfolio of Rafid Dwi Prakoso. Building thoughtful web products, operational dashboards, and interactive experiences with Next.js, Laravel, and Unity.",
+  keywords: [
+    "Rafid Dwi Prakoso",
+    "Portfolio",
+    "Full-Stack Developer",
+    "Web Developer",
+    "Game Developer",
+    "Next.js",
+    "React",
+    "Laravel",
+    "Unity",
+    "Creative Coder",
+    "Bogor",
+    "Indonesia",
+  ],
+  authors: [{ name: "Rafid Dwi Prakoso", url: baseUrl }],
+  creator: "Rafid Dwi Prakoso",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: baseUrl,
+    siteName: "Rafid Dwi Prakoso Portfolio",
+    title: "Rafid Dwi Prakoso — Web Developer & Creative Coder",
+    description:
+      "Building thoughtful web products, operational dashboards, and interactive experiences with Next.js, Laravel, and Unity.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rafid Dwi Prakoso — Web Developer & Creative Coder",
+    description:
+      "Building thoughtful web products, operational dashboards, and interactive experiences with Next.js, Laravel, and Unity.",
+    creator: "@rafiddwiprakoso",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 import { LanguageProvider } from "./context/LanguageContext";

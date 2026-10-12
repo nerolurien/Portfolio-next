@@ -5,12 +5,20 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/app/context/LanguageContext";
+import { openCommandPalette } from "./CommandPalette";
 
 const Navbar = ({ isDarkMode, setIsDarkMode }) => {
     const { language, toggleLanguage, t } = useLanguage();
     const [isScroll, setIsScroll] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [shortcutKey, setShortcutKey] = useState("Ctrl K");
     const pathname = usePathname();
+
+    useEffect(() => {
+        if (typeof navigator !== "undefined" && /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+            setShortcutKey("⌘K");
+        }
+    }, []);
 
     const navItems = [
         { label: t("nav.home"), href: "/" },
@@ -184,6 +192,21 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                     </motion.button>
 
                     <button
+                        onClick={openCommandPalette}
+                        type="button"
+                        aria-label="Open command palette"
+                        title={`Command Palette (${shortcutKey})`}
+                        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 text-xs font-medium rounded-full border border-black/15 dark:border-white/20 bg-white/70 dark:bg-white/10 shadow-sm backdrop-blur transition hover:scale-105 active:scale-95 text-gray-700 dark:text-gray-200"
+                    >
+                        <svg className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <span className="hidden sm:inline font-mono text-[10px] text-gray-500 dark:text-gray-400 px-1 py-0.5 rounded bg-black/5 dark:bg-white/10">
+                            {shortcutKey}
+                        </span>
+                    </button>
+
+                    <button
                         onClick={toggleLanguage}
                         type="button"
                         aria-label={`Switch to ${language === "en" ? "Indonesian" : "English"}`}
@@ -277,7 +300,26 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                                         </button>
                                     </div>
 
-                                    <ul className="flex flex-col gap-2 mt-6">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setIsMobileMenuOpen(false);
+                                            openCommandPalette();
+                                        }}
+                                        className="mt-4 flex items-center justify-between w-full px-4 py-2.5 rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/5 text-gray-700 dark:text-gray-300 text-xs font-medium transition hover:border-sky-500/50"
+                                    >
+                                        <span className="flex items-center gap-2.5">
+                                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                            {language === "id" ? "Cari perintah & proyek..." : "Search commands & projects..."}
+                                        </span>
+                                        <kbd className="px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 text-[10px] font-mono">
+                                            {shortcutKey}
+                                        </kbd>
+                                    </button>
+
+                                    <ul className="flex flex-col gap-2 mt-4">
                                         {navItems.map((item) => {
                                             const active = pathname === item.href;
 
