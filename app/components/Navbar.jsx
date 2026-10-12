@@ -24,7 +24,6 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         { label: t("nav.home"), href: "/" },
         { label: t("nav.projects"), href: "/projects" },
         { label: t("nav.about"), href: "/about" },
-        { label: t("nav.contact"), href: "/contact" },
     ];
 
     useEffect(() => {

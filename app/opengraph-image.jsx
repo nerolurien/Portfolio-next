@@ -115,23 +115,50 @@ export default async function Image() {
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
-          {["Next.js", "React", "Laravel", "Tailwind CSS", "Unity", "C#", "Go"].map((tech) => (
-            <div
-              key={tech}
-              style={{
-                padding: "8px 18px",
-                borderRadius: "12px",
-                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                color: "#f1f5f9",
-                fontSize: "18px",
-                fontWeight: 500,
-              }}
-            >
-              {tech}
-            </div>
-          ))}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
+            {["Next.js", "React", "Laravel", "Tailwind CSS", "Unity", "Go"].map((tech) => (
+              <div
+                key={tech}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: "12px",
+                  backgroundColor: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  color: "#f1f5f9",
+                  fontSize: "17px",
+                  fontWeight: 500,
+                }}
+              >
+                {tech}
+              </div>
+            ))}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "12px 26px",
+              borderRadius: "9999px",
+              backgroundColor: "#ffffff",
+              color: "#09090b",
+              fontSize: "19px",
+              fontWeight: 700,
+              boxShadow: "0 0 25px rgba(255, 255, 255, 0.25)",
+            }}
+          >
+            <span>Explore Portfolio</span>
+            <span style={{ fontSize: "20px" }}>→</span>
+          </div>
         </div>
       </div>
     ),

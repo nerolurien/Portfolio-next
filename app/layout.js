@@ -65,6 +65,9 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: "aOLUOLf-UyAsjuMhWdQAWM4xOHrVs3xc0siw3qJJAHQ",
+  },
 };
 
 import { LanguageProvider } from "./context/LanguageContext";
