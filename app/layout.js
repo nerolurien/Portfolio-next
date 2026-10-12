@@ -12,7 +12,7 @@ const ovo = Ovo({
   subsets: ["latin"], weight: ["400"]
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafiddwiprakoso.vercel.app";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.app/";
 
 export const metadata = {
   metadataBase: new URL(baseUrl),

@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafiddwiprakoso.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.app/";
 
   return {
     rules: {
