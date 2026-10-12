@@ -1,6 +1,7 @@
 import { assets } from '@/assets/assets'
 import Image from 'next/image'
 import React from 'react'
+import SpotifyCurrentlyPlaying from './SpotifyCurrentlyPlaying'
 
 const Footer = ({isDarkMode}) => {
   return (
@@ -11,6 +12,10 @@ const Footer = ({isDarkMode}) => {
         <div className='w-max flex items-center gap-2 mx-auto'>
             <Image src={isDarkMode ? assets.mail_icon_dark : assets.mail_icon} alt='' className='w-6' />
             rafiddwiprakoso@gmail.com
+        </div>
+
+        <div className="max-w-md mx-auto px-6 mt-6">
+          <SpotifyCurrentlyPlaying />
         </div>
       </div>
 
