@@ -35,7 +35,7 @@ const translations = {
       title: "About Me",
       desc: "I enjoy turning ideas into polished experiences, from useful dashboards to interactive projects with a bit of personality. The part I care about most is making something feel both capable and pleasant to use.",
       stackTitle: "Stack",
-      stackDesc: "Next.js, React, Laravel, PHP, Tailwind CSS, Unity, and C# for interactive products.",
+      stackDesc: "Next.js, React, Laravel, PHP, Tailwind CSS, Unity, GO, Java and C# for interactive products.",
       learningTitle: "Learning Path",
       learningDesc: "PPLG student at SMK Wikrama Bogor, building real products while sharpening engineering fundamentals.",
       projectFocusTitle: "Project Focus",
