@@ -17,6 +17,16 @@ const words = [
 
 export default function FullscreenLoader({ onComplete }) {
   const [index, setIndex] = useState(0);
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isLight =
+        localStorage.theme === "light" ||
+        !document.documentElement.classList.contains("dark");
+      setIsDark(!isLight);
+    }
+  }, []);
 
   useEffect(() => {
     if (index === words.length - 1) {
@@ -44,12 +54,24 @@ export default function FullscreenLoader({ onComplete }) {
           ease: [0.76, 0, 0.24, 1],
         },
       }}
-      className="fixed inset-0 z-[9999] flex flex-col justify-between bg-[#0b0b0c] text-[#ece8df] px-6 py-8 sm:px-12 sm:py-10 border-b border-zinc-800"
+      className={`fixed inset-0 z-[9999] flex flex-col justify-between px-6 py-8 sm:px-12 sm:py-10 border-b transition-colors duration-200 ${
+        isDark
+          ? "bg-[#0b0b0c] text-[#ece8df] border-zinc-800"
+          : "bg-[#f6f4ef] text-stone-900 border-stone-300"
+      }`}
     >
-      <div className="flex items-center justify-between border-b border-zinc-800/90 pb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+      <div
+        className={`flex items-center justify-between pb-4 font-mono text-[11px] uppercase tracking-[0.2em] border-b ${
+          isDark
+            ? "border-zinc-800/90 text-zinc-500"
+            : "border-stone-300/80 text-stone-500"
+        }`}
+      >
         <div className="flex items-center gap-2.5">
           <span className="h-2 w-2 bg-amber-500" />
-          <span>Rafid Dwi Prakoso</span>
+          <span className={isDark ? "text-zinc-300" : "text-stone-800"}>
+            Rafid Dwi Prakoso
+          </span>
         </div>
         <span>
           0{index + 1} / 0{words.length}
@@ -67,15 +89,25 @@ export default function FullscreenLoader({ onComplete }) {
             className="inline-flex items-center justify-center gap-4 select-none text-center"
           >
             <span className="h-2.5 w-2.5 bg-amber-500 shrink-0" />
-            <span className="font-display italic text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#ece8df] whitespace-nowrap">
+            <span
+              className={`font-display italic text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight whitespace-nowrap ${
+                isDark ? "text-[#ece8df]" : "text-stone-900"
+              }`}
+            >
               {words[index]}
             </span>
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <div className="border-t border-zinc-800/90 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+      <div
+        className={`pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t ${
+          isDark
+            ? "border-zinc-800/90 text-zinc-500"
+            : "border-stone-300/80 text-stone-500"
+        }`}
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em]">
           Portfolio 2026
         </span>
 
@@ -88,7 +120,9 @@ export default function FullscreenLoader({ onComplete }) {
                   ? "w-6 bg-amber-500"
                   : i < index
                   ? "w-2 bg-amber-500/40"
-                  : "w-2 bg-zinc-800"
+                  : isDark
+                  ? "w-2 bg-zinc-800"
+                  : "w-2 bg-stone-300"
               }`}
             />
           ))}

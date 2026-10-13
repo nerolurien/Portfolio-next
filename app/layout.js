@@ -90,8 +90,27 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${fraunces.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} scroll-smooth dark`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (theme === 'light') {
+                    document.documentElement.classList.remove('dark');
+                  } else if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="font-sans antialiased leading-relaxed overflow-x-hidden bg-[#f6f4ef] text-[#141413] dark:bg-[#0b0b0c] dark:text-[#ece8df] selection:bg-amber-500/30 selection:text-amber-200">
         <LanguageProvider>
           <TopProgressBar />
