@@ -105,12 +105,12 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                     type="button"
                     aria-label="Open command palette"
                     title={`Search (${shortcutKey})`}
-                    className="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 text-xs font-mono border border-stone-300 dark:border-zinc-800 bg-[#efece4]/80 dark:bg-[#111113] text-zinc-700 dark:text-zinc-300 hover:border-amber-500/50 transition-colors"
+                    className="hidden sm:flex items-center gap-2 px-2.5 sm:px-3 py-1.5 text-xs font-mono border border-stone-300 dark:border-zinc-800 bg-[#efece4]/80 dark:bg-[#111113] text-zinc-700 dark:text-zinc-300 hover:border-amber-500/50 transition-colors"
                 >
                     <svg className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    <span className="hidden sm:inline text-[10px] tracking-wider text-zinc-500 dark:text-zinc-400">
+                    <span className="text-[10px] tracking-wider text-zinc-500 dark:text-zinc-400">
                         {shortcutKey}
                     </span>
                 </button>
@@ -163,158 +163,144 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
                 <button
                     type="button"
-                    onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+                    onClick={() => setIsMobileMenuOpen(true)}
                     className="relative md:hidden flex flex-col justify-center items-center w-8 h-8 border border-stone-300 dark:border-zinc-800 bg-[#efece4]/80 dark:bg-[#111113] focus:outline-none"
-                    aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-                    aria-expanded={isMobileMenuOpen}
+                    aria-label="Open menu"
                 >
-                    <span
-                        className={`block h-0.5 w-3.5 bg-zinc-900 dark:bg-[#ece8df] transition-all duration-300 ${
-                            isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
-                        }`}
-                    />
-                    <span
-                        className={`block h-0.5 w-3.5 bg-zinc-900 dark:bg-[#ece8df] transition-all duration-300 my-0.5 ${
-                            isMobileMenuOpen ? "opacity-0" : ""
-                        }`}
-                    />
-                    <span
-                        className={`block h-0.5 w-3.5 bg-zinc-900 dark:bg-[#ece8df] transition-all duration-300 ${
-                            isMobileMenuOpen ? "-rotate-45 -translate-y-1" : ""
-                        }`}
-                    />
+                    <span className="block h-0.5 w-3.5 bg-zinc-900 dark:bg-[#ece8df]" />
+                    <span className="block h-0.5 w-3.5 bg-zinc-900 dark:bg-[#ece8df] my-1" />
+                    <span className="block h-0.5 w-3.5 bg-zinc-900 dark:bg-[#ece8df]" />
                 </button>
             </div>
 
             <AnimatePresence>
                 {isMobileMenuOpen && (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 md:hidden"
-                            aria-hidden="true"
-                        />
-
-                        <motion.div
-                            initial={{ x: "100%" }}
-                            animate={{ x: 0 }}
-                            exit={{ x: "100%" }}
-                            transition={{ type: "tween", duration: 0.25 }}
-                            className="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] h-[100dvh] max-h-[100dvh] z-50 bg-[#f6f4ef] dark:bg-[#0b0b0c] border-l border-stone-300 dark:border-zinc-800 flex flex-col justify-between p-6 pb-10 overflow-y-auto overscroll-contain md:hidden text-zinc-900 dark:text-[#ece8df] shadow-2xl"
-                        >
-                            <div>
-                                <div className="flex items-center justify-between pb-5 border-b border-stone-300 dark:border-zinc-800">
-                                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-                                        Menu
-                                    </span>
-                                    <button
-                                        type="button"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        aria-label="Close menu"
-                                        className="p-1.5 border border-stone-300 dark:border-zinc-800 hover:border-amber-500/50 transition"
-                                    >
-                                        <Image
-                                            src={isDarkMode ? assets.close_white : assets.close_black}
-                                            alt=""
-                                            className="w-3.5 h-3.5"
-                                        />
-                                    </button>
-                                </div>
+                    <motion.div
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 w-full h-[100dvh] max-h-[100dvh] z-50 bg-[#f6f4ef] dark:bg-[#0b0b0c] flex flex-col justify-between p-6 sm:p-8 overflow-y-auto overscroll-contain md:hidden text-zinc-900 dark:text-[#ece8df]"
+                    >
+                        <div>
+                            <div className="flex items-center justify-between pb-5 border-b border-stone-300 dark:border-zinc-800">
+                                <Link
+                                    href="/"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="flex items-center gap-3"
+                                >
+                                    <Image
+                                        src={isDarkMode ? assets.logo_dark : assets.logo}
+                                        alt="Rafid Dwi Prakoso"
+                                        className="w-24 cursor-pointer"
+                                    />
+                                </Link>
 
                                 <button
                                     type="button"
-                                    onClick={() => {
-                                        setIsMobileMenuOpen(false);
-                                        openCommandPalette();
-                                    }}
-                                    className="mt-5 flex items-center justify-between w-full px-3.5 py-2.5 border border-stone-300 dark:border-zinc-800 bg-[#efece4]/70 dark:bg-[#111113] text-zinc-700 dark:text-zinc-300 text-xs font-mono transition hover:border-amber-500/50"
-                                >
-                                    <span className="flex items-center gap-2">
-                                        <svg className="w-3.5 h-3.5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                        </svg>
-                                        {language === "id" ? "Cari..." : "Search..."}
-                                    </span>
-                                    <kbd className="px-1.5 py-0.5 border border-stone-300 dark:border-zinc-700 text-[10px] font-mono">
-                                        {shortcutKey}
-                                    </kbd>
-                                </button>
-
-                                <ul className="flex flex-col divide-y divide-stone-300/70 dark:divide-zinc-800/80 mt-5 border-y border-stone-300/70 dark:border-zinc-800/80">
-                                    {mobileNavItems.map((item) => {
-                                        const active = pathname === item.href;
-
-                                        return (
-                                            <li key={item.href}>
-                                                <Link
-                                                    href={item.href}
-                                                    onClick={() => setIsMobileMenuOpen(false)}
-                                                    className={`flex items-center justify-between py-3.5 font-mono text-xs uppercase tracking-[0.16em] transition ${
-                                                        active
-                                                            ? "text-amber-700 dark:text-amber-400 font-semibold"
-                                                            : "text-zinc-700 dark:text-zinc-300"
-                                                    }`}
-                                                >
-                                                    <span>
-                                                        <span className="text-zinc-400 dark:text-zinc-600 mr-2">{item.code}/</span>
-                                                        {item.label}
-                                                    </span>
-                                                    {active && (
-                                                        <span className="w-1.5 h-1.5 bg-amber-500" />
-                                                    )}
-                                                </Link>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-
-                            <div className="pt-5 mt-6 border-t border-stone-300 dark:border-zinc-800 space-y-4 shrink-0">
-                                <div className="flex items-center justify-between">
-                                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-                                        {language === "id" ? "Bahasa" : "Language"}
-                                    </span>
-                                    <div className="inline-flex border border-stone-300 dark:border-zinc-800">
-                                        <button
-                                            type="button"
-                                            onClick={toggleLanguage}
-                                            className={`px-3 py-1 font-mono text-xs transition ${
-                                                language === "id"
-                                                    ? "bg-zinc-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c]"
-                                                    : "text-zinc-500"
-                                            }`}
-                                        >
-                                            ID
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={toggleLanguage}
-                                            className={`px-3 py-1 font-mono text-xs transition ${
-                                                language === "en"
-                                                    ? "bg-zinc-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c]"
-                                                    : "text-zinc-500"
-                                            }`}
-                                        >
-                                            EN
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <Link
-                                    href="/contact"
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="flex items-center justify-center gap-2 w-full py-3 bg-zinc-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c] font-mono text-xs uppercase tracking-[0.18em] transition hover:bg-amber-600 dark:hover:bg-amber-400"
+                                    aria-label="Close menu"
+                                    className="p-2 border border-stone-300 dark:border-zinc-800 hover:border-amber-500/50 transition"
                                 >
-                                    <span>{t("nav.contact")}</span>
-                                    <span>↗</span>
-                                </Link>
+                                    <Image
+                                        src={isDarkMode ? assets.close_white : assets.close_black}
+                                        alt=""
+                                        className="w-4 h-4"
+                                    />
+                                </button>
                             </div>
-                        </motion.div>
-                    </>
+
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    openCommandPalette();
+                                }}
+                                className="mt-5 flex items-center justify-between w-full px-4 py-3 border border-stone-300 dark:border-zinc-800 bg-[#efece4]/70 dark:bg-[#111113] text-zinc-700 dark:text-zinc-300 text-xs font-mono transition hover:border-amber-500/50"
+                            >
+                                <span className="flex items-center gap-2.5">
+                                    <svg className="w-4 h-4 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                    {language === "id" ? "Cari perintah & proyek..." : "Search commands & projects..."}
+                                </span>
+                                <kbd className="px-1.5 py-0.5 border border-stone-300 dark:border-zinc-700 text-[10px] font-mono">
+                                    {shortcutKey}
+                                </kbd>
+                            </button>
+
+                            <ul className="flex flex-col divide-y divide-stone-300/70 dark:divide-zinc-800/80 mt-5 border-y border-stone-300/70 dark:border-zinc-800/80">
+                                {mobileNavItems.map((item) => {
+                                    const active = pathname === item.href;
+
+                                    return (
+                                        <li key={item.href}>
+                                            <Link
+                                                href={item.href}
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                                className={`flex items-center justify-between py-4 font-mono text-xs uppercase tracking-[0.16em] transition ${
+                                                    active
+                                                        ? "text-amber-700 dark:text-amber-400 font-semibold"
+                                                        : "text-zinc-700 dark:text-zinc-300"
+                                                }`}
+                                            >
+                                                <span>
+                                                    <span className="text-zinc-400 dark:text-zinc-600 mr-2">{item.code}/</span>
+                                                    {item.label}
+                                                </span>
+                                                {active ? (
+                                                    <span className="w-1.5 h-1.5 bg-amber-500" />
+                                                ) : (
+                                                    <span className="text-zinc-400 dark:text-zinc-600 text-xs">→</span>
+                                                )}
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+
+                        <div className="pt-6 mt-6 pb-4 border-t border-stone-300 dark:border-zinc-800 space-y-4 shrink-0">
+                            <div className="flex items-center justify-between">
+                                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                                    {language === "id" ? "Bahasa" : "Language"}
+                                </span>
+                                <div className="inline-flex border border-stone-300 dark:border-zinc-800">
+                                    <button
+                                        type="button"
+                                        onClick={toggleLanguage}
+                                        className={`px-3 py-1 font-mono text-xs transition ${
+                                            language === "id"
+                                                ? "bg-zinc-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c]"
+                                                : "text-zinc-500"
+                                        }`}
+                                    >
+                                        ID
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={toggleLanguage}
+                                        className={`px-3 py-1 font-mono text-xs transition ${
+                                            language === "en"
+                                                ? "bg-zinc-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c]"
+                                                : "text-zinc-500"
+                                        }`}
+                                    >
+                                        EN
+                                    </button>
+                                </div>
+                            </div>
+
+                            <Link
+                                href="/contact"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="flex items-center justify-center gap-2 w-full py-3 bg-zinc-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c] font-mono text-xs uppercase tracking-[0.18em] transition hover:bg-amber-600 dark:hover:bg-amber-400"
+                            >
+                                <span>{t("nav.contact")}</span>
+                                <span>↗</span>
+                            </Link>
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </nav>
