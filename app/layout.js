@@ -25,6 +25,12 @@ const jetbrainsMono = JetBrains_Mono({
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.app/";
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata = {
   metadataBase: new URL(baseUrl),
   title: {

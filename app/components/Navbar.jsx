@@ -26,6 +26,11 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         { code: "03", label: t("nav.about"), href: "/about" },
     ];
 
+    const mobileNavItems = [
+        ...navItems,
+        { code: "04", label: t("nav.contact"), href: "/contact" },
+    ];
+
     useEffect(() => {
         setIsMobileMenuOpen(false);
     }, [pathname]);
@@ -199,7 +204,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                             animate={{ x: 0 }}
                             exit={{ x: "100%" }}
                             transition={{ type: "tween", duration: 0.25 }}
-                            className="fixed top-0 right-0 bottom-0 w-72 max-w-[85vw] h-screen z-50 bg-[#f6f4ef] dark:bg-[#0b0b0c] border-l border-stone-300 dark:border-zinc-800 flex flex-col justify-between p-6 md:hidden text-zinc-900 dark:text-[#ece8df]"
+                            className="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] h-[100dvh] max-h-[100dvh] z-50 bg-[#f6f4ef] dark:bg-[#0b0b0c] border-l border-stone-300 dark:border-zinc-800 flex flex-col justify-between p-6 pb-10 overflow-y-auto overscroll-contain md:hidden text-zinc-900 dark:text-[#ece8df] shadow-2xl"
                         >
                             <div>
                                 <div className="flex items-center justify-between pb-5 border-b border-stone-300 dark:border-zinc-800">
@@ -240,7 +245,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                                 </button>
 
                                 <ul className="flex flex-col divide-y divide-stone-300/70 dark:divide-zinc-800/80 mt-5 border-y border-stone-300/70 dark:border-zinc-800/80">
-                                    {navItems.map((item) => {
+                                    {mobileNavItems.map((item) => {
                                         const active = pathname === item.href;
 
                                         return (
@@ -268,7 +273,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                                 </ul>
                             </div>
 
-                            <div className="pt-5 border-t border-stone-300 dark:border-zinc-800 space-y-4">
+                            <div className="pt-5 mt-6 border-t border-stone-300 dark:border-zinc-800 space-y-4 shrink-0">
                                 <div className="flex items-center justify-between">
                                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
                                         {language === "id" ? "Bahasa" : "Language"}
