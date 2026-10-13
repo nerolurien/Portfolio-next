@@ -5,7 +5,7 @@ import ToolsSection from "../components/tools-section";
 
 export const metadata = {
   title: "About | Rafid Dwi Prakoso",
-  description: "Background, focus, tools, and current development journey of Rafid Dwi Prakoso.",
+  description: "Background, internships, education, and tech stack of Rafid Dwi Prakoso.",
 };
 
 export default function AboutPage() {
@@ -13,10 +13,10 @@ export default function AboutPage() {
     <SiteShell>
       <PageHero
         translationKey="pages.about"
-        eyebrow="About"
-        title="A builder who likes clean interfaces and lively interactions."
-        description="I am currently learning, shipping, and refining my taste through real projects. This page gives more context about how I work, what I focus on, and the tools I keep growing with."
-        ctaLabel="See projects"
+        eyebrow="About Me"
+        title="More about my background and experience."
+        description="A closer look at what I study, where I've interned, and the tools I use day to day."
+        ctaLabel="See my projects"
         ctaHref="/projects"
       />
       <About />

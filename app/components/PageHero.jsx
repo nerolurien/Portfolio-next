@@ -19,28 +19,26 @@ export default function PageHero({
   const finalCta = translationKey ? t(`${translationKey}.cta`) : ctaLabel;
 
   return (
-    <section className="mx-auto w-full max-w-7xl px-6 pb-6 pt-28 sm:px-10 lg:px-16">
-      <div className="relative overflow-hidden rounded-[2rem] border border-black/10 bg-white/75 px-6 py-10 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5 md:px-10 md:py-14">
-        <div className="absolute left-0 top-0 h-40 w-40 rounded-full bg-sky-400/15 blur-3xl dark:bg-sky-500/10 pointer-events-none" />
-        <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-sky-300/20 blur-3xl dark:bg-sky-300/10 pointer-events-none" />
-
-        <div className="relative max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-sky-600 dark:text-sky-400">
+    <section className="mx-auto w-full max-w-7xl px-6 pb-8 pt-28 sm:px-10 lg:px-16">
+      <div className="border border-stone-300/90 bg-[#efece4]/70 px-6 py-10 dark:border-zinc-800 dark:bg-[#111113] md:px-10 md:py-14">
+        <div className="max-w-3xl">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-amber-700 dark:text-amber-400">
             {finalEyebrow}
           </p>
-          <h1 className="mt-4 text-balance text-4xl font-semibold leading-tight sm:text-5xl">
+          <h1 className="mt-4 font-display text-4xl font-normal leading-tight text-stone-900 dark:text-[#ece8df] sm:text-5xl">
             {finalTitle}
           </h1>
-          <p className="mt-5 max-w-2xl text-balance text-base leading-7 text-gray-600 dark:text-gray-300">
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-stone-600 dark:text-zinc-300">
             {finalDesc}
           </p>
 
           {finalCta && ctaHref ? (
             <Link
               href={ctaHref}
-              className="mt-8 inline-flex items-center rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:hover:text-black"
+              className="mt-8 inline-flex items-center gap-2.5 bg-stone-900 px-6 py-3 font-mono text-xs font-semibold uppercase tracking-wider text-[#f6f4ef] transition hover:bg-amber-600 dark:bg-[#ece8df] dark:text-[#0b0b0c] dark:hover:bg-amber-400"
             >
-              {finalCta}
+              <span>{finalCta}</span>
+              <span>→</span>
             </Link>
           ) : null}
         </div>

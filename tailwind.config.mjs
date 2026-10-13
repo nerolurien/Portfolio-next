@@ -8,32 +8,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        lightHover: '#fcf4ff',
-        darkhover: '#18181b',
-        darkTheme: '#09090b',
+        lightHover: '#efece4',
+        darkhover: '#151518',
+        darkTheme: '#0b0b0c',
+        cream: '#ece8df',
+        charcoal: '#111113',
       },
       fontFamily: {
-        outfit: ["Outfit", "sans-serif"],
-        ovo: ["Ovo", "serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        serif: ["var(--font-display)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
+        outfit: ["var(--font-sans)", "sans-serif"],
+        ovo: ["var(--font-display)", "serif"],
       },
       boxShadow: {
-        'black': '4px 4px 0 #000',
-        'white': '4px 4px 0 #fff',
-      },
-      keyframes: {
-        gradient: {
-          '0%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-          '100%': { backgroundPosition: '0% 50%' },
-        },
-      },
-      animation: {
-        gradient: 'gradient 8s linear infinite',
+        'black': '4px 4px 0 #141413',
+        'white': '4px 4px 0 #ece8df',
       },
     },
   },
   darkMode: "selector",
   plugins: [],
 };
+
 
 

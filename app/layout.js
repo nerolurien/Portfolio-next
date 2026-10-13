@@ -1,15 +1,26 @@
-import { Outfit, Ovo } from "next/font/google";
+import { Fraunces, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ScrollToTop from "./components/ScrollToTop";
+import { LanguageProvider } from "./context/LanguageContext";
+import TopProgressBar from "./components/TopProgressBar";
 
-const outfit = Outfit({
-  variable: "--font-geist-sans",
-  subsets: ["latin"], weight: ["400", "500", "600", "700"]
+const fraunces = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const ovo = Ovo({
-  variable: "--font-geist-mono",
-  subsets: ["latin"], weight: ["400"]
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.app/";
@@ -17,22 +28,27 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.
 export const metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Rafid Dwi Prakoso — Web Developer & Creative Coder",
+    default: "Rafid Dwi Prakoso | Full-Stack & Game Developer",
     template: "%s | Rafid Dwi Prakoso",
   },
   description:
-    "Personal portfolio of Rafid Dwi Prakoso. Building thoughtful web products, operational dashboards, and interactive experiences with Next.js, Laravel, and Unity.",
+    "Portfolio of Rafid Dwi Prakoso, a software and game developer from Bogor building web apps with Next.js, Laravel, Go, and games in Unity.",
   keywords: [
     "Rafid Dwi Prakoso",
-    "Portfolio",
     "Full-Stack Developer",
     "Web Developer",
+    "Backend Developer",
     "Game Developer",
     "Next.js",
     "React",
+    "Vue",
     "Laravel",
+    "CodeIgniter",
+    "AdonisJS",
+    "Go",
+    "Java",
+    "Docker",
     "Unity",
-    "Creative Coder",
     "Bogor",
     "Indonesia",
   ],
@@ -43,15 +59,15 @@ export const metadata = {
     locale: "en_US",
     url: baseUrl,
     siteName: "Rafid Dwi Prakoso Portfolio",
-    title: "Rafid Dwi Prakoso — Web Developer & Creative Coder",
+    title: "Rafid Dwi Prakoso | Full-Stack & Game Developer",
     description:
-      "Building thoughtful web products, operational dashboards, and interactive experiences with Next.js, Laravel, and Unity.",
+      "Software and game developer from Bogor building web apps with Next.js, Laravel, Go, and games in Unity.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rafid Dwi Prakoso — Web Developer & Creative Coder",
+    title: "Rafid Dwi Prakoso | Full-Stack & Game Developer",
     description:
-      "Building thoughtful web products, operational dashboards, and interactive experiences with Next.js, Laravel, and Unity.",
+      "Software and game developer from Bogor building web apps with Next.js, Laravel, Go, and games in Unity.",
     creator: "@rafiddwiprakoso",
   },
   robots: {
@@ -70,16 +86,13 @@ export const metadata = {
   },
 };
 
-import { LanguageProvider } from "./context/LanguageContext";
-import TopProgressBar from "./components/TopProgressBar";
-
 export default function RootLayout({ children }) {
-  
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${outfit.className} ${ovo.className} antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
-      >
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} scroll-smooth dark`}
+    >
+      <body className="font-sans antialiased leading-relaxed overflow-x-hidden bg-[#f6f4ef] text-[#141413] dark:bg-[#0b0b0c] dark:text-[#ece8df] selection:bg-amber-500/30 selection:text-amber-200">
         <LanguageProvider>
           <TopProgressBar />
           {children}

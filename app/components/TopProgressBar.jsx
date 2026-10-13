@@ -34,9 +34,9 @@ export default function TopProgressBar() {
   if (!loading && progress === 0) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[99999] h-[3px] pointer-events-none">
+    <div className="fixed top-0 left-0 right-0 z-[99999] h-[2px] pointer-events-none">
       <div
-        className="h-full bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-400 shadow-[0_0_12px_#38bdf8] transition-all duration-200 ease-out"
+        className="h-full bg-gradient-to-r from-amber-600 via-amber-500 to-amber-300 shadow-[0_0_8px_rgba(245,158,11,0.5)] transition-all duration-200 ease-out"
         style={{
           width: `${progress}%`,
           opacity: progress === 100 ? 0 : 1,

@@ -29,7 +29,7 @@ export default function Home() {
       </AnimatePresence>
 
       <ClickSpark
-        sparkColor="#fff"
+        sparkColor="#f59e0b"
         sparkSize={10}
         sparkRadius={15}
         sparkCount={8}

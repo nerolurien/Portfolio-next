@@ -19,11 +19,7 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
   const [history, setHistory] = useState([
     {
       type: "system",
-      text: "RafidOS Interactive Terminal v2.4.0 (x86_64-portfolio)",
-    },
-    {
-      type: "system",
-      text: "Type 'help' to view available commands or 'neofetch' for system specs.",
+      text: "rafid@portfolio ~ % type 'help' to see available commands.",
     },
   ]);
   const [commandHistory, setCommandHistory] = useState([]);
@@ -38,7 +34,6 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Toggle terminal on Ctrl + ` (backtick/tilde)
       if (e.ctrlKey && (e.key === "`" || e.key === "~")) {
         e.preventDefault();
         setIsOpen((prev) => !prev);
@@ -104,23 +99,41 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
         case "help":
           newHistory.push({
             type: "output",
-            text: [
-              "Available Commands:",
-              "  help          - Display this help message",
-              "  whoami        - About Rafid Dwi Prakoso",
-              "  skills        - Technical stack and core proficiencies",
-              "  projects      - List all featured projects & case studies",
-              "  open <slug>   - Navigate to a project (e.g., 'open taskly')",
-              "  lab           - Scroll to Interactive Canvas Physics Lab",
-              "  contact       - Contact details & social profiles",
-              "  music         - Live Spotify playback status",
-              "  theme [mode]  - Toggle theme ('theme dark', 'theme light', or 'theme')",
-              "  neofetch      - Display developer system info",
-              "  hire          - Why you should collaborate / hire me",
-              "  date          - Show current local timestamp",
-              "  clear         - Clear terminal window",
-              "  exit          - Close this terminal drawer",
-            ].join("\n"),
+            text: isId
+              ? [
+                  "Daftar Perintah:",
+                  "  help          - Tampilkan daftar perintah ini",
+                  "  whoami        - Profil singkat saya",
+                  "  skills        - Bahasa & framework yang saya pakai",
+                  "  projects      - Daftar semua proyek",
+                  "  open <slug>   - Buka halaman detail proyek (contoh: 'open taskly')",
+                  "  lab           - Lompat ke eksperimen kanvas 2D",
+                  "  contact       - Email & tautan sosial media",
+                  "  music         - Cek lagu yang sedang diputar di Spotify",
+                  "  theme [mode]  - Ganti tema ('theme dark' atau 'theme light')",
+                  "  neofetch      - Info ringkas sistem portofolio",
+                  "  hire          - Kirim email langsung ke saya",
+                  "  date          - Waktu saat ini",
+                  "  clear         - Bersihkan layar terminal",
+                  "  exit          - Tutup terminal",
+                ].join("\n")
+              : [
+                  "Commands:",
+                  "  help          - Show this list",
+                  "  whoami        - Short bio",
+                  "  skills        - Tech stack",
+                  "  projects      - List all projects",
+                  "  open <slug>   - Open a project page (e.g. 'open taskly')",
+                  "  lab           - Go to 2D Canvas playground",
+                  "  contact       - Email & social links",
+                  "  music         - Check what I'm playing on Spotify",
+                  "  theme [mode]  - Switch theme ('theme dark' or 'theme light')",
+                  "  neofetch      - System info",
+                  "  hire          - Send me an email",
+                  "  date          - Current time",
+                  "  clear         - Clear screen",
+                  "  exit          - Close terminal",
+                ].join("\n"),
           });
           break;
 
@@ -128,8 +141,8 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
           newHistory.push({
             type: "output",
             text: isId
-              ? "Rafid Dwi Prakoso — Web Developer, Game Developer & Creative Coder berbasis di Bogor, Indonesia.\nFokus membangun antarmuka web modern dengan performa tinggi, arsitektur backend andal, dan pengalaman interaktif yang menyenangkan."
-              : "Rafid Dwi Prakoso — Web Developer, Game Developer & Creative Coder based in Bogor, Indonesia.\nFocuses on crafting clean, high-performance web products, dependable backends, and lively interactive experiences.",
+              ? "Rafid Dwi Prakoso - developer asal Bogor & siswa PPLG di SMK Wikrama Bogor.\nSehari-hari bikin web pakai Next.js dan Laravel, backend API pakai Go, dan game di Unity."
+              : "Rafid Dwi Prakoso - software & game developer from Bogor, studying PPLG at SMK Wikrama Bogor.\nMostly building web apps with Next.js and Laravel, backend APIs in Go, and games in Unity.",
           });
           break;
 
@@ -137,11 +150,11 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
           newHistory.push({
             type: "output",
             text: [
-              "TECHNICAL STACK & PROFICIENCIES:",
-              "  ┌── Frontend: Next.js, React, Tailwind CSS, JavaScript (ES6+), GSAP, Framer Motion",
-              "  ├── Backend:  Laravel, PHP, Go (Golang), MySQL, Firebase, MongoDB, RESTful APIs",
-              "  ├── Game Dev: Unity, C#, 2D/3D Mechanics, Gameplay Physics, UI Integration",
-              "  └── Tools:    Git, VS Code, Postman, Figma, Linux/Bash, Vercel",
+              "TECH STACK:",
+              "  Frontend : Next.js, React, Vue.js, Tailwind CSS, Bootstrap, JavaScript",
+              "  Backend  : Laravel, CodeIgniter, AdonisJS, Go (Golang), Python, Java",
+              "  Game Dev : Unity, C#, 2D/3D Physics",
+              "  Infra/DB : Docker, MySQL, MongoDB, Firebase, Git",
             ].join("\n"),
           });
           break;
@@ -150,7 +163,9 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
           newHistory.push({
             type: "output",
             text: [
-              "FEATURED PROJECTS (Type 'open <id>' to inspect):",
+              isId
+                ? "DAFTAR PROYEK (ketik 'open <id>' untuk melihat):"
+                : "PROJECTS (type 'open <id>' to view):",
               ...workData.map(
                 (p, i) =>
                   `  [${i + 1}] ${p.id.padEnd(24)} | ${p.title} (${p.category}) - ${p.tech?.join(", ") || ""}`
@@ -163,7 +178,9 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
           if (!args[0]) {
             newHistory.push({
               type: "error",
-              text: "Usage: open <project-id> (e.g. 'open taskly' or 'open pengaduan-masyarakat')",
+              text: isId
+                ? "Cara pakai: open <id-proyek> (contoh: 'open taskly')"
+                : "Usage: open <project-id> (e.g. 'open taskly')",
             });
           } else {
             const slug = args[0].toLowerCase();
@@ -173,13 +190,17 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
             if (project) {
               newHistory.push({
                 type: "output",
-                text: `>> Navigating to /projects/${project.id}...`,
+                text: isId
+                  ? `Membuka /projects/${project.id}...`
+                  : `Opening /projects/${project.id}...`,
               });
               router.push(`/projects/${project.id}`);
             } else {
               newHistory.push({
                 type: "error",
-                text: `Project '${slug}' not found. Type 'projects' to view all valid slugs.`,
+                text: isId
+                  ? `Proyek '${slug}' tidak ditemukan. Ketik 'projects' untuk lihat daftar.`
+                  : `Project '${slug}' not found. Type 'projects' to see the list.`,
               });
             }
           }
@@ -189,7 +210,9 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
         case "sandbox":
           newHistory.push({
             type: "output",
-            text: ">> Navigating to Creative Canvas Physics Lab (/#lab)...",
+            text: isId
+              ? "Menuju bagian eksperimen kanvas 2D..."
+              : "Scrolling to 2D Canvas playground...",
           });
           router.push("/#lab");
           break;
@@ -198,12 +221,12 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
           newHistory.push({
             type: "output",
             text: [
-              "CONNECT & COLLABORATE:",
-              "  Email:     rafiddwiprakoso@gmail.com",
-              "  GitHub:    https://github.com/nerolurien",
-              "  LinkedIn:  https://www.linkedin.com/in/rafid-dwi-prakoso-895a80300/",
-              "  Instagram: https://www.instagram.com/fiddd_dwi/",
-              "  Spotify:   https://open.spotify.com/user/31hil227n4qwgjzabs5hiu52i6v4",
+              isId ? "KONTAK:" : "CONTACT:",
+              "  Email     : rafiddwiprakoso@gmail.com",
+              "  GitHub    : https://github.com/nerolurien",
+              "  LinkedIn  : https://www.linkedin.com/in/rafid-dwi-prakoso-895a80300/",
+              "  Instagram : https://www.instagram.com/fiddd_dwi/",
+              "  Spotify   : https://open.spotify.com/user/31hil227n4qwgjzabs5hiu52i6v4",
             ].join("\n"),
           });
           break;
@@ -211,7 +234,7 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
         case "music":
           newHistory.push({
             type: "system",
-            text: "Fetching live Spotify status...",
+            text: isId ? "Mengecek Spotify..." : "Checking Spotify...",
           });
           try {
             const res = await fetch("/api/spotify/currently-playing");
@@ -219,23 +242,29 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
             if (data.isPlaying) {
               newHistory.push({
                 type: "output",
-                text: `♫ NOW PLAYING: "${data.title}" by ${data.artist}\n   Album: ${data.album || "Unknown"}\n   Link:  ${data.songUrl}`,
+                text: isId
+                  ? `Sedang diputar: "${data.title}" oleh ${data.artist}\nAlbum: ${data.album || "-"}\nLink: ${data.songUrl}`
+                  : `Playing: "${data.title}" by ${data.artist}\nAlbum: ${data.album || "-"}\nLink: ${data.songUrl}`,
               });
             } else if (data.title) {
               newHistory.push({
                 type: "output",
-                text: `♫ LAST PLAYED: "${data.title}" by ${data.artist}\n   Link: ${data.songUrl}`,
+                text: isId
+                  ? `Terakhir diputar: "${data.title}" oleh ${data.artist}\nLink: ${data.songUrl}`
+                  : `Last played: "${data.title}" by ${data.artist}\nLink: ${data.songUrl}`,
               });
             } else {
               newHistory.push({
                 type: "output",
-                text: "No active or recent track scrobbled on Spotify.",
+                text: isId
+                  ? "Sedang tidak memutar lagu di Spotify."
+                  : "Not playing anything on Spotify right now.",
               });
             }
           } catch {
             newHistory.push({
               type: "error",
-              text: "Could not fetch current Spotify status.",
+              text: isId ? "Gagal mengecek status Spotify." : "Failed to check Spotify status.",
             });
           }
           break;
@@ -243,15 +272,23 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
         case "theme":
           if (args[0] === "dark") {
             setIsDarkMode(true);
-            newHistory.push({ type: "output", text: "Theme set to dark mode." });
+            newHistory.push({
+              type: "output",
+              text: isId ? "Tema diubah ke mode gelap." : "Switched to dark mode.",
+            });
           } else if (args[0] === "light") {
             setIsDarkMode(false);
-            newHistory.push({ type: "output", text: "Theme set to light mode." });
+            newHistory.push({
+              type: "output",
+              text: isId ? "Tema diubah ke mode terang." : "Switched to light mode.",
+            });
           } else {
             setIsDarkMode((prev) => !prev);
             newHistory.push({
               type: "output",
-              text: `Theme toggled. Current mode: ${!isDarkMode ? "Dark" : "Light"}.`,
+              text: isId
+                ? `Tema diubah ke mode ${!isDarkMode ? "gelap" : "terang"}.`
+                : `Switched theme to ${!isDarkMode ? "dark" : "light"} mode.`,
             });
           }
           break;
@@ -260,17 +297,16 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
           newHistory.push({
             type: "output",
             text: [
-              "         /\\          rafid@portfolio-next",
-              "        /  \\         --------------------",
-              "       / /\\ \\        OS: Next.js 16.1.6 App Router (Turbopack)",
-              "      / /  \\ \\       Runtime: Vercel Edge & Node.js",
-              "     / / /\\ \\ \\      UI Framework: React 19 + Tailwind CSS + Framer Motion",
-              "    / / /  \\ \\ \\     Shell: zsh (interactive portfolio terminal)",
-              "   /_/ /____\\ \\_\\    Host: rafid-portfolio.app",
-              "     \\________/      Location: Bogor, West Java, Indonesia",
-              "                     Role: Full-Stack Developer & Game Creator",
-              "                     Main Stack: Next.js, Laravel, Go, Unity, C#",
-              "                     Status: Open to Work & Creative Collaborations",
+              "  rafid@portfolio",
+              "  ---------------",
+              "  Framework : Next.js 16 (App Router)",
+              "  UI        : React 19 + Tailwind CSS",
+              isId ? "  Domisili  : Bogor, Indonesia" : "  Location  : Bogor, Indonesia",
+              isId ? "  Sekolah   : SMK Wikrama Bogor (PPLG)" : "  School    : SMK Wikrama Bogor (PPLG)",
+              "  Stack     : Next.js, Vue, Laravel, Go, Python, Java, Docker, Unity",
+              isId
+                ? "  Status    : Terbuka untuk kerja & proyek freelance"
+                : "  Status    : Open to work & freelance",
             ].join("\n"),
           });
           break;
@@ -280,23 +316,19 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
           if (command === "sudo" && args[0] !== "hire-me" && args[0] !== "hire") {
             newHistory.push({
               type: "error",
-              text: "rafid is not in the sudoers file. This incident will be reported.",
+              text: isId ? "Akses ditolak." : "Permission denied.",
             });
           } else {
             newHistory.push({
               type: "output",
-              text: [
-                "[ACCESS GRANTED: HIRING PROTOCOL]",
-                "  Candidate:   Rafid Dwi Prakoso",
-                "  Strengths:   Clean code architecture, proactive builder, UI/UX polish, fast adaptation",
-                "  Availability: Freelance, Full-time, or Collaborative projects",
-                "  >> Launching email client to rafiddwiprakoso@gmail.com...",
-              ].join("\n"),
+              text: isId
+                ? "Membuka aplikasi email ke rafiddwiprakoso@gmail.com..."
+                : "Opening email to rafiddwiprakoso@gmail.com...",
             });
             setTimeout(() => {
               window.location.href =
-                "mailto:rafiddwiprakoso@gmail.com?subject=Job%20Opportunity%20-%20Rafid%20Dwi%20Prakoso";
-            }, 600);
+                "mailto:rafiddwiprakoso@gmail.com?subject=Project%20or%20Job%20Inquiry";
+            }, 500);
           }
           break;
 
@@ -320,7 +352,9 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
         default:
           newHistory.push({
             type: "error",
-            text: `Command not found: '${trimmed}'. Type 'help' to see available commands.`,
+            text: isId
+              ? `Perintah tidak ditemukan: '${trimmed}'. Ketik 'help' untuk melihat daftar perintah.`
+              : `Command not found: '${trimmed}'. Type 'help' to see available commands.`,
           });
           break;
       }
@@ -375,23 +409,21 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
 
   return (
     <>
-      {/* Floating Launcher Pill Button */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         type="button"
-        aria-label="Open Interactive Terminal"
-        title="Open Interactive Terminal (Ctrl + `)"
-        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 px-3.5 py-2 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-[#121216]/90 backdrop-blur-md shadow-lg text-xs font-mono font-medium text-gray-800 dark:text-gray-200 transition hover:scale-105 active:scale-95 group hover:border-sky-500/50"
+        aria-label="Open Terminal"
+        title="Terminal (Ctrl + `)"
+        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 px-3.5 py-2 border border-stone-300 dark:border-zinc-800 bg-[#f6f4ef]/95 dark:bg-[#111113]/95 backdrop-blur-md shadow-lg text-xs font-mono font-medium text-zinc-800 dark:text-[#ece8df] transition group hover:border-amber-500/60"
       >
-        <span className="w-2 h-2 rounded-full bg-emerald-400 group-hover:animate-ping" />
-        <span className="font-bold text-sky-500">{">_"}</span>
-        <span className="hidden sm:inline">Terminal</span>
-        <kbd className="hidden md:inline-flex px-1.5 py-0.5 text-[9px] font-semibold text-gray-400 dark:text-gray-500 bg-black/5 dark:bg-white/10 rounded">
+        <span className="w-2 h-2 bg-amber-500" />
+        <span className="font-bold text-amber-600 dark:text-amber-400">{">_"}</span>
+        <span className="hidden sm:inline uppercase tracking-wider text-[11px]">Terminal</span>
+        <kbd className="hidden md:inline-flex px-1.5 py-0.5 text-[9px] font-semibold text-zinc-500 dark:text-zinc-400 border border-stone-300 dark:border-zinc-800">
           Ctrl + `
         </kbd>
       </button>
 
-      {/* Terminal Modal Drawer */}
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 pointer-events-none">
@@ -409,14 +441,13 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.96 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className={`relative pointer-events-auto w-full transition-all duration-300 bg-[#0c0c0e] border border-zinc-800 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col font-mono text-xs sm:text-sm text-gray-200 ${
+              className={`relative pointer-events-auto w-full transition-all duration-300 bg-[#0b0b0c] border border-zinc-800 shadow-2xl overflow-hidden flex flex-col font-mono text-xs sm:text-sm text-zinc-200 ${
                 isMaximized
                   ? "h-screen sm:h-[92vh] max-w-6xl"
                   : "h-[75vh] sm:h-[540px] max-w-3xl"
               }`}
             >
-              {/* Window Header */}
-              <div className="flex items-center justify-between px-4 py-3 bg-[#18181b]/90 border-b border-zinc-800 select-none">
+              <div className="flex items-center justify-between px-4 py-3 bg-[#111113] border-b border-zinc-800 select-none">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setIsOpen(false)}
@@ -436,8 +467,8 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
                 </div>
 
                 <div className="flex items-center gap-2 text-zinc-400 text-xs font-medium">
-                  <span className="text-zinc-500">guest@rafid-dev:</span>
-                  <span className="text-sky-400">~ (zsh)</span>
+                  <span className="text-zinc-500">rafid@portfolio:</span>
+                  <span className="text-amber-400">~</span>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -454,17 +485,16 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
                 </div>
               </div>
 
-              {/* Terminal Body */}
               <div
                 onClick={() => inputRef.current?.focus()}
-                className="flex-1 p-4 sm:p-5 overflow-y-auto space-y-2.5 selection:bg-sky-500/30 selection:text-white"
+                className="flex-1 p-4 sm:p-5 overflow-y-auto space-y-2.5 selection:bg-amber-500/30 selection:text-amber-200"
               >
                 {history.map((item, idx) => {
                   if (item.type === "command") {
                     return (
                       <div key={idx} className="flex items-center gap-2 text-zinc-100">
-                        <span className="text-emerald-400 font-bold">➜</span>
-                        <span className="text-sky-400 font-semibold">~</span>
+                        <span className="text-amber-500 font-bold">➜</span>
+                        <span className="text-amber-400 font-semibold">~</span>
                         <span>{item.text}</span>
                       </div>
                     );
@@ -496,16 +526,15 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
                   );
                 })}
 
-                {/* Live Input Prompt */}
                 <div className="flex items-center gap-2 text-zinc-100 pt-1">
-                  <span className="text-emerald-400 font-bold">➜</span>
-                  <span className="text-sky-400 font-semibold">~</span>
+                  <span className="text-amber-500 font-bold">➜</span>
+                  <span className="text-amber-400 font-semibold">~</span>
                   <input
                     ref={inputRef}
                     value={inputVal}
                     onChange={(e) => setInputVal(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="flex-1 bg-transparent text-gray-100 outline-none caret-sky-400 font-mono"
+                    className="flex-1 bg-transparent text-gray-100 outline-none caret-amber-400 font-mono"
                     autoFocus
                     spellCheck={false}
                     autoComplete="off"
@@ -516,15 +545,16 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
                 <div ref={bottomRef} />
               </div>
 
-              {/* Terminal Footer Quick Bar */}
               <div className="px-4 py-2 bg-[#121215] border-t border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-400">
                 <div className="flex items-center gap-2 overflow-x-auto scrollbar-none py-0.5">
-                  <span className="text-zinc-500 shrink-0">Try:</span>
+                  <span className="text-zinc-500 shrink-0">
+                    {isId ? "Perintah:" : "Commands:"}
+                  </span>
                   {["help", "neofetch", "projects", "lab", "music", "hire"].map((quickCmd) => (
                     <button
                       key={quickCmd}
                       onClick={() => handleCommand(quickCmd)}
-                      className="px-2 py-0.5 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 transition shrink-0"
+                      className="px-2 py-0.5 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 transition shrink-0"
                     >
                       {quickCmd}
                     </button>
@@ -532,7 +562,7 @@ export default function TerminalDrawer({ isDarkMode, setIsDarkMode }) {
                 </div>
 
                 <span className="text-[10px] text-zinc-500 shrink-0 hidden sm:inline ml-2">
-                  ESC to close
+                  {isId ? "ESC untuk tutup" : "ESC to close"}
                 </span>
               </div>
             </motion.div>

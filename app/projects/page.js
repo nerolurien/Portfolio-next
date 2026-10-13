@@ -4,7 +4,7 @@ import Work from "../components/Work";
 
 export const metadata = {
   title: "Projects | Rafid Dwi Prakoso",
-  description: "A curated archive of web, dashboard, and interactive projects by Rafid Dwi Prakoso.",
+  description: "Web apps, internal dashboards, and game prototypes built by Rafid Dwi Prakoso.",
 };
 
 export default function ProjectsPage() {
@@ -12,10 +12,10 @@ export default function ProjectsPage() {
     <SiteShell>
       <PageHero
         translationKey="pages.projects"
-        eyebrow="Project Archive"
-        title="A closer look at the things I have been building."
-        description="This page collects my featured work in one place so each project has a little more room to breathe, explain itself, and show the decisions behind it."
-        ctaLabel="Say hello"
+        eyebrow="Projects (2024 - 2026)"
+        title="Things I've built."
+        description="Web apps, school projects, internal tools, and game prototypes I've worked on."
+        ctaLabel="Contact me"
         ctaHref="/contact"
       />
       <Work />

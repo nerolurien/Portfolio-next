@@ -71,7 +71,6 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback
     }
   }, []);
 
@@ -138,7 +137,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
         subtitle: isIndo ? "Eksperimen komputasi visual, gravitasi & partikel" : "Visual computing, gravity & particle physics experiments",
         keywords: ["lab", "creative", "canvas", "physics", "particles", "game", "sandbox", "kanvas", "eksperimen"],
         icon: (
-          <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
           </svg>
         ),
@@ -164,7 +163,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
       group: isIndo ? "Proyek Terpilih" : "Projects",
       title: project.title,
       subtitle: isIndo ? project.description_id || project.description : project.description,
-      badge: project.category,
+      badge: t(`categories.${project.category}`) || project.category,
       tags: project.tech || [],
       keywords: [
         project.title,
@@ -173,7 +172,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
         project.year || "",
       ],
       icon: (
-        <svg className="w-4 h-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         </svg>
       ),
@@ -194,7 +193,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
         ) : (
-          <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         ),
@@ -205,8 +204,8 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
       {
         id: "action-lang",
         group: isIndo ? "Aksi Cepat" : "Quick Actions",
-        title: isIndo ? "Ganti Bahasa ke English" : "Ganti Bahasa ke Indonesia",
-        subtitle: isIndo ? "Current language: Bahasa Indonesia" : "Current language: English",
+        title: isIndo ? "Ganti Bahasa ke Inggris (English)" : "Switch Language to Indonesian",
+        subtitle: isIndo ? "Bahasa saat ini: Indonesia" : "Current language: English",
         keywords: ["language", "bahasa", "translate", "english", "indonesia"],
         icon: (
           <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -222,7 +221,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
         subtitle: "rafiddwiprakoso@gmail.com",
         keywords: ["copy", "email", "salin", "surat", "contact", "gmail"],
         icon: (
-          <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
           </svg>
         ),
@@ -265,7 +264,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
       {
         id: "social-github",
         group: isIndo ? "Tautan Sosial" : "Social Links",
-        title: "GitHub Profile",
+        title: isIndo ? "Profil GitHub" : "GitHub Profile",
         subtitle: "github.com/nerolurien",
         keywords: ["github", "code", "repo", "git"],
         icon: (
@@ -278,7 +277,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
       {
         id: "social-linkedin",
         group: isIndo ? "Tautan Sosial" : "Social Links",
-        title: "LinkedIn Profile",
+        title: isIndo ? "Profil LinkedIn" : "LinkedIn Profile",
         subtitle: "linkedin.com/in/rafid-dwi-prakoso-895a80300",
         keywords: ["linkedin", "career", "connect", "network"],
         icon: (
@@ -304,7 +303,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
       {
         id: "social-spotify",
         group: isIndo ? "Tautan Sosial" : "Social Links",
-        title: "Spotify Profile",
+        title: isIndo ? "Profil Spotify" : "Spotify Profile",
         subtitle: "open.spotify.com/user/31hil227n4qwgjzabs5hiu52i6v4",
         keywords: ["spotify", "music", "songs", "tracks", "playlist"],
         icon: (
@@ -426,7 +425,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
                     className="p-1 rounded-md text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition text-xs"
                     aria-label="Clear query"
                   >
-                    Clear
+                    {language === "id" ? "Hapus" : "Clear"}
                   </button>
                 )}
 
@@ -471,17 +470,17 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
                             data-index={index}
                             onClick={() => executeItem(item)}
                             onMouseEnter={() => setSelectedIndex(index)}
-                            className={`group flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition text-left ${
+                            className={`group flex items-center justify-between gap-3 px-3 py-2.5 cursor-pointer transition text-left ${
                               isSelected
-                                ? "bg-sky-50 dark:bg-sky-500/10 text-sky-900 dark:text-sky-300"
+                                ? "bg-amber-500/10 text-amber-900 dark:text-amber-300"
                                 : "text-gray-700 dark:text-gray-200 hover:bg-black/[0.03] dark:hover:bg-white/5"
                             }`}
                           >
                             <div className="flex items-center gap-3 min-w-0">
                               <div
-                                className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition ${
+                                className={`w-8 h-8 flex items-center justify-center shrink-0 transition ${
                                   isSelected
-                                    ? "bg-sky-500/20 text-sky-600 dark:text-sky-400"
+                                    ? "bg-amber-500/20 text-amber-700 dark:text-amber-400"
                                     : "bg-black/[0.05] dark:bg-white/10 text-gray-500 dark:text-gray-400"
                                 }`}
                               >
@@ -522,7 +521,7 @@ export default function CommandPalette({ isDarkMode, setIsDarkMode }) {
                               )}
 
                               {isSelected && (
-                                <kbd className="hidden sm:inline-flex px-1.5 py-0.5 text-[10px] font-semibold text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-500/20 rounded">
+                                <kbd className="hidden sm:inline-flex px-1.5 py-0.5 text-[10px] font-semibold text-amber-700 dark:text-amber-400 bg-amber-500/20">
                                   ↵
                                 </kbd>
                               )}

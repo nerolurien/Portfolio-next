@@ -9,9 +9,9 @@ export default function CreativeLab() {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
 
-  const [mode, setMode] = useState("gravity"); // "gravity" | "constellation" | "physics"
-  const [particleDensity, setParticleDensity] = useState(70);
-  const [speedMultiplier, setSpeedMultiplier] = useState(1);
+  const [mode, setMode] = useState("gravity");
+  const [particleDensity] = useState(70);
+  const [speedMultiplier] = useState(1);
   const [fps, setFps] = useState(60);
   const [entityCount, setEntityCount] = useState(70);
 
@@ -31,10 +31,12 @@ export default function CreativeLab() {
   stateRef.current.density = particleDensity;
   stateRef.current.speed = speedMultiplier;
 
-  // Initialize entities depending on mode
   const initEntities = useCallback((width, height, targetMode) => {
     const entities = [];
-    const count = targetMode === "physics" ? Math.min(30, Math.floor(stateRef.current.density / 2.5)) : stateRef.current.density;
+    const count =
+      targetMode === "physics"
+        ? Math.min(30, Math.floor(stateRef.current.density / 2.5))
+        : stateRef.current.density;
 
     if (targetMode === "gravity") {
       for (let i = 0; i < count; i++) {
@@ -44,7 +46,7 @@ export default function CreativeLab() {
           vx: (Math.random() - 0.5) * 2,
           vy: (Math.random() - 0.5) * 2,
           radius: Math.random() * 2.5 + 1.5,
-          color: i % 3 === 0 ? "#38bdf8" : i % 3 === 1 ? "#818cf8" : "#c084fc",
+          color: i % 3 === 0 ? "#f59e0b" : i % 3 === 1 ? "#ece8df" : "#d97706",
           mass: Math.random() * 2 + 1,
         });
       }
@@ -56,11 +58,11 @@ export default function CreativeLab() {
           vx: (Math.random() - 0.5) * 1.5,
           vy: (Math.random() - 0.5) * 1.5,
           radius: Math.random() * 2 + 1.5,
-          color: "#38bdf8",
+          color: "#f59e0b",
         });
       }
     } else if (targetMode === "physics") {
-      const palette = ["#38bdf8", "#34d399", "#fbbf24", "#f43f5e", "#a855f7"];
+      const palette = ["#f59e0b", "#ece8df", "#d97706", "#a8a29e", "#fbbf24"];
       for (let i = 0; i < count; i++) {
         const radius = Math.random() * 12 + 8;
         entities.push({
@@ -80,7 +82,6 @@ export default function CreativeLab() {
     setEntityCount(entities.length);
   }, []);
 
-  // Shockwave burst interaction
   const triggerBurst = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -98,7 +99,6 @@ export default function CreativeLab() {
     });
   }, []);
 
-  // Main canvas animation loop
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -126,7 +126,6 @@ export default function CreativeLab() {
       animId = requestAnimationFrame(loop);
       if (!stateRef.current.isVisible) return;
 
-      // FPS tracking
       stateRef.current.frameCount++;
       if (timestamp - stateRef.current.fpsTimer >= 1000) {
         setFps(stateRef.current.frameCount);
@@ -141,21 +140,19 @@ export default function CreativeLab() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Simulation mode: Gravity Well
       if (currentMode === "gravity") {
         const hasMouse = mouse.x >= 0 && mouse.x <= width && mouse.y >= 0 && mouse.y <= height;
 
-        // Draw faint cursor gravity field ring
         if (hasMouse) {
           ctx.beginPath();
           ctx.arc(mouse.x, mouse.y, 45, 0, Math.PI * 2);
-          ctx.strokeStyle = "rgba(56, 189, 248, 0.25)";
+          ctx.strokeStyle = "rgba(245, 158, 11, 0.28)";
           ctx.lineWidth = 1.5;
           ctx.stroke();
 
           ctx.beginPath();
           ctx.arc(mouse.x, mouse.y, 12, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(56, 189, 248, 0.4)";
+          ctx.fillStyle = "rgba(245, 158, 11, 0.45)";
           ctx.fill();
         }
 
@@ -178,13 +175,11 @@ export default function CreativeLab() {
           p.vx *= 0.985;
           p.vy *= 0.985;
 
-          // Wrap edges
           if (p.x < 0) p.x = width;
           if (p.x > width) p.x = 0;
           if (p.y < 0) p.y = height;
           if (p.y > height) p.y = 0;
 
-          // Draw particle
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
           ctx.fillStyle = p.color;
@@ -193,10 +188,7 @@ export default function CreativeLab() {
           ctx.fill();
           ctx.shadowBlur = 0;
         });
-      }
-
-      // Simulation mode: Constellation
-      else if (currentMode === "constellation") {
+      } else if (currentMode === "constellation") {
         entities.forEach((p) => {
           p.x += p.vx * speed;
           p.y += p.vy * speed;
@@ -204,7 +196,6 @@ export default function CreativeLab() {
           if (p.x <= p.radius || p.x >= width - p.radius) p.vx *= -1;
           if (p.y <= p.radius || p.y >= height - p.radius) p.vy *= -1;
 
-          // Mouse influence
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -214,7 +205,6 @@ export default function CreativeLab() {
           }
         });
 
-        // Draw connections
         for (let i = 0; i < entities.length; i++) {
           for (let j = i + 1; j < entities.length; j++) {
             const p1 = entities[i];
@@ -228,27 +218,23 @@ export default function CreativeLab() {
               ctx.beginPath();
               ctx.moveTo(p1.x, p1.y);
               ctx.lineTo(p2.x, p2.y);
-              ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+              ctx.strokeStyle = `rgba(245, 158, 11, ${alpha})`;
               ctx.lineWidth = 1;
               ctx.stroke();
             }
           }
         }
 
-        // Draw nodes
         entities.forEach((p) => {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
           ctx.fillStyle = p.color;
           ctx.shadowBlur = 6;
-          ctx.shadowColor = "#38bdf8";
+          ctx.shadowColor = "#f59e0b";
           ctx.fill();
           ctx.shadowBlur = 0;
         });
-      }
-
-      // Simulation mode: Rigid Body Bouncing Balls
-      else if (currentMode === "physics") {
+      } else if (currentMode === "physics") {
         const gravity = 0.28 * speed;
         const friction = 0.99;
 
@@ -260,17 +246,14 @@ export default function CreativeLab() {
           ball.x += ball.vx * speed;
           ball.y += ball.vy * speed;
 
-          // Floor collision
           if (ball.y + ball.radius >= height) {
             ball.y = height - ball.radius;
             ball.vy = -ball.vy * ball.restitution;
           }
-          // Ceiling collision
           if (ball.y - ball.radius <= 0) {
             ball.y = ball.radius;
             ball.vy = -ball.vy * ball.restitution;
           }
-          // Walls collision
           if (ball.x + ball.radius >= width) {
             ball.x = width - ball.radius;
             ball.vx = -ball.vx * ball.restitution;
@@ -280,7 +263,6 @@ export default function CreativeLab() {
             ball.vx = -ball.vx * ball.restitution;
           }
 
-          // Mouse push
           const dx = ball.x - mouse.x;
           const dy = ball.y - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -290,7 +272,6 @@ export default function CreativeLab() {
             ball.vy += (dy / (dist || 1)) * push;
           }
 
-          // Draw ball
           ctx.beginPath();
           ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
           ctx.fillStyle = ball.color;
@@ -299,9 +280,14 @@ export default function CreativeLab() {
           ctx.fill();
           ctx.shadowBlur = 0;
 
-          // Inner reflection highlight
           ctx.beginPath();
-          ctx.arc(ball.x - ball.radius * 0.3, ball.y - ball.radius * 0.3, ball.radius * 0.25, 0, Math.PI * 2);
+          ctx.arc(
+            ball.x - ball.radius * 0.3,
+            ball.y - ball.radius * 0.3,
+            ball.radius * 0.25,
+            0,
+            Math.PI * 2
+          );
           ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
           ctx.fill();
         });
@@ -317,7 +303,6 @@ export default function CreativeLab() {
     };
   }, [initEntities]);
 
-  // Handle mode changes
   const switchMode = (newMode) => {
     setMode(newMode);
     const canvas = canvasRef.current;
@@ -327,7 +312,6 @@ export default function CreativeLab() {
     }
   };
 
-  // Mouse move handlers
   const handleMouseMove = (e) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -341,37 +325,38 @@ export default function CreativeLab() {
     stateRef.current.mouse.y = -1000;
   };
 
-  const handleCanvasClick = (e) => {
+  const handleCanvasClick = () => {
     triggerBurst();
   };
 
   return (
-    <section id="lab" ref={containerRef} className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-10 lg:px-16">
+    <section
+      id="lab"
+      ref={containerRef}
+      className="mx-auto w-full max-w-7xl px-6 py-24 sm:px-10 lg:px-16 border-t border-stone-300/80 dark:border-zinc-800/90"
+    >
+      <div className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <div>
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-400">
+            {t("lab.eyebrow")}
+          </p>
+          <h2 className="mt-3 font-display text-4xl font-normal tracking-tight text-stone-900 dark:text-[#ece8df] sm:text-5xl">
+            {t("lab.title")}
+          </h2>
+        </div>
+        <p className="max-w-xl text-sm leading-relaxed text-stone-600 dark:text-zinc-400 sm:text-base">
+          {t("lab.desc")}
+        </p>
+      </div>
+
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mx-auto max-w-3xl text-center"
+        className="relative overflow-hidden border border-stone-300/90 dark:border-zinc-800 bg-[#111113]"
       >
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-sky-600 dark:text-sky-400">
-          {t("lab.eyebrow")}
-        </p>
-        <h2 className="text-4xl font-semibold sm:text-5xl">{t("lab.title")}</h2>
-        <p className="mt-5 text-balance text-base leading-7 text-gray-600 dark:text-gray-300">
-          {t("lab.desc")}
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.98, y: 20 }}
-        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.1 }}
-        className="relative mt-12 overflow-hidden rounded-[2.5rem] border border-black/10 dark:border-white/10 bg-white/75 dark:bg-[#0c0c0e]/90 shadow-xl backdrop-blur-xl"
-      >
-        {/* Canvas Workspace */}
-        <div className="relative w-full h-[460px] sm:h-[520px] bg-gradient-to-b from-black/[0.02] to-black/[0.06] dark:from-black/40 dark:to-black/80 cursor-crosshair overflow-hidden">
+        <div className="relative w-full h-[440px] sm:h-[500px] bg-[#0d0d0f] cursor-crosshair overflow-hidden">
           <canvas
             ref={canvasRef}
             onMouseMove={handleMouseMove}
@@ -380,81 +365,80 @@ export default function CreativeLab() {
             className="w-full h-full block"
           />
 
-          {/* Floating Telemetry HUD */}
-          <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 pointer-events-none select-none">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 dark:bg-black/70 backdrop-blur border border-black/10 dark:border-white/10 text-xs font-mono font-medium text-gray-800 dark:text-gray-200 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{fps} {t("lab.fps")}</span>
+          <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 pointer-events-none select-none font-mono text-[11px]">
+            <div className="flex items-center gap-2 px-3 py-1 bg-[#141417]/90 border border-zinc-800 text-zinc-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              <span>
+                {fps} {t("lab.fps")}
+              </span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 dark:bg-black/70 backdrop-blur border border-black/10 dark:border-white/10 text-xs font-mono text-gray-600 dark:text-gray-300 shadow-sm">
-              <span>{entityCount} {t("lab.entities")}</span>
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-[#141417]/90 border border-zinc-800 text-zinc-400">
+              <span>
+                {entityCount} {t("lab.entities")}
+              </span>
             </div>
 
-            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 dark:bg-black/70 backdrop-blur border border-black/10 dark:border-white/10 text-[11px] font-mono text-sky-600 dark:text-sky-400 shadow-sm">
-              <span>60 FPS Physics Engine</span>
+            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-[#141417]/90 border border-zinc-800 text-amber-400">
+              <span>HTML5 Canvas 2D</span>
             </div>
           </div>
 
-          {/* Hint Overlay */}
           <div className="absolute bottom-4 left-4 sm:left-auto sm:right-4 pointer-events-none select-none">
-            <p className="text-[11px] font-medium text-gray-400 dark:text-gray-500 bg-white/80 dark:bg-black/60 px-3 py-1 rounded-full backdrop-blur border border-black/5 dark:border-white/5">
+            <p className="font-mono text-[11px] text-zinc-400 bg-[#141417]/90 px-3 py-1 border border-zinc-800">
               {t("lab.hint")}
             </p>
           </div>
         </div>
 
-        {/* Controls Toolbar Bar */}
-        <div className="p-4 sm:p-6 bg-white/90 dark:bg-[#121216]/95 border-t border-black/10 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Mode Selector */}
-          <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/5 w-full md:w-auto overflow-x-auto">
+        <div className="p-4 sm:px-6 bg-[#efece4] dark:bg-[#111113] border-t border-stone-300/90 dark:border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs">
+          <div className="flex items-center gap-1.5 w-full md:w-auto overflow-x-auto">
             <button
               onClick={() => switchMode("gravity")}
-              className={`flex-1 md:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition ${
+              className={`flex-1 md:flex-initial px-4 py-2 uppercase tracking-wider transition ${
                 mode === "gravity"
-                  ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
-                  : "text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  ? "bg-stone-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c] font-semibold"
+                  : "border border-stone-300 dark:border-zinc-800 text-stone-600 dark:text-zinc-400 hover:border-stone-600 dark:hover:border-zinc-600"
               }`}
             >
-              {t("lab.modeGravity")}
+              01. {t("lab.modeGravity")}
             </button>
             <button
               onClick={() => switchMode("constellation")}
-              className={`flex-1 md:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition ${
+              className={`flex-1 md:flex-initial px-4 py-2 uppercase tracking-wider transition ${
                 mode === "constellation"
-                  ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
-                  : "text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  ? "bg-stone-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c] font-semibold"
+                  : "border border-stone-300 dark:border-zinc-800 text-stone-600 dark:text-zinc-400 hover:border-stone-600 dark:hover:border-zinc-600"
               }`}
             >
-              {t("lab.modeConstellation")}
+              02. {t("lab.modeConstellation")}
             </button>
             <button
               onClick={() => switchMode("physics")}
-              className={`flex-1 md:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition ${
+              className={`flex-1 md:flex-initial px-4 py-2 uppercase tracking-wider transition ${
                 mode === "physics"
-                  ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
-                  : "text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  ? "bg-stone-900 text-[#f6f4ef] dark:bg-[#ece8df] dark:text-[#0b0b0c] font-semibold"
+                  : "border border-stone-300 dark:border-zinc-800 text-stone-600 dark:text-zinc-400 hover:border-stone-600 dark:hover:border-zinc-600"
               }`}
             >
-              {t("lab.modePhysics")}
+              03. {t("lab.modePhysics")}
             </button>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex items-center gap-2.5 w-full md:w-auto justify-end">
             <button
               onClick={triggerBurst}
               type="button"
-              className="px-4 py-2 rounded-xl text-xs font-semibold border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 hover:bg-sky-50 dark:hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 transition active:scale-95 shadow-sm"
+              className="px-4 py-2 uppercase tracking-wider border border-amber-600/50 bg-amber-500/10 text-amber-700 dark:text-amber-400 hover:bg-amber-500 hover:text-black transition"
             >
-              {t("lab.burst")}
+              ⚡ {t("lab.burst")}
             </button>
             <button
               onClick={() => switchMode(mode)}
               type="button"
-              className="px-4 py-2 rounded-xl text-xs font-semibold border border-black/10 dark:border-white/15 bg-white/80 dark:bg-white/10 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition active:scale-95 shadow-sm"
+              className="px-4 py-2 uppercase tracking-wider border border-stone-400 dark:border-zinc-700 text-stone-700 dark:text-zinc-300 hover:bg-stone-900 hover:text-white dark:hover:bg-[#ece8df] dark:hover:text-black transition"
             >
-              {t("lab.reset")}
+              ↺ {t("lab.reset")}
             </button>
           </div>
         </div>

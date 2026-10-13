@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Rafid Dwi Prakoso | Web & Game Developer";
+export const alt = "Rafid Dwi Prakoso | Full-Stack & Game Developer";
 export const size = {
   width: 1200,
   height: 630,
@@ -18,35 +18,12 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#09090b",
+          backgroundColor: "#0b0b0c",
           padding: "60px 80px",
           fontFamily: "sans-serif",
           position: "relative",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: "-100px",
-            right: "-100px",
-            width: "500px",
-            height: "500px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(56,189,248,0.25) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-100px",
-            left: "-100px",
-            width: "500px",
-            height: "500px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%)",
-          }}
-        />
-
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div
             style={{
@@ -54,26 +31,24 @@ export default async function Image() {
               alignItems: "center",
               gap: "12px",
               padding: "10px 22px",
-              borderRadius: "9999px",
-              backgroundColor: "rgba(255, 255, 255, 0.06)",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
+              backgroundColor: "#141417",
+              border: "1px solid #27272a",
             }}
           >
             <div
               style={{
                 width: "10px",
                 height: "10px",
-                borderRadius: "50%",
-                backgroundColor: "#38bdf8",
+                backgroundColor: "#f59e0b",
               }}
             />
-            <span style={{ color: "#e2e8f0", fontSize: "20px", fontWeight: 600 }}>
-              rafiddwiprakoso.vercel.app
+            <span style={{ color: "#ece8df", fontSize: "20px", fontWeight: 600 }}>
+              rafid-three.vercel.app
             </span>
           </div>
 
-          <span style={{ color: "#94a3b8", fontSize: "20px", fontWeight: 500 }}>
-            Portfolio 2026
+          <span style={{ color: "#a1a1aa", fontSize: "20px", fontWeight: 500 }}>
+            Bogor, Indonesia
           </span>
         </div>
 
@@ -82,7 +57,7 @@ export default async function Image() {
             style={{
               fontSize: "64px",
               fontWeight: 800,
-              color: "#ffffff",
+              color: "#ece8df",
               lineHeight: 1.1,
               letterSpacing: "-0.02em",
               margin: 0,
@@ -95,23 +70,23 @@ export default async function Image() {
             style={{
               fontSize: "30px",
               fontWeight: 600,
-              color: "#38bdf8",
+              color: "#f59e0b",
               margin: 0,
             }}
           >
-            Web Developer • Game Developer • Creative Coder
+            Full-Stack • Backend • Game Developer
           </p>
 
           <p
             style={{
               fontSize: "22px",
-              color: "#cbd5e1",
+              color: "#a1a1aa",
               maxWidth: "850px",
               lineHeight: 1.5,
               margin: 0,
             }}
           >
-            Building thoughtful digital products, robust web systems, and interactive experiences with Next.js, Laravel, and Unity.
+            Building web apps, REST APIs, and 2D/3D games with Next.js, Vue, Laravel, Go, Java, Docker, and Unity.
           </p>
         </div>
 
@@ -124,15 +99,14 @@ export default async function Image() {
           }}
         >
           <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
-            {["Next.js", "React", "Laravel", "Tailwind CSS", "Unity", "Go"].map((tech) => (
+            {["Next.js", "Vue", "Laravel", "Go", "Java", "Docker", "Unity"].map((tech) => (
               <div
                 key={tech}
                 style={{
                   padding: "8px 16px",
-                  borderRadius: "12px",
-                  backgroundColor: "rgba(255, 255, 255, 0.05)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  color: "#f1f5f9",
+                  backgroundColor: "#141417",
+                  border: "1px solid #27272a",
+                  color: "#ece8df",
                   fontSize: "17px",
                   fontWeight: 500,
                 }}
@@ -148,15 +122,13 @@ export default async function Image() {
               alignItems: "center",
               gap: "8px",
               padding: "12px 26px",
-              borderRadius: "9999px",
-              backgroundColor: "#ffffff",
-              color: "#09090b",
+              backgroundColor: "#ece8df",
+              color: "#0b0b0c",
               fontSize: "19px",
               fontWeight: 700,
-              boxShadow: "0 0 25px rgba(255, 255, 255, 0.25)",
             }}
           >
-            <span>Explore Portfolio</span>
+            <span>See Portfolio</span>
             <span style={{ fontSize: "20px" }}>→</span>
           </div>
         </div>

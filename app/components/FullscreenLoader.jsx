@@ -12,7 +12,7 @@ const words = [
   "こんにちは",
   "Guten Tag",
   "Olá",
-  "Selamat Datang"
+  "Selamat Datang",
 ];
 
 export default function FullscreenLoader({ onComplete }) {
@@ -22,11 +22,11 @@ export default function FullscreenLoader({ onComplete }) {
     if (index === words.length - 1) {
       const finishTimeout = setTimeout(() => {
         if (onComplete) onComplete();
-      }, 750);
+      }, 650);
       return () => clearTimeout(finishTimeout);
     }
 
-    const delay = index === 0 ? 450 : 300;
+    const delay = index === 0 ? 400 : 240;
     const timer = setTimeout(() => {
       setIndex((prev) => prev + 1);
     }, delay);
@@ -40,46 +40,59 @@ export default function FullscreenLoader({ onComplete }) {
       exit={{
         y: "-100%",
         transition: {
-          duration: 0.8,
+          duration: 0.75,
           ease: [0.76, 0, 0.24, 1],
         },
       }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#09090b] text-white"
+      className="fixed inset-0 z-[9999] flex flex-col justify-between bg-[#0b0b0c] text-[#ece8df] px-6 py-8 sm:px-12 sm:py-10 border-b border-zinc-800"
     >
-      <div className="absolute h-64 w-64 rounded-full bg-sky-400/10 blur-[100px] pointer-events-none" />
-      <div className="absolute h-64 w-64 rounded-full bg-blue-500/10 blur-[100px] pointer-events-none translate-x-20 translate-y-20" />
+      <div className="flex items-center justify-between border-b border-zinc-800/90 pb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+        <div className="flex items-center gap-2.5">
+          <span className="h-2 w-2 bg-amber-500" />
+          <span>Rafid Dwi Prakoso</span>
+        </div>
+        <span>
+          0{index + 1} / 0{words.length}
+        </span>
+      </div>
 
-      <div className="relative flex items-center justify-center min-h-[90px] w-full max-w-xl mx-auto px-4 overflow-hidden text-center">
+      <div className="relative flex items-center justify-center min-h-[110px] w-full max-w-2xl mx-auto px-4 overflow-hidden text-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={words[index]}
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            className="inline-flex items-center justify-center gap-3 select-none text-center"
+            exit={{ opacity: 0, y: -14 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="inline-flex items-center justify-center gap-4 select-none text-center"
           >
-            <span className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-sky-400 shadow-[0_0_12px_#38bdf8] shrink-0" />
-            <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight whitespace-nowrap text-center">
+            <span className="h-2.5 w-2.5 bg-amber-500 shrink-0" />
+            <span className="font-display italic text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#ece8df] whitespace-nowrap">
               {words[index]}
             </span>
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-12 flex items-center gap-1.5">
-        {words.map((_, i) => (
-          <span
-            key={i}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === index
-                ? "w-6 bg-sky-400 shadow-[0_0_8px_#38bdf8]"
-                : i < index
-                ? "w-1.5 bg-white/40"
-                : "w-1.5 bg-white/10"
-            }`}
-          />
-        ))}
+      <div className="border-t border-zinc-800/90 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+          Portfolio 2026
+        </span>
+
+        <div className="flex items-center gap-1.5">
+          {words.map((_, i) => (
+            <span
+              key={i}
+              className={`h-1.5 transition-all duration-200 ${
+                i === index
+                  ? "w-6 bg-amber-500"
+                  : i < index
+                  ? "w-2 bg-amber-500/40"
+                  : "w-2 bg-zinc-800"
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </motion.div>
   );

@@ -21,7 +21,6 @@ export async function GET() {
     const data = await res.json();
     const contributions = Array.isArray(data.contributions) ? data.contributions : [];
 
-    // Calculate metrics
     let totalContributions = data.total?.lastYear ?? 0;
     let activeDays = 0;
     let maxContributionsDay = 0;
@@ -47,13 +46,11 @@ export async function GET() {
       }
     }
 
-    // Determine current streak from end of array
     for (let i = contributions.length - 1; i >= 0; i--) {
       const count = Number(contributions[i].count) || 0;
       if (count > 0) {
         currentStreak++;
       } else {
-        // If today has 0, check yesterday before breaking
         if (i === contributions.length - 1) {
           continue;
         }

@@ -9,14 +9,12 @@ import TerminalDrawer from "./TerminalDrawer";
 const Footer = dynamic(() => import("./Footer"));
 
 export default function SiteShell({ children }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
+    if (localStorage.theme === "light") {
+      setIsDarkMode(false);
+    } else {
       setIsDarkMode(true);
     }
   }, []);
@@ -27,7 +25,7 @@ export default function SiteShell({ children }) {
       localStorage.theme = "dark";
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.theme = "";
+      localStorage.theme = "light";
     }
   }, [isDarkMode]);
 

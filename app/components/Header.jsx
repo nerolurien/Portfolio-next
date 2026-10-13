@@ -1,187 +1,221 @@
 "use client";
 
-import { assets, highlightStats } from "@/assets/assets";
+import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { motion } from "motion/react";
-import RotatingText from "./RotatingText";
 import { useLanguage } from "@/app/context/LanguageContext";
+import SpotifyCurrentlyPlaying from "./SpotifyCurrentlyPlaying";
+import { openTerminal } from "./TerminalDrawer";
 
 const Header = () => {
-  const { t } = useLanguage();
-  const statLabels = [
-    t("header.stats.projects"),
-    t("header.stats.specialties"),
-    t("header.stats.energy"),
-  ];
+  const { language, t } = useLanguage();
+  const isId = language === "id";
 
   return (
     <header
       id="top"
-      className="relative mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 pb-14 pt-28 sm:px-10 lg:px-16"
+      className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 pb-16 pt-28 sm:px-10 lg:px-16"
     >
-      <div className="absolute left-8 top-28 h-24 w-24 rounded-full bg-sky-400/20 blur-3xl dark:bg-sky-500/10 pointer-events-none" />
-      <div className="absolute right-8 top-24 h-32 w-32 rounded-full bg-sky-300/30 blur-3xl dark:bg-sky-300/15 pointer-events-none" />
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-10 flex flex-wrap items-center justify-between gap-4 border-y border-stone-300/90 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-stone-600 dark:border-zinc-800 dark:text-zinc-400"
+      >
+        <div className="flex items-center gap-2.5">
+          <span className="inline-block h-2 w-2 rounded-full bg-amber-500" />
+          <span>{t("header.badge")}</span>
+        </div>
+        <div className="hidden sm:flex items-center gap-4 text-stone-500 dark:text-zinc-500">
+          <span>2026</span>
+          <span>•</span>
+          <span>NEXT.JS / LARAVEL / GO / UNITY</span>
+        </div>
+      </motion.div>
 
-      <div className="grid w-full items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="text-center lg:text-left">
-          <motion.div
-            initial={{ y: 24, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-6 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/80 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5"
-          >
-            <span className="h-2.5 w-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]" />
-            {t("header.badge")}
-          </motion.div>
-
-          <motion.h1
-            initial={{ y: 28, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-balance text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl"
-          >
-            {t("header.headline")}
-          </motion.h1>
-
-          <motion.div
-            initial={{ y: 24, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-6 flex flex-wrap items-center justify-center gap-2 text-lg font-ovo lg:justify-start lg:text-2xl"
-          >
-            <span>{t("header.greeting")}</span>
-            <RotatingText
-              texts={t("header.roles")}
-              mainClassName="rounded-xl bg-cyan-300 px-3 py-1.5 text-base text-black sm:px-4 lg:text-xl"
-              staggerFrom="first"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-120%" }}
-              staggerDuration={0.025}
-              splitLevelClassName="overflow-hidden pb-1"
-              transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              rotationInterval={2200}
-            />
+      <div className="grid w-full items-start gap-12 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-7 flex flex-col justify-between">
+          <div>
             <motion.div
-              animate={{ rotate: [0, 18, -10, 18, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, repeatType: "mirror" }}
-              className="inline-block"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05 }}
+              className="mb-5 flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest text-amber-700 dark:text-amber-400"
             >
-              <Image src={assets.hand_icon} alt="Waving hand" className="w-6" />
+              <span>{t("header.greeting")}</span>
+              <span className="text-stone-400 dark:text-zinc-600">/</span>
+              <span className="text-stone-600 dark:text-zinc-400">
+                {isId
+                  ? "Full-Stack • Backend • Pengembang Game"
+                  : "Full-Stack • Backend • Game Dev"}
+              </span>
             </motion.div>
-          </motion.div>
 
-          <motion.p
-            initial={{ y: 24, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-6 max-w-2xl text-balance text-base leading-7 text-gray-600 dark:text-gray-300 lg:text-lg mx-auto lg:mx-0"
-          >
-            {t("header.bio")}
-          </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.1 }}
+              className="font-display text-4xl font-normal leading-[1.08] tracking-tight text-stone-900 dark:text-[#ece8df] sm:text-6xl lg:text-[4.15rem]"
+            >
+              {isId ? (
+                <>
+                  Bikin{" "}
+                  <span className="italic font-normal text-amber-600 dark:text-amber-400">
+                    aplikasi web
+                  </span>
+                  , sistem backend, dan{" "}
+                  <span className="underline decoration-stone-400/60 dark:decoration-zinc-700 decoration-1 underline-offset-8">
+                    game interaktif
+                  </span>
+                  .
+                </>
+              ) : (
+                <>
+                  Building{" "}
+                  <span className="italic font-normal text-amber-600 dark:text-amber-400">
+                    web apps
+                  </span>
+                  , backend systems, and{" "}
+                  <span className="underline decoration-stone-400/60 dark:decoration-zinc-700 decoration-1 underline-offset-8">
+                    indie games
+                  </span>
+                  .
+                </>
+              )}
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.2 }}
+              className="mt-7 max-w-2xl text-base leading-relaxed text-stone-700 dark:text-zinc-300 sm:text-lg"
+            >
+              {t("header.bio")}
+            </motion.p>
+          </div>
 
           <motion.div
-            initial={{ y: 24, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:items-start lg:justify-start"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.3 }}
+            className="mt-9 flex flex-wrap items-center gap-3.5"
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 rounded-full bg-black px-7 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:hover:text-black"
+              className="inline-flex items-center gap-3 bg-stone-900 px-6 py-3.5 font-mono text-xs font-semibold uppercase tracking-wider text-[#f6f4ef] transition hover:bg-amber-600 dark:bg-[#ece8df] dark:text-[#0b0b0c] dark:hover:bg-amber-400"
             >
-              {t("header.exploreProjects")}
-              <Image src={assets.right_arrow_white} alt="" className="w-4 dark:invert" />
+              <span>{t("header.exploreProjects")}</span>
+              <span>→</span>
             </Link>
 
             <a
               href="/CV Rafid Dwi Prakoso.pdf"
               download
-              className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white/80 px-7 py-3 text-sm font-medium shadow-sm backdrop-blur transition hover:-translate-y-0.5 dark:border-white/20 dark:bg-white/5"
+              className="inline-flex items-center gap-2.5 border border-stone-400/80 bg-transparent px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-wider text-stone-800 transition hover:border-stone-900 hover:bg-stone-200/50 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-amber-400/60 dark:hover:bg-zinc-900"
             >
-              {t("header.downloadResume")}
-              <Image src={assets.download_icon} alt="" className="w-4 dark:invert" />
+              <span>{t("header.downloadResume")}</span>
+              <span className="text-amber-600 dark:text-amber-400">↓</span>
             </a>
+
+            <button
+              type="button"
+              onClick={openTerminal}
+              className="inline-flex items-center gap-2 border border-stone-300/90 bg-[#efece4] px-4 py-3.5 font-mono text-xs text-stone-600 transition hover:border-amber-600/50 hover:text-stone-900 dark:border-zinc-800 dark:bg-[#111113] dark:text-zinc-400 dark:hover:border-amber-500/40 dark:hover:text-amber-400"
+              title={isId ? "Buka terminal" : "Open terminal"}
+            >
+              <span className="text-amber-600 dark:text-amber-400 font-bold">{">_"}</span>
+              <span>terminal</span>
+            </button>
           </motion.div>
 
           <motion.div
-            initial={{ y: 24, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-10 grid gap-4 sm:grid-cols-3"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.4 }}
+            className="mt-10 max-w-xl"
           >
-            {highlightStats.map((item, idx) => (
-              <div
-                key={item.label}
-                className="rounded-2xl border border-black/10 bg-white/75 p-4 text-left shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5"
-              >
-                <p className="text-2xl font-semibold">{item.value}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{statLabels[idx] || item.label}</p>
-              </div>
-            ))}
+            <div className="mb-1.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+              <span>{isId ? "Musik / Spotify" : "Music / Spotify"}</span>
+              <span>Last.fm</span>
+            </div>
+            <SpotifyCurrentlyPlaying variant="ticker" />
           </motion.div>
         </div>
 
         <motion.div
-          initial={{ scale: 0.94, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, type: "spring", stiffness: 90 }}
-          className="relative mx-auto w-full max-w-md"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="lg:col-span-5"
         >
-          <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-sky-400/20 via-blue-500/15 to-transparent blur-2xl pointer-events-none" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-black/10 bg-white/80 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <div className="mb-5 flex items-center justify-between">
+          <div className="border border-stone-300/90 bg-[#efece4]/80 p-5 dark:border-zinc-800 dark:bg-[#111113]">
+            <div className="flex items-center justify-between border-b border-stone-300/80 pb-3.5 mb-5 dark:border-zinc-800">
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{t("header.nowBuilding")}</p>
-                <p className="font-medium">{t("header.nowBuildingText")}</p>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+                  {t("header.nowBuilding")}
+                </p>
+                <p className="mt-0.5 text-xs font-medium text-stone-800 dark:text-zinc-200">
+                  {t("header.nowBuildingText")}
+                </p>
               </div>
-              <div className="rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700 border border-sky-200/50 dark:bg-sky-400/10 dark:text-sky-300 dark:border-sky-400/20">
+              <span className="border border-amber-600/40 bg-amber-500/10 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-amber-700 dark:border-amber-400/30 dark:text-amber-400">
                 {t("header.openToWork")}
-              </div>
+              </span>
             </div>
 
-            <div className="relative rounded-[1.5rem] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6 text-white">
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-sky-400/20 blur-3xl pointer-events-none" />
-              <div className="absolute -left-10 bottom-0 h-28 w-28 rounded-full bg-sky-300/20 blur-3xl pointer-events-none" />
-              <Image
-                src={assets.profile_img}
-                alt="Portrait of Rafid"
-                className="relative mx-auto w-44 rounded-[1.75rem] border border-white/10 bg-white/95 p-2 shadow-lg"
-                priority
-              />
-              <div className="relative mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="text-sm text-white/70">{t("header.coreFocus")}</p>
-                <p className="mt-2 text-lg font-medium">{t("header.coreFocusText")}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center">
+              <div className="sm:col-span-5">
+                <div className="relative aspect-[4/5] w-full overflow-hidden border border-stone-400/60 bg-zinc-900 dark:border-zinc-700">
+                  <Image
+                    src={assets.profile_img}
+                    alt="Rafid Dwi Prakoso"
+                    fill
+                    sizes="(max-width: 640px) 100vw, 220px"
+                    className="object-cover grayscale-[15%] contrast-105 transition duration-500 hover:grayscale-0"
+                    priority
+                  />
+                  <div className="absolute bottom-0 inset-x-0 bg-black/75 px-2.5 py-1 font-mono text-[10px] text-amber-400 flex justify-between">
+                    <span>RAFID</span>
+                    <span>BOGOR</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="sm:col-span-7 flex flex-col justify-between space-y-4">
+                <div className="border-l-2 border-amber-500 pl-3.5">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+                    {t("header.coreFocus")}
+                  </p>
+                  <p className="mt-1.5 font-display text-base italic leading-snug text-stone-900 dark:text-[#ece8df]">
+                    “{t("header.coreFocusText")}”
+                  </p>
+                </div>
+
+                <div className="space-y-2 border-t border-stone-300/80 pt-3.5 font-mono text-[11px] dark:border-zinc-800">
+                  <div className="flex justify-between">
+                    <span className="text-stone-500 dark:text-zinc-500">WEB</span>
+                    <span className="text-stone-800 dark:text-zinc-200">Next.js, Vue, Laravel</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone-500 dark:text-zinc-500">BACKEND</span>
+                    <span className="text-stone-800 dark:text-zinc-200">Go, AdonisJS, Java</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone-500 dark:text-zinc-500">GAME</span>
+                    <span className="text-stone-800 dark:text-zinc-200">Unity 2D/3D & C#</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone-500 dark:text-zinc-500">INFRA / DB</span>
+                    <span className="text-amber-700 dark:text-amber-400">Docker, MySQL, Mongo</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1 }}
-        className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-2 text-sm text-gray-500 md:inline-flex dark:text-gray-400"
-      >
-        {t("header.exploreBelow")}
-        <span className="flex h-8 w-5 justify-center rounded-full border border-current">
-          <motion.span
-            animate={{ y: [4, 12, 4] }}
-            transition={{ duration: 1.6, repeat: Infinity }}
-            className="mt-1.5 h-2 w-2 rounded-full bg-current"
-          />
-        </span>
-      </motion.div>
     </header>
   );
 };

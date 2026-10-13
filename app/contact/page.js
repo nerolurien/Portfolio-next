@@ -4,7 +4,7 @@ import Contact from "../components/Contact";
 
 export const metadata = {
   title: "Contact | Rafid Dwi Prakoso",
-  description: "Reach out to Rafid Dwi Prakoso for collaboration, freelance work, or project discussion.",
+  description: "Get in touch with Rafid Dwi Prakoso for freelance work, internships, or developer roles.",
 };
 
 export default function ContactPage() {
@@ -13,9 +13,9 @@ export default function ContactPage() {
       <PageHero
         translationKey="pages.contact"
         eyebrow="Contact"
-        title="Let’s talk about what you want to build."
-        description="Whether it is a portfolio refresh, a dashboard idea, or an interactive concept, I’m open to collaborative conversations and new opportunities."
-        ctaLabel="Browse projects"
+        title="Let's work together."
+        description="Open for freelance projects, internships, and full-stack or backend developer roles."
+        ctaLabel="See my projects"
         ctaHref="/projects"
       />
       <Contact />

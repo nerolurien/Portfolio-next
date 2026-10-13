@@ -1,169 +1,191 @@
 "use client";
 
-import { assets } from "@/assets/assets";
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 const Contact = () => {
-    const { t } = useLanguage();
-    const [result, setResult] = useState({ message: "", status: "" });
-    const [showResult, setShowResult] = useState(false);
+  const { language, t } = useLanguage();
+  const isId = language === "id";
+  const [result, setResult] = useState({ message: "", status: "" });
+  const [showResult, setShowResult] = useState(false);
 
-    useEffect(() => {
-        if (result.status === "success" || result.status === "error") {
-            const timer = setTimeout(() => {
-                setShowResult(false);
-                setTimeout(() => setResult({ message: "", status: "" }), 500);
-            }, 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [result]);
+  useEffect(() => {
+    if (result.status === "success" || result.status === "error") {
+      const timer = setTimeout(() => {
+        setShowResult(false);
+        setTimeout(() => setResult({ message: "", status: "" }), 500);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [result]);
 
-    useEffect(() => {
-        if (result.message) {
-            setShowResult(true);
-        }
-    }, [result]);
+  useEffect(() => {
+    if (result.message) {
+      setShowResult(true);
+    }
+  }, [result]);
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        setResult({ message: t("contact.sending"), status: "loading" });
-        setShowResult(true);
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult({ message: t("contact.sending"), status: "loading" });
+    setShowResult(true);
 
-        const formData = new FormData(event.target);
-        formData.append("access_key", "4c98aa29-cfc7-42b3-b8dc-9780c33eb656");
+    const formData = new FormData(event.target);
+    formData.append("access_key", "4c98aa29-cfc7-42b3-b8dc-9780c33eb656");
 
-        try {
-            const response = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                body: formData,
-            });
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
 
-            const data = await response.json();
+      const data = await response.json();
 
-            if (data.success) {
-                setResult({ message: t("contact.success"), status: "success" });
-                event.target.reset();
-            } else {
-                setResult({ message: data.message || t("contact.error"), status: "error" });
-            }
-        } catch {
-            setResult({ message: t("contact.error"), status: "error" });
-        }
-    };
+      if (data.success) {
+        setResult({ message: t("contact.success"), status: "success" });
+        event.target.reset();
+      } else {
+        setResult({ message: data.message || t("contact.error"), status: "error" });
+      }
+    } catch {
+      setResult({ message: t("contact.error"), status: "error" });
+    }
+  };
 
-    const resultIcons = {
-        loading: (
-            <svg className="animate-spin w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-        ),
-        success: (
-            <svg className="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-        ),
-        error: (
-            <svg className="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-            </svg>
-        )
-    };
-
-    return (
-        <div
-            id="contact"
-            className='w-full px-[12%] py-10 scroll-mt-20 bg-[url("/footer-bg-color.png")] bg-no-repeat bg-center bg-[length:90%_auto] dark:bg-none'
-        >
-            <h4 className="text-center mb-2 text-lg font-ovo">{t("contact.eyebrow")}</h4>
-            <h2 className="text-center text-5xl font-ovo">{t("contact.title")}</h2>
-            <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-ovo">
-                {t("contact.desc")}
+  return (
+    <section
+      id="contact"
+      className="mx-auto w-full max-w-7xl px-6 py-24 sm:px-10 lg:px-16 border-t border-stone-300/80 dark:border-zinc-800/90 scroll-mt-20"
+    >
+      <div className="grid gap-12 lg:grid-cols-12">
+        <div className="lg:col-span-5 flex flex-col justify-between">
+          <div>
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-400">
+              {t("contact.eyebrow")}
             </p>
+            <h2 className="mt-3 font-display text-4xl font-normal tracking-tight text-stone-900 dark:text-[#ece8df] sm:text-5xl">
+              {t("contact.title")}
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-stone-600 dark:text-zinc-400">
+              {t("contact.desc")}
+            </p>
+          </div>
 
-            <form onSubmit={onSubmit} className="max-w-2xl mx-auto relative">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 mb-8">
-                    <input
-                        type="text"
-                        placeholder={t("contact.namePlaceholder")}
-                        required
-                        className="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkhover/30 dark:border-white/90"
-                        name="name"
-                    />
-                    <input
-                        type="email"
-                        placeholder={t("contact.emailPlaceholder")}
-                        required
-                        className="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkhover/30 dark:border-white/90"
-                        name="email"
-                    />
-                </div>
-                <textarea
-                    rows="6"
-                    placeholder={t("contact.messagePlaceholder")}
-                    required
-                    className="w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-6 dark:bg-darkhover/30 dark:border-white/90"
-                    name="message"
-                ></textarea>
-
-                <button
-                    type="submit"
-                    className="py-3 px-8 w-max flex items-center justify-between gap-2 bg-black/80 text-white rounded-full mx-auto hover:bg-black duration-500 dark:bg-transparent dark:border-[0.5px] dark:hover:bg-darkhover">
-                    {t("contact.submit")} <Image src={assets.right_arrow_white} alt="" className="w-4" />
-                </button>
-
-                <AnimatePresence>
-                    {showResult && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                            className="fixed bottom-6 right-6 max-w-md z-50"
-                        >
-                            <motion.div 
-                                className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-lg 
-                                    ${result.status === "success" ? "bg-gradient-to-r from-green-500 to-green-600" : 
-                                      result.status === "error" ? "bg-gradient-to-r from-red-500 to-red-600" : 
-                                      "bg-gradient-to-r from-blue-500 to-blue-600"}`}
-                                animate={{ 
-                                    x: [0, 5, -5, 5, 0],
-                                    transition: { 
-                                        x: { duration: 0.5, repeat: result.status === "error" ? 3 : 0 }
-                                    }
-                                }}
-                            >
-                                <div className="shrink-0">
-                                    {resultIcons[result.status]}
-                                </div>
-                                <div className="text-white">
-                                    <p className="font-semibold">
-                                        {result.status === "success" ? "Success!" : 
-                                         result.status === "error" ? "Error" : "Sending..."}
-                                    </p>
-                                    <p className="text-sm opacity-90">{result.message}</p>
-                                </div>
-                                {(result.status === "success" || result.status === "error") && (
-                                    <button 
-                                        onClick={() => setShowResult(false)}
-                                        className="ml-auto text-white/80 hover:text-white"
-                                        aria-label="Dismiss"
-                                    >
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                                )}
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </form>
+          <div className="mt-10 border border-stone-300/90 bg-[#efece4]/60 p-6 font-mono text-xs dark:border-zinc-800 dark:bg-[#111113] space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-300/80 pb-3 dark:border-zinc-800">
+              <span className="text-stone-500 dark:text-zinc-500">
+                {isId ? "Info Kontak" : "Contact Info"}
+              </span>
+              <span className="text-amber-700 dark:text-amber-400">
+                {isId ? "Aktif" : "Online"}
+              </span>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+                Email
+              </p>
+              <a
+                href="mailto:rafiddwiprakoso@gmail.com"
+                className="mt-1 block text-sm font-semibold text-stone-900 hover:text-amber-600 dark:text-[#ece8df] dark:hover:text-amber-400 transition-colors"
+              >
+                rafiddwiprakoso@gmail.com ↗
+              </a>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+                {isId ? "Domisili" : "Location"}
+              </p>
+              <p className="mt-1 text-stone-800 dark:text-zinc-300">
+                Bogor, Jawa Barat (WIB / UTC+7)
+              </p>
+            </div>
+          </div>
         </div>
-    );
+
+        <div className="lg:col-span-7">
+          <form
+            onSubmit={onSubmit}
+            className="border border-stone-300/90 bg-[#efece4]/50 p-6 sm:p-8 dark:border-zinc-800 dark:bg-[#111113]"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label className="block mb-2 font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-400">
+                  {isId ? "Nama" : "Name"}
+                </label>
+                <input
+                  type="text"
+                  placeholder={t("contact.namePlaceholder")}
+                  required
+                  name="name"
+                  className="w-full p-3.5 text-sm outline-none border border-stone-300/90 bg-[#f6f4ef] text-stone-900 placeholder-stone-400 focus:border-amber-600 dark:bg-[#0b0b0c] dark:border-zinc-800 dark:text-[#ece8df] dark:placeholder-zinc-600 dark:focus:border-amber-400 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-2 font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-400">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder={t("contact.emailPlaceholder")}
+                  required
+                  name="email"
+                  className="w-full p-3.5 text-sm outline-none border border-stone-300/90 bg-[#f6f4ef] text-stone-900 placeholder-stone-400 focus:border-amber-600 dark:bg-[#0b0b0c] dark:border-zinc-800 dark:text-[#ece8df] dark:placeholder-zinc-600 dark:focus:border-amber-400 transition-colors"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label className="block mb-2 font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-400">
+                {isId ? "Pesan" : "Message"}
+              </label>
+              <textarea
+                rows="6"
+                placeholder={t("contact.messagePlaceholder")}
+                required
+                name="message"
+                className="w-full p-4 text-sm outline-none border border-stone-300/90 bg-[#f6f4ef] text-stone-900 placeholder-stone-400 focus:border-amber-600 dark:bg-[#0b0b0c] dark:border-zinc-800 dark:text-[#ece8df] dark:placeholder-zinc-600 dark:focus:border-amber-400 transition-colors"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-stone-900 px-8 py-4 font-mono text-xs font-semibold uppercase tracking-widest text-[#f6f4ef] transition hover:bg-amber-600 dark:bg-[#ece8df] dark:text-[#0b0b0c] dark:hover:bg-amber-400"
+            >
+              <span>{t("contact.submit")}</span>
+              <span>→</span>
+            </button>
+
+            <AnimatePresence>
+              {showResult && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="fixed bottom-6 right-6 max-w-md z-50"
+                >
+                  <div
+                    className={`flex items-center gap-3 px-5 py-4 border font-mono text-xs shadow-xl ${
+                      result.status === "success"
+                        ? "bg-stone-900 text-amber-400 border-amber-500/50 dark:bg-[#141417] dark:text-amber-400"
+                        : result.status === "error"
+                        ? "bg-stone-900 text-rose-400 border-rose-500/50"
+                        : "bg-stone-900 text-stone-200 border-stone-700"
+                    }`}
+                  >
+                    <div>
+                      <p className="mt-0.5 text-stone-200">{result.message}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Contact;
