@@ -23,7 +23,8 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.app/";
+const rawBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.app";
+const baseUrl = rawBaseUrl.replace(/\/$/, "");
 
 export const viewport = {
   width: "device-width",
@@ -33,6 +34,9 @@ export const viewport = {
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Rafid Dwi Prakoso | Full-Stack & Game Developer",
     template: "%s | Rafid Dwi Prakoso",

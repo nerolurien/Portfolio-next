@@ -1,5 +1,6 @@
 export default function robots() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.app/";
+  const rawBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rafid-three.vercel.app";
+  const baseUrl = rawBaseUrl.replace(/\/$/, "");
 
   return {
     rules: {
