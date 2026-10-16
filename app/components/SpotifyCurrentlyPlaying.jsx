@@ -62,7 +62,7 @@ export default function SpotifyCurrentlyPlaying({ variant = "deck", className = 
         href={data?.songUrl || "https://open.spotify.com/user/31hil227n4qwgjzabs5hiu52i6v4"}
         target="_blank"
         rel="noopener noreferrer"
-        className={`group flex items-center justify-between gap-4 border border-stone-300/80 bg-[#efece4]/70 px-3.5 py-2 font-mono text-xs transition-colors hover:border-amber-600/60 dark:border-zinc-800 dark:bg-[#111113] dark:hover:border-amber-500/50 ${className}`}
+        className={`group flex items-center justify-between gap-4 h-[42px] min-h-[42px] border border-stone-300/80 bg-[#efece4]/70 px-3.5 py-2 font-mono text-xs transition-colors hover:border-amber-600/60 dark:border-zinc-800 dark:bg-[#111113] dark:hover:border-amber-500/50 ${className}`}
       >
         <div className="flex items-center gap-2.5 min-w-0">
           <span className="flex items-center gap-1.5 shrink-0 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider bg-stone-900 text-amber-400 dark:bg-zinc-900 dark:text-amber-400 border border-stone-700 dark:border-zinc-700/80">

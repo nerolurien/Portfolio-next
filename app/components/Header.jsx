@@ -4,7 +4,7 @@ import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/app/context/LanguageContext";
 import SpotifyCurrentlyPlaying from "./SpotifyCurrentlyPlaying";
 import { openTerminal } from "./TerminalDrawer";
@@ -28,7 +28,7 @@ const Header = () => {
           <span className="inline-block h-2 w-2 rounded-full bg-amber-500" />
           <span>{t("header.badge")}</span>
         </div>
-        <div className="hidden sm:flex items-center gap-4 text-stone-500 dark:text-zinc-500">
+        <div className="hidden sm:flex items-center gap-4 text-stone-600 dark:text-zinc-400">
           <span>2026</span>
           <span>•</span>
           <span>NEXT.JS / LARAVEL / GO / UNITY</span>
@@ -136,7 +136,7 @@ const Header = () => {
             transition={{ duration: 0.65, delay: 0.4 }}
             className="mt-10 max-w-xl"
           >
-            <div className="mb-1.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+            <div className="mb-1.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-stone-600 dark:text-zinc-400">
               <span>{isId ? "Musik / Spotify" : "Music / Spotify"}</span>
               <span>Last.fm</span>
             </div>
@@ -153,7 +153,7 @@ const Header = () => {
           <div className="border border-stone-300/90 bg-[#efece4]/80 p-5 dark:border-zinc-800 dark:bg-[#111113]">
             <div className="flex items-center justify-between border-b border-stone-300/80 pb-3.5 mb-5 dark:border-zinc-800">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-stone-600 dark:text-zinc-400">
                   {t("header.nowBuilding")}
                 </p>
                 <p className="mt-0.5 text-xs font-medium text-stone-800 dark:text-zinc-200">
@@ -185,7 +185,7 @@ const Header = () => {
 
               <div className="sm:col-span-7 flex flex-col justify-between space-y-4">
                 <div className="border-l-2 border-amber-500 pl-3.5">
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-stone-600 dark:text-zinc-400">
                     {t("header.coreFocus")}
                   </p>
                   <p className="mt-1.5 font-display text-base italic leading-snug text-stone-900 dark:text-[#ece8df]">
@@ -195,19 +195,19 @@ const Header = () => {
 
                 <div className="space-y-2 border-t border-stone-300/80 pt-3.5 font-mono text-[11px] dark:border-zinc-800">
                   <div className="flex justify-between">
-                    <span className="text-stone-500 dark:text-zinc-500">WEB</span>
+                    <span className="text-stone-600 dark:text-zinc-400">WEB</span>
                     <span className="text-stone-800 dark:text-zinc-200">Next.js, Vue, Laravel</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-stone-500 dark:text-zinc-500">BACKEND</span>
+                    <span className="text-stone-600 dark:text-zinc-400">BACKEND</span>
                     <span className="text-stone-800 dark:text-zinc-200">Go, AdonisJS, Java</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-stone-500 dark:text-zinc-500">GAME</span>
+                    <span className="text-stone-600 dark:text-zinc-400">GAME</span>
                     <span className="text-stone-800 dark:text-zinc-200">Unity 2D/3D & C#</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-stone-500 dark:text-zinc-500">INFRA / DB</span>
+                    <span className="text-stone-600 dark:text-zinc-400">INFRA / DB</span>
                     <span className="text-amber-700 dark:text-amber-400">Docker, MySQL, Mongo</span>
                   </div>
                 </div>

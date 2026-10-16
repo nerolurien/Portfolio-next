@@ -3,7 +3,7 @@
 import { assets, educationList, experienceList, serviceHighlights } from "@/assets/assets";
 import Image from "next/image";
 import React from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/app/context/LanguageContext";
 import GithubActivityGraph from "./GithubActivityGraph";
 
@@ -69,7 +69,7 @@ const About = () => {
             {t("about.title")}
           </h2>
         </div>
-        <p className="font-mono text-xs uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+        <p className="font-mono text-xs uppercase tracking-widest text-stone-600 dark:text-zinc-400">
           Bogor, Indonesia
         </p>
       </div>
@@ -83,7 +83,7 @@ const About = () => {
           className="lg:col-span-4 space-y-6"
         >
           <div className="border border-stone-300/90 bg-[#efece4]/70 p-4 dark:border-zinc-800 dark:bg-[#111113]">
-            <div className="mb-2.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-stone-500 dark:text-zinc-500">
+            <div className="mb-2.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-stone-600 dark:text-zinc-400">
               <span>Rafid Dwi Prakoso</span>
               <span>PPLG</span>
             </div>

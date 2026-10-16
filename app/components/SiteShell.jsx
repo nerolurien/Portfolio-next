@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import dynamic from "next/dynamic";
-import CommandPalette from "./CommandPalette";
-import TerminalDrawer from "./TerminalDrawer";
 
 const Footer = dynamic(() => import("./Footer"));
+const CommandPalette = dynamic(() => import("./CommandPalette"), { ssr: false });
+const TerminalDrawer = dynamic(() => import("./TerminalDrawer"), { ssr: false });
 
 export default function SiteShell({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(true);
