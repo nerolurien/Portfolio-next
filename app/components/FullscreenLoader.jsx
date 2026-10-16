@@ -7,7 +7,11 @@ const words = [
   "Hello",
   "Halo",
   "Bonjour",
+  "Hola",
+  "Ciao",
   "こんにちは",
+  "Guten Tag",
+  "Olá",
   "Selamat Datang",
 ];
 
@@ -28,11 +32,11 @@ export default function FullscreenLoader({ onComplete }) {
     if (index === words.length - 1) {
       const finishTimeout = setTimeout(() => {
         if (onComplete) onComplete();
-      }, 250);
+      }, 650);
       return () => clearTimeout(finishTimeout);
     }
 
-    const delay = index === 0 ? 200 : 130;
+    const delay = index === 0 ? 400 : 240;
     const timer = setTimeout(() => {
       setIndex((prev) => prev + 1);
     }, delay);
@@ -45,9 +49,8 @@ export default function FullscreenLoader({ onComplete }) {
       initial={{ y: 0 }}
       exit={{
         y: "-100%",
-        opacity: 0.95,
         transition: {
-          duration: 0.45,
+          duration: 0.75,
           ease: [0.76, 0, 0.24, 1],
         },
       }}
