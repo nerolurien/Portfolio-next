@@ -94,9 +94,42 @@ export const metadata = {
   verification: {
     google: "aOLUOLf-UyAsjuMhWdQAWM4xOHrVs3xc0siw3qJJAHQ",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "256x256" },
+    ],
+    apple: [
+      { url: "/icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
+  const siteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Rafid Dwi Prakoso",
+    alternateName: [
+      "Rafid Dwi Prakoso Portfolio",
+      "Rafid Portfolio",
+      "Rafid Dwi Prakoso — Web & Game Developer",
+    ],
+    url: baseUrl,
+  };
+
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Rafid Dwi Prakoso",
+    url: baseUrl,
+    jobTitle: "Full-Stack & Game Developer",
+    sameAs: [
+      "https://github.com/nerolurien",
+      "https://www.linkedin.com/in/rafid-dwi-prakoso",
+    ],
+  };
+
   return (
     <html
       lang="en"
@@ -118,6 +151,18 @@ export default function RootLayout({ children }) {
                 } catch(e) {}
               })();
             `,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(siteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema),
           }}
         />
       </head>
