@@ -1,5 +1,4 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+const config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,11 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        lightHover: '#efece4',
-        darkhover: '#151518',
-        darkTheme: '#0b0b0c',
-        cream: '#ece8df',
-        charcoal: '#111113',
+        lightHover: "#efece4",
+        darkhover: "#151518",
+        darkTheme: "#0b0b0c",
+        cream: "#ece8df",
+        charcoal: "#111113",
       },
       fontFamily: {
         display: ["var(--font-display)", "Georgia", "serif"],
@@ -23,8 +22,8 @@ export default {
         ovo: ["var(--font-display)", "serif"],
       },
       boxShadow: {
-        'black': '4px 4px 0 #141413',
-        'white': '4px 4px 0 #ece8df',
+        black: "4px 4px 0 #141413",
+        white: "4px 4px 0 #ece8df",
       },
     },
   },
@@ -32,5 +31,4 @@ export default {
   plugins: [],
 };
 
-
-
+export default config;
